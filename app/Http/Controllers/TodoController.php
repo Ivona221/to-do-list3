@@ -11,7 +11,10 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Mail;
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 82b1a04a83cab1abb72e82a1f1a3d6aea69c063b
 class TodoController extends Controller
 {
 
@@ -26,12 +29,24 @@ class TodoController extends Controller
 
     }
 
+<<<<<<< HEAD
     /*public function check($id){
+=======
+    public function check($id){
+>>>>>>> 82b1a04a83cab1abb72e82a1f1a3d6aea69c063b
         $todo=Todo::where('id',$id)->first();
         $todo->update(['checked'=> true]);
         $todo->save();
         return back();
+<<<<<<< HEAD
     }*/
+=======
+
+
+
+
+    }
+>>>>>>> 82b1a04a83cab1abb72e82a1f1a3d6aea69c063b
 
     public function store(TodoRequest $request){
 
@@ -56,6 +71,7 @@ class TodoController extends Controller
 
     }
 
+<<<<<<< HEAD
     public function show2(){
         return view('todo.index');
     }
@@ -64,10 +80,23 @@ class TodoController extends Controller
 
 
 
+=======
+    public function image(){
+
+
+
+        return view('todo.images');
+    }
+
+    public function stats(){
+
+return view('todo.stats');
+>>>>>>> 82b1a04a83cab1abb72e82a1f1a3d6aea69c063b
 
 
 
 
+<<<<<<< HEAD
     public function image(){
         return view('todo.images');
     }
@@ -76,6 +105,8 @@ class TodoController extends Controller
     public function stats(){
 
         return view('todo.stats');
+=======
+>>>>>>> 82b1a04a83cab1abb72e82a1f1a3d6aea69c063b
 
     }
 
@@ -98,6 +129,7 @@ class TodoController extends Controller
         return back();
     }
 
+<<<<<<< HEAD
 
 
 
@@ -118,6 +150,18 @@ class TodoController extends Controller
     }
 
     public function sendEmail(Request $request){
+=======
+    public function search(){
+        $date=request()->get('date');
+        $todos=\App\Todo::where('date', $date)->get();
+        return view('todo.search', compact('date','todos'));
+    }
+
+    public function sendEmail(Request $request){
+
+
+
+>>>>>>> 82b1a04a83cab1abb72e82a1f1a3d6aea69c063b
 
         $user = \App\User::findOrFail(2);
 
@@ -133,6 +177,12 @@ class TodoController extends Controller
 
        return "Success";
 
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> 82b1a04a83cab1abb72e82a1f1a3d6aea69c063b
     }
 
 

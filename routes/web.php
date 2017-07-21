@@ -13,7 +13,10 @@
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\File;
 //use Faker\Provider\File;
+<<<<<<< HEAD
 use Illuminate\Support\Facades\Mail;
+=======
+>>>>>>> 82b1a04a83cab1abb72e82a1f1a3d6aea69c063b
 
 
 Route::get('/', function () {
@@ -30,11 +33,15 @@ Route::post('/todoAdd','TodoController@store');
 
 Route::get('/todo/{date}','TodoController@show');
 
+<<<<<<< HEAD
 Route::get('/search','TodoContorller@show2');
 
 
 
 //Route::get('/todo/{date}/{value}','TodoController@check');
+=======
+Route::get('/todo/{date}/{value}','TodoController@check');
+>>>>>>> 82b1a04a83cab1abb72e82a1f1a3d6aea69c063b
 
 
 
@@ -71,6 +78,7 @@ Route::get('/stats','TodoController@stats');
 
 Route::post('/check','TodoController@update');
 
+<<<<<<< HEAD
 Route::post('/check','TodoController@update2');
 
 
@@ -78,6 +86,10 @@ Route::post('/search','TodoController@search');
 
 Route::post('/search1','TodoController@search1');
 
+=======
+Route::post('/search','TodoController@search');
+
+>>>>>>> 82b1a04a83cab1abb72e82a1f1a3d6aea69c063b
 Route ::get('/events','EventController@index');
 
 Route::get('/event','EventController@show');
@@ -85,6 +97,7 @@ Route::get('/event','EventController@show');
 Route::post('/eventAdd','EventController@store');
 
 Route::get('/send','TodoController@sendEmail');
+<<<<<<< HEAD
 
 Route::get('/sendTest', function(){
     $user = \App\User::findOrFail(8);
@@ -97,3 +110,5 @@ Route::get('/sendTest', function(){
 
     return "Success";
 });
+=======
+>>>>>>> 82b1a04a83cab1abb72e82a1f1a3d6aea69c063b

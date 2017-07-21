@@ -10,6 +10,7 @@
     @yield('style')
     <style>
 
+<<<<<<< HEAD
         .sidenav {
             height: 100%;
             width: 0;
@@ -52,15 +53,24 @@
         }
 
 
+=======
+>>>>>>> 82b1a04a83cab1abb72e82a1f1a3d6aea69c063b
     </style>
 </head>
 <body >
 
+<<<<<<< HEAD
 <div id="main">
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
 
+=======
+
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+>>>>>>> 82b1a04a83cab1abb72e82a1f1a3d6aea69c063b
             <a class="navbar-brand" href="#">Name</a>
         </div>
         <ul class="nav navbar-nav">
@@ -72,16 +82,23 @@
 
 
             <li><a href="/stats">Statistics</a></li>
+<<<<<<< HEAD
 
         </ul>
         <ul class="nav navbar-nav navbar-right">
 
 
+=======
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+
+>>>>>>> 82b1a04a83cab1abb72e82a1f1a3d6aea69c063b
             <li><a href=""><span class="glyphicon glyphicon-user"></span> {{Auth::user()->name}}</a></li>
             <li><a href="/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
             <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
         </ul>
     </div>
+<<<<<<< HEAD
 
 </nav>
     <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
@@ -104,6 +121,9 @@
     {{Form::close()}}
 
 </div>
+=======
+</nav>
+>>>>>>> 82b1a04a83cab1abb72e82a1f1a3d6aea69c063b
 
 
 
@@ -122,6 +142,7 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 
+<<<<<<< HEAD
 <script>
     function openNav() {
         document.getElementById("mySidenav").style.width = "250px";
@@ -151,6 +172,8 @@
     });
 </script>
 
+=======
+>>>>>>> 82b1a04a83cab1abb72e82a1f1a3d6aea69c063b
 @yield('footer')
 
 </body>

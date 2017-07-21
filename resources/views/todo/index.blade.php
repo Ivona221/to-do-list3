@@ -44,7 +44,10 @@
 @stop
 
 @section('footer')
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 82b1a04a83cab1abb72e82a1f1a3d6aea69c063b
     @include('footer')
 @stop

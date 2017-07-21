@@ -18,7 +18,11 @@
                 <tr>
 
                     {{--<td><a href="{{action('TodoController@check',array('id'=>$todo->id,'date'=>$date))}}">{{  Form::checkbox('agree')}}</a></td>--}}
+<<<<<<< HEAD
                     {{ Form::open(array("url"=>"check"))}}
+=======
+                     {{ Form::open(array("url"=>"check"))}}
+>>>>>>> 82b1a04a83cab1abb72e82a1f1a3d6aea69c063b
                     {{ Form::hidden('id', $todo->id) }}
                     <input type="hidden" name="agree" value="1">
                     <td>{{  Form::checkbox('agree',1,App\Todo::where('id',$todo->id)->first()->checked ,['id' => 'ck','onChange'=>"this.form.submit()"]) }}</td>
