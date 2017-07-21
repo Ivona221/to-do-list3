@@ -30,7 +30,11 @@ Route::post('/todoAdd','TodoController@store');
 
 Route::get('/todo/{date}','TodoController@show');
 
-Route::get('/todo/{date}/{value}','TodoController@check');
+Route::get('/search','TodoContorller@show2');
+
+
+
+//Route::get('/todo/{date}/{value}','TodoController@check');
 
 
 
@@ -67,7 +71,12 @@ Route::get('/stats','TodoController@stats');
 
 Route::post('/check','TodoController@update');
 
+Route::post('/check','TodoController@update2');
+
+
 Route::post('/search','TodoController@search');
+
+Route::post('/search1','TodoController@search1');
 
 Route ::get('/events','EventController@index');
 

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Mail;
 
 
+
 class TodoController extends Controller
 {
 
@@ -25,16 +26,12 @@ class TodoController extends Controller
 
     }
 
-    public function check($id){
+    /*public function check($id){
         $todo=Todo::where('id',$id)->first();
         $todo->update(['checked'=> true]);
         $todo->save();
         return back();
-
-
-
-
-    }
+    }*/
 
     public function store(TodoRequest $request){
 
@@ -59,20 +56,26 @@ class TodoController extends Controller
 
     }
 
+    public function show2(){
+        return view('todo.index');
+    }
+
+
+
+
+
+
+
+
+
     public function image(){
-
-
-
         return view('todo.images');
     }
 
+
     public function stats(){
 
-return view('todo.stats');
-
-
-
-
+        return view('todo.stats');
 
     }
 
@@ -95,16 +98,26 @@ return view('todo.stats');
         return back();
     }
 
+
+
+
     public function search(){
         $date=request()->get('date');
         $todos=\App\Todo::where(['date'=> $date,'user_id'=>Auth::user()->id])->get();
         return view('todo.search', compact('date','todos'));
     }
 
+    public function search1(){
+        $type=request()->get('type');
+        if($type=='all')
+            $todos=\App\Todo::where(['user_id'=>Auth::user()->id])->get();
+        else
+        $todos=\App\Todo::where(['type'=> $type,'user_id'=>Auth::user()->id])->get();
+        return view('todo.search1', compact('type','todos'));
+
+    }
+
     public function sendEmail(Request $request){
-
-
-
 
         $user = \App\User::findOrFail(2);
 
@@ -119,9 +132,6 @@ return view('todo.stats');
         });
 
        return "Success";
-
-
-
 
     }
 

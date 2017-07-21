@@ -17,24 +17,19 @@
             @foreach($todos as $todo)
                 <tr>
 
-                    {{--<td><a href="{{action('TodoController@check',array('id'=>$todo->id,'date'=>$date))}}">{{  Form::checkbox('agree')}}</a></td>--}}{{--
-                    {{ Form::open(array("url"=>"check"))}}
+                    {{--<td><a href="{{action('TodoController@check',array('id'=>$todo->id,'date'=>$date))}}">{{  Form::checkbox('agree')}}</a></td>--}}
+                   {{ Form::open(array("url"=>"/check1"))}}
                     {{ Form::hidden('id', $todo->id) }}
-                    <input type="hidden" name="agree" value="1">
+                    <input type="hidden" name="agree" value="1" >
                     <td>{{  Form::checkbox('agree',1,App\Todo::where('id',$todo->id)->first()->checked ,['id' => 'ck','onChange'=>"this.form.submit()"]) }}</td>
 
-                    {{Form::close()}}
-                    --}}{{--<td><input type="checkbox"  name="checked" value="true" ></td>--}}
+                    {{ Form::close()}}
+                    {{--<td><input type="checkbox"  name="checked" value="true" ></td>--}}
 
 
 
                     <td>{{ $todo->task }}</td>
-                    {{--<td><form action="/todo/{{ $todo->id }}" method="POST">
-                            {{ csrf_field() }}
-                            {{ method_field('DELETE') }}
 
-                            <button class="btn btn-danger">Delete Task  <span class="glyphicon glyphicon-trash"></span></button>
-                        </form></td>
 
                     <td><form method="POST" action="{{url('/avatars', [$todo->id])}}" enctype="multipart/form-data">
                             {{csrf_field()}}
@@ -48,8 +43,14 @@
 
                         </form></td>
 
-                    <td>@if(App\Todo::where('id',$todo->id)->first()->image) {{Html::image('images/'.App\Todo::where('id',$todo->id)->first()->image, "Choose your image", array( 'width' => 70, 'height' => 70 )) }}@endif</td>--}}
+                    <td>@if(App\Todo::where('id',$todo->id)->first()->image) {{Html::image('images/'.App\Todo::where('id',$todo->id)->first()->image, "Choose your image", array( 'width' => 70, 'height' => 70 )) }}@endif</td>
 
+                    <td><form action="/todo/{{ $todo->id }}" method="POST">
+                            {{ csrf_field() }}
+                            {{ method_field('DELETE') }}
+
+                            <button class="btn btn-danger">Delete Task  <span class="glyphicon glyphicon-trash"></span></button>
+                        </form></td>
                 </tr>
             @endforeach
 

@@ -33,6 +33,15 @@
                             <input type="date" name="end_date" value="{{\Carbon\Carbon::now()->format('Y-m-d')}}">
                             <input type="time" name="end_time" value="{{\Carbon\Carbon::now()->format('H:i')}}">
 
+                            <select type="text"  id="select"  >
+                                <option value="work">Work</option>
+                                <option value="school">School</option>
+                                <option value="home">Home</option>
+                                <option value="free_time">Free Time</option>
+                            </select>
+
+                            <input type="hidden" value="" name="type" id="hiddenSelect">
+
                             <input type="hidden" name="date" value={{$date}}>
                         </div>
                     </div>
@@ -62,4 +71,16 @@
 
     </div>
 </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="http://code.jquery.com/jquery.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+<script>
+    $("#select").on('change',function() {
+        $('#hiddenSelect').val($('#select').val());
+    });
+</script>
 
