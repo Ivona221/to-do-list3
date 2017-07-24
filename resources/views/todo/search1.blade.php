@@ -18,12 +18,12 @@
                 <tr>
 
                     {{--<td><a href="{{action('TodoController@check',array('id'=>$todo->id,'date'=>$date))}}">{{  Form::checkbox('agree')}}</a></td>--}}
-                   {{-- {{ Form::open(array("url"=>"/check"))}}
+                    {{ Form::open(array("url"=>"/check"))}}
                     {{ Form::hidden('id', $todo->id) }}
                     <input type="hidden" name="agree" value="1" name="id">
                     <td>{{  Form::checkbox('agree',1,App\Todo::where('id',$todo->id)->first()->checked ,['id' => 'ck','onChange'=>"this.form.submit()"]) }}</td>
 
-                    {{Form::close()}}--}}
+                    {{Form::close()}}
                     {{--<td><input type="checkbox"  name="checked" value="true" ></td>--}}
 
 

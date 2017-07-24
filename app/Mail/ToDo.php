@@ -29,11 +29,11 @@ class ToDo extends Mailable
     public function build()
     {
         return $this->from('ivonamilanova221@gmail.com')
-<<<<<<< HEAD
+
             ->text('emails.reminder');
-=======
-            ->text('todo.text');
->>>>>>> 82b1a04a83cab1abb72e82a1f1a3d6aea69c063b
+
+
+
 
     }
 }

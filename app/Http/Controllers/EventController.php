@@ -51,7 +51,34 @@ class EventController extends Controller
     public function store(EventRequest $request){
 
         $this->create($request);
-        return back();
+        $events = [];
+
+        $data = Event::where('user_id', Auth::user()->id)->get();
+
+        if($data->count()){
+
+            foreach ($data as $key => $value) {
+
+                $events[] = Calendar::event(
+
+                    $value->title,
+
+                    true,
+
+                    new \DateTime($value->start_date),
+
+                    new \DateTime($value->end_date.' +1 day')
+
+
+
+                );
+
+            }
+
+        }
+
+        $calendar = \Calendar::addEvents($events);
+        return view('mycalendar', compact('calendar'));
 
     }
 

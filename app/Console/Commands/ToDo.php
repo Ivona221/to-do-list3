@@ -41,7 +41,7 @@ class ToDo extends Command
      */
     public function handle()
     {
-<<<<<<< HEAD
+
         $todos =\App\Todo::where('end_time', '=', \Carbon\Carbon::now()->addMinute(5)->format('H:i'))->get();
         foreach ($todos as $todo) {
 
@@ -52,19 +52,10 @@ class ToDo extends Command
                 $m->to($user->email, $user->name)->subject('Your Reminder!');
             });
         }
-=======
-        $todos=\App\Todo::where('end_date','==',\Carbon\Carbon::now()->format('Y-m-d'))->get();
 
-        foreach( $todos as $todo ) {
-            $user=User::where('id',$todo->user_id);
-            if($user->has('email')) {
-                Mail::to($user->email)
-                    ->msg('Dear ' . $user->name . ', you have a scheduled task!')
-                    ->send();
-            }
-        }
+
 
         $this->info('The message was sent!');
->>>>>>> 82b1a04a83cab1abb72e82a1f1a3d6aea69c063b
+
     }
 }

@@ -18,7 +18,7 @@
 
 
                     <!-- New Task Form -->
-                    <form action="{{ url('\eventAdd')}}" method="POST" class="form-horizontal">
+                    <form action="{{ url('/eventAdd')}}" method="POST" class="form-horizontal">
                     {{ csrf_field() }}
 
                     <!-- Task Name -->

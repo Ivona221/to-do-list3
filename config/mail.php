@@ -16,11 +16,10 @@ return [
     |
     */
 
-<<<<<<< HEAD
     'driver' => env('MAIL_DRIVER', 'smtp'),
-=======
-    'driver' => env('MAIL_DRIVER', 'mailgun'),
->>>>>>> 82b1a04a83cab1abb72e82a1f1a3d6aea69c063b
+
+
+
 
     /*
     |--------------------------------------------------------------------------
@@ -33,11 +32,9 @@ return [
     |
     */
 
-<<<<<<< HEAD
+
     'host' => env('MAIL_HOST', 'smtp.mailtrap.io'),
-=======
-    'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
->>>>>>> 82b1a04a83cab1abb72e82a1f1a3d6aea69c063b
+
 
     /*
     |--------------------------------------------------------------------------
@@ -50,11 +47,10 @@ return [
     |
     */
 
-<<<<<<< HEAD
+
     'port' => env('MAIL_PORT', 2525),
-=======
-    'port' => env('MAIL_PORT', 587),
->>>>>>> 82b1a04a83cab1abb72e82a1f1a3d6aea69c063b
+
+
 
     /*
     |--------------------------------------------------------------------------
@@ -68,7 +64,7 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
+        'address' => env('MAIL_FROM_ADDRESS', 'ivonamilnova221@gmail.com'),
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 
@@ -132,10 +128,8 @@ return [
         ],
     ],
 
-<<<<<<< HEAD
 
-=======
-    'from' => ['address' => 'ivonamilanova221@gmail.com', 'name' => 'ToDo'],
->>>>>>> 82b1a04a83cab1abb72e82a1f1a3d6aea69c063b
+
+
 
 ];

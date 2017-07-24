@@ -6,11 +6,18 @@
     <title>Document</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+
+
+
 
     @yield('style')
     <style>
 
-<<<<<<< HEAD
+
         .sidenav {
             height: 100%;
             width: 0;
@@ -53,24 +60,21 @@
         }
 
 
-=======
->>>>>>> 82b1a04a83cab1abb72e82a1f1a3d6aea69c063b
+
     </style>
 </head>
 <body >
 
-<<<<<<< HEAD
+
 <div id="main">
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
 
-=======
 
-<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <div class="navbar-header">
->>>>>>> 82b1a04a83cab1abb72e82a1f1a3d6aea69c063b
+
+
+
             <a class="navbar-brand" href="#">Name</a>
         </div>
         <ul class="nav navbar-nav">
@@ -82,48 +86,39 @@
 
 
             <li><a href="/stats">Statistics</a></li>
-<<<<<<< HEAD
+            <li><a href="/events">Calendar</a></li>
+            <li><div class="dropdown">
+                    <button style="margin:8px; background-color:transparent; color:gainsboro; border:0px solid transparent;" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Types
+                        <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{action('TodoController@show3',array('type'=>"all"))}}"  class="search" id="all"> <span class="glyphicon glyphicon-list-alt"  ></span> All Tasks</a></li>
+                        <li><a href="{{action('TodoController@show3',array('type'=>"home"))}}"  class="search" id="home"><span class="glyphicon glyphicon-home"  ></span> Home</a></li>
+                        <li> <a href="{{action('TodoController@show3',array('type'=>"school"))}}" class="search" id="school"><span class="glyphicon glyphicon-education" ></span> School</a></li>
+                        <li>  <a href="{{action('TodoController@show3',array('type'=>"free_time"))}}"  class="search" id="free_time"><span class="glyphicon glyphicon-knight"  ></span> Free time</a></li>
+                    </ul>
+                </div></li>
+
 
         </ul>
         <ul class="nav navbar-nav navbar-right">
-
-
-=======
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-
->>>>>>> 82b1a04a83cab1abb72e82a1f1a3d6aea69c063b
             <li><a href=""><span class="glyphicon glyphicon-user"></span> {{Auth::user()->name}}</a></li>
             <li><a href="/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
             <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
         </ul>
     </div>
-<<<<<<< HEAD
+
 
 </nav>
-    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
+
 
 
 
 </div>
 
-<div id="mySidenav" class="sidenav">
-    {{ Form::open(array("url"=>"/search1","id"=>"myForm"))}}
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <a  class="search" id="all"> <span class="glyphicon glyphicon-list-alt"  ></span> All Tasks</a>
-    <a  class="search" id="home"><span class="glyphicon glyphicon-home"  ></span> Home</a>
-    <a class="search" id="school"><span class="glyphicon glyphicon-education" ></span> School</a>
-    <a  class="search" id="work"><span class="glyphicon glyphicon-briefcase"  ></span> Work</a>
-    <a  class="search" id="free_time"><span class="glyphicon glyphicon-knight"  ></span> Free time</a>
-    <input type="hidden" id="type" name="type" value="">
 
 
-    {{Form::close()}}
-
-</div>
-=======
 </nav>
->>>>>>> 82b1a04a83cab1abb72e82a1f1a3d6aea69c063b
+
 
 
 
@@ -142,38 +137,16 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 
-<<<<<<< HEAD
+
 <script>
-    function openNav() {
-        document.getElementById("mySidenav").style.width = "250px";
-        document.getElementById("main").style.marginLeft = "250px";
-        document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
-    }
-
-    function closeNav() {
-        document.getElementById("mySidenav").style.width = "0";
-        document.getElementById("main").style.marginLeft= "0";
-        document.body.style.backgroundColor = "white";
-    }
-
-    function newFunction(){
 
 
-    }
-
-    $(document).ready(function(){
-        $('.search').on('click', function(){
-            $('#type').val(this.id);
-            $("form").submit();
-            $('#myForm').submit();
 
 
-        });
-    });
 </script>
 
-=======
->>>>>>> 82b1a04a83cab1abb72e82a1f1a3d6aea69c063b
+
+
 @yield('footer')
 
 </body>
