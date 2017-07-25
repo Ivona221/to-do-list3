@@ -11,6 +11,9 @@ namespace Repositories;
 interface TodoRepositoryInterface
 {
 
+
+
+
     public function forUser(User $user);
 
     public function byDate( $date);

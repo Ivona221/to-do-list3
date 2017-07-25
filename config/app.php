@@ -180,6 +180,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\NewServiceProvider::class,
 
+
+
     ],
 
     /*
