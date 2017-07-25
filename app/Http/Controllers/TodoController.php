@@ -10,23 +10,36 @@ use Illuminate\Support\Facades\Input;
 
 use Illuminate\Support\Facades\Mail;
 
+use App\Repositories\TodoRepository;
+use Repositories\TodoRepositoryInterface;
+
+
 
 
 class TodoController extends Controller
 {
-    public function index(Todo $todos){
-        // $todos=Todo::where('date',$date)->get();
 
+
+    /**
+     * TodoController constructor.
+     */
+
+    protected $todos;
+
+    public function __construct(TodoRepository $todos)
+    {
+        $this->todos = $todos;
+    }
+
+    public function index(Todo $todos){
 
         return view('todo.index');
 
     }
 
-
     public function store(TodoRequest $request){
 
         $this->create($request);
-        //return view('mycalendar');
         return back();
 
     }
@@ -40,27 +53,21 @@ class TodoController extends Controller
 
     public function show(Todo $todos,$date){
 
-        $todos=Todo::where(['date'=>$date,'user_id'=>Auth::user()->id])->get();
-        $number=Todo::where(['date'=>$date])->count();
+        $todos=$this->todos->byDate($date);
+        $number=$this->todos->count($date);
         return view('todo.specific', compact('todos','date','number'));
-
-
     }
 
     public function show2(){
         return view('todo.index');
     }
 
-
     public function image(){
         return view('todo.images');
     }
 
-
     public function stats(){
-
         return view('todo.stats');
-
     }
 
     public function save($id){
@@ -76,7 +83,7 @@ class TodoController extends Controller
     public function update(){
         $id=Input::get('id');
         $value=request()->get('agree',0);
-        $todo=\App\Todo::where('id',$id)->first();
+        $todo=$this->todos->find($id);
         if($todo->checked==true)
             $todo->checked=false;
         else
@@ -85,24 +92,23 @@ class TodoController extends Controller
         return back();
     }
 
-
     public function search(){
         $date=request()->get('date');
-        $todos=\App\Todo::where(['date'=> $date,'user_id'=>Auth::user()->id])->get();
+        $todos=$this->todos->byDate($date);
         return view('todo.search', compact('date','todos'));
     }
 
     public function search1(){
         $type=request()->get('type');
         if($type=='all')
-            $todos=\App\Todo::where(['user_id'=>Auth::user()->id])->get();
+            $todos=$this->todos->user();
         else
-        $todos=\App\Todo::where(['type'=> $type,'user_id'=>Auth::user()->id])->get();
+        $todos=$this->todos->byType($type);
         return view('todo.search1', compact('type','todos'));
 
     }
 
-    public function sendEmail(Request $request){
+    /*public function sendEmail(Request $request){
 
         $user = \App\User::findOrFail(2);
 
@@ -118,21 +124,18 @@ class TodoController extends Controller
 
        return "Success";
 
-    }
+    }*/
 
     public function show3($type){
 
-        $todos=\App\Todo::where('type',$type)->get();
+        $todos=$this->todos->byType($type);
         return view('todo.search1', compact('todos'));
 
 }
 
     public function byDate($date){
 
-
-
-
-        $todos=\App\Todo::where('date',$date)->get();
+        $todos=$this->todos->byDate($date);
         return view('todo.search', compact('todos', 'date'));
     }
 

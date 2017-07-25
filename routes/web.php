@@ -107,5 +107,7 @@ Route::group(['middleware' => 'auth'], function(){
     });
 });
 
+Route::resource('todos', 'TodoController');
+
 
 
