@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\EventRepository;
 use Illuminate\Http\Request;
 
 use MaddHatter\LaravelFullcalendar\Calendar;
@@ -12,10 +13,25 @@ use App\Http\Requests\EventRequest;
 
 class EventController extends Controller
 {
+
+
+    /**
+     * EventController constructor.
+     */
+
+    protected $events;
+
+    public function __construct(EventRepository $events)
+    {
+
+        $this->events = $events;
+
+    }
+
     public function index(){
         $events = [];
 
-        $data = Event::where('user_id', Auth::user()->id)->get();
+        $data = $this->events->find();
 
         if($data->count()){
 
@@ -53,7 +69,7 @@ class EventController extends Controller
         $this->create($request);
         $events = [];
 
-        $data = Event::where('user_id', Auth::user()->id)->get();
+        $data = $this->events->find();
 
         if($data->count()){
 

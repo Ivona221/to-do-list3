@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\Mail;
 use App\Todo;
-
+use Illuminate\Support\Facades\URL;
 
 
 class Kernel extends ConsoleKernel

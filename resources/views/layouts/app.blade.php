@@ -13,9 +13,9 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body>
-    <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
+<body style="background-image: url('images/bridge.jpg'); -webkit-background-size:cover;">
+    <div id="app" >
+        <nav class="navbar navbar-default navbar-static-top" style="background-color: #1a1a1a;">
             <div class="container">
                 <div class="navbar-header">
 
@@ -33,7 +33,7 @@
                     </a>
                 </div>
 
-                <div class="collapse navbar-collapse" id="app-navbar-collapse">
+                <div class="collapse navbar-collapse" id="app-navbar-collapse" >
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
                         &nbsp;

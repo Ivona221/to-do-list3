@@ -3,7 +3,7 @@
 @section('title')
 
     <div class="page-header">
-        <h1>Weekly Task List</h1>
+
         <h2>Progress: Completed {{\App\Todo::where(['checked'=>true,'user_id'=>Auth::user()->id])->get()->count()}}/{{\App\Todo::where(['user_id'=>Auth::user()->id])->get()->count()}} tasks</h2>
 
 
@@ -18,19 +18,29 @@
 
 
     <div class="container">
-        <div class="col-sm-offset-2 col-sm-8 ">
 
+        <div class="col-sm-offset-2 col-sm-9"style="margin-bottom:30px;">
 
-            {{--{{ Form::open(array("url"=>"/search"))}}--}}
-            <div class="panel panel-default bg-info">
-                <div class="panel-heading bg-warning" >Search for previous tasks by date</div>
-                <br>
-                <div class="panel-body">
-                    <input  type="date" name="date" id="date" >
-                    <a id="byDate" href="{{action('TodoController@byDate', array('date'=>\Carbon\Carbon::now()->format('Y-m-d')))}}"><button type="submit">Search</button></a>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+
+                        <div id="custom-search-input">
+                            <div class="input-group col-md-12">
+                                <input type="date" class="form-control input-lg" placeholder="Buscar" />
+                                <span class="input-group-btn">
+                         <a id="byDate" href="{{action('TodoController@byDate', array('date'=>\Carbon\Carbon::now()->format('Y-m-d')))}}"><button class="btn btn-info btn-lg" type="button">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button></a>
+                    </span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            {{--{{Form::close()}}--}}
+
+
+
 
 
         </div>

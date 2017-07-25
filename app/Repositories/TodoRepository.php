@@ -11,38 +11,18 @@ namespace App\Repositories;
 use App\User;
 use App\Todo;
 use Illuminate\Support\Facades\Auth;
+use Repositories\TodoRepositoryInterface;
 
 
-class TodoRepository
+
+class TodoRepository implements TodoRepositoryInterface
 {
     /**
      * TodoRepository constructor.
      */
 
-
-    private $em;
-
     public function __construct()
     {
-
-
-
-    }
-
-    /**
-     * Get all of the tasks for a given user.
-     *
-     * @param  User  $user
-     * @return Collection
-     */
-
-
-
-    public function forUser(User $user)
-    {
-        return $user->todos()
-            ->orderBy('created_at', 'asc')
-            ->get();
     }
 
     public function byDate( $date){

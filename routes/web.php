@@ -110,6 +110,7 @@ Route::group(['middleware' => 'auth'], function(){
 
 
 Route::resource('todos', 'TodoController');
+Route::resource('events', 'EventController');
 
 
 

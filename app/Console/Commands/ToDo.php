@@ -42,7 +42,7 @@ class ToDo extends Command
     public function handle()
     {
 
-        $todos =\App\Todo::where('end_time', '=', \Carbon\Carbon::now()->addMinute(5)->format('H:i'))->get();
+        $todos =\App\Todo::where('end_time', '=', \Carbon\Carbon::now()->addMinute(5)->format('H:i'))->where('checked',false)->get();
         foreach ($todos as $todo) {
 
             $user = \App\User::findOrFail($todo->user_id);
