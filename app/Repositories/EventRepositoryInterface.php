@@ -11,4 +11,18 @@ namespace Repositories;
 interface EventRepositoryInterface
 {
     public function find();
+
+    public function complete();
+
+    public function incomplete();
+
+    public function notcomplete();
+
+    public function notcompleteWork();
+
+    public function notcompleteHome();
+
+    public function notcompleteSchool();
+
+    public function notcompleteFreeTime();
 }

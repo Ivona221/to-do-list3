@@ -39,6 +39,14 @@ class TodoController extends Controller
         $incomplete=$this->todos->incomplete();
 
         $notcomplete=$this->todos->notcomplete();
+
+        $notcompleteWork=$this->todos->notcompleteWork();
+
+        $notcompleteHome=$this->todos->notcompleteHome();
+
+        $notcompleteSchool=$this->todos->notcompleteSchool();
+
+        $notcompleteFreeTime=$this->todos->notcompleteFreeTime();
         $date = [
           'zero' => Carbon::now()->format('Y-m-d') ,
             'one'=>Carbon::now()->addDays(1)->format('Y-m-d'),
@@ -55,7 +63,11 @@ class TodoController extends Controller
            $todos[$d]=$this->todos->byDate($d);
        }
 
-        return view('todo.index',compact('complete','incomplete', 'date', 'todos','notcomplete'));
+       $now=$this->todos->date();
+
+
+
+        return view('todo.index',compact('complete','incomplete', 'date', 'todos','notcomplete','notcompleteHome','notcompleteSchool','notcompleteFreeTime','notcompleteWork','now'));
 
     }
 
@@ -82,7 +94,17 @@ class TodoController extends Controller
 
         $incomplete=$this->todos->incomplete();
 
-        return view('todo.specific', compact('todos','date','number', 'complete','incomplete'));
+        $notcomplete=$this->todos->notcomplete();
+
+        $notcompleteWork=$this->todos->notcompleteWork();
+
+        $notcompleteHome=$this->todos->notcompleteHome();
+
+        $notcompleteSchool=$this->todos->notcompleteSchool();
+
+        $notcompleteFreeTime=$this->todos->notcompleteFreeTime();
+
+        return view('todo.specific', compact('todos','date','number', 'complete','incomplete','notcomplete','notcompleteHome','notcompleteSchool','notcompleteFreeTime','notcompleteWork'));
     }
 
     public function show2(){
@@ -98,8 +120,18 @@ class TodoController extends Controller
 
         $incomplete=$this->todos->incomplete();
 
+        $notcomplete=$this->todos->notcomplete();
+
+        $notcompleteWork=$this->todos->notcompleteWork();
+
+        $notcompleteHome=$this->todos->notcompleteHome();
+
+        $notcompleteSchool=$this->todos->notcompleteSchool();
+
+        $notcompleteFreeTime=$this->todos->notcompleteFreeTime();
+
         $order=$this->todos->order();
-        return view('todo.stats' , compact('order', 'complete','incomplete'));
+        return view('todo.stats' , compact('order', 'complete','incomplete','notcomplete','notcompleteHome','notcompleteSchool','notcompleteFreeTime','notcompleteWork'));
     }
 
     public function save($id){
@@ -130,7 +162,17 @@ class TodoController extends Controller
 
         $incomplete=$this->todos->incomplete();
 
-        return view('todo.search', compact('date','todos','complete','incomplete'));
+        $notcomplete=$this->todos->notcomplete();
+
+        $notcompleteWork=$this->todos->notcompleteWork();
+
+        $notcompleteHome=$this->todos->notcompleteHome();
+
+        $notcompleteSchool=$this->todos->notcompleteSchool();
+
+        $notcompleteFreeTime=$this->todos->notcompleteFreeTime();
+
+        return view('todo.search', compact('date','todos','complete','incomplete','notcomplete','notcompleteHome','notcompleteSchool','notcompleteFreeTime','notcompleteWork'));
     }
 
     public function search1(){
@@ -144,7 +186,17 @@ class TodoController extends Controller
 
         $incomplete=$this->todos->incomplete();
 
-        return view('todo.search1', compact('type','todos','image','complete','incomplete'));
+        $notcomplete=$this->todos->notcomplete();
+
+        $notcompleteWork=$this->todos->notcompleteWork();
+
+        $notcompleteHome=$this->todos->notcompleteHome();
+
+        $notcompleteSchool=$this->todos->notcompleteSchool();
+
+        $notcompleteFreeTime=$this->todos->notcompleteFreeTime();
+
+        return view('todo.search1', compact('type','todos','image','complete','incomplete','notcomplete','notcompleteHome','notcompleteSchool','notcompleteFreeTime','notcompleteWork'));
 
     }
 
@@ -158,7 +210,17 @@ class TodoController extends Controller
 
         $incomplete=$this->todos->incomplete();
 
-        return view('todo.search1', compact('todos', 'type', 'complete','incomplete'));
+        $notcomplete=$this->todos->notcomplete();
+
+        $notcompleteWork=$this->todos->notcompleteWork();
+
+        $notcompleteHome=$this->todos->notcompleteHome();
+
+        $notcompleteSchool=$this->todos->notcompleteSchool();
+
+        $notcompleteFreeTime=$this->todos->notcompleteFreeTime();
+
+        return view('todo.search1', compact('todos', 'type', 'complete','incomplete','notcomplete','notcompleteHome','notcompleteSchool','notcompleteFreeTime','notcompleteWork'));
 
 }
 
@@ -170,14 +232,29 @@ class TodoController extends Controller
 
         $incomplete=$this->todos->incomplete();
 
-        return view('todo.search', compact('todos', 'date','complete','incomplete'));
+        $notcomplete=$this->todos->notcomplete();
+
+        $notcompleteWork=$this->todos->notcompleteWork();
+
+        $notcompleteHome=$this->todos->notcompleteHome();
+
+        $notcompleteSchool=$this->todos->notcompleteSchool();
+
+        $notcompleteFreeTime=$this->todos->notcompleteFreeTime();
+
+        return view('todo.search', compact('todos', 'date','complete','incomplete','notcomplete','notcompleteHome','notcompleteSchool','notcompleteFreeTime','notcompleteWork'));
     }
 
-    public function update2($id){
+    public function update2($id, $value){
 
         $todo=$this->todos->find($id);
 
-            $todo->checked=true;
+        if($todo->checked==false||$todo->checked==NULL)
+
+        $todo->checked=true;
+
+        else
+            $todo->checked=false;
 
 
         $todo->save();

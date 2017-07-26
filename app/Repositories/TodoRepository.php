@@ -27,6 +27,10 @@ class TodoRepository implements TodoRepositoryInterface
         $this->todo = $todo;
     }
 
+    public function date(){
+        return \Carbon\Carbon::now()->format('Y-m-d');
+    }
+
     public function byDate( $date){
         return $this->todo->where(['date'=>$date,'user_id'=>Auth::user()->id])->get();
     }
@@ -60,7 +64,7 @@ class TodoRepository implements TodoRepositoryInterface
     }
 
     public function complete(){
-        return \App\Todo::where(['checked'=>true,'user_id'=>Auth::user()->id])->get()->count();
+        return $this->todo->where(['checked'=>true,'user_id'=>Auth::user()->id])->get()->count();
     }
 
     public function incomplete(){
@@ -69,7 +73,23 @@ class TodoRepository implements TodoRepositoryInterface
     }
 
     public function notcomplete(){
-        return \App\Todo::where(['checked'=>false,'user_id'=>Auth::user()->id])->get()->count();
+        return $this->todo->where(['checked'=>false,'user_id'=>Auth::user()->id])->orWhere(['checked'=>NULL,'user_id'=>Auth::user()->id])->get()->count();
+    }
+
+    public function notcompleteWork(){
+        return $this->todo->where(['checked'=>false,'user_id'=>Auth::user()->id,'type'=>"work"])->orWhere(['checked'=>NULL,'user_id'=>Auth::user()->id, 'type'=>"work"])->count();
+    }
+
+    public function notcompleteHome(){
+        return $this->todo->where(['checked'=>false,'user_id'=>Auth::user()->id,'type'=>'home'])->orWhere(['checked'=>NULL,'user_id'=>Auth::user()->id, 'type'=>'home'])->count();
+    }
+
+    public function notcompleteSchool(){
+        return $this->todo->where(['checked'=>false,'user_id'=>Auth::user()->id,'type'=>'school'])->orWhere(['checked'=>NULL,'user_id'=>Auth::user()->id, 'type'=>'school'])->count();
+    }
+
+    public function notcompleteFreeTime(){
+        return $this->todo->where(['checked'=>false,'user_id'=>Auth::user()->id,'type'=>'free_time'])->orWhere(['checked'=>NULL,'user_id'=>Auth::user()->id, 'type'=>'free_time'])->count();
     }
 
     public function order(){

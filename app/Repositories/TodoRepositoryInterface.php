@@ -30,5 +30,15 @@ interface TodoRepositoryInterface
     public function order();
 
     public function notcomplete();
+
+    public function notcompleteWork();
+
+    public function notcompleteHome();
+
+    public function notcompleteSchool();
+
+    public function notcompleteFreeTime();
+
+    public function date();
 }
 

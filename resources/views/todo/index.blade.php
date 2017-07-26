@@ -1,23 +1,8 @@
 @extends('app')
 
-@section('title')
+@include('partials.sidebar', array('complete'=>$complete,'incomplete'=>$incomplete,'notcomplete'=>$notcomplete,'notcompleteWork'=>$notcompleteWork,
+'notcompleteHome'=>$notcompleteHome, 'notcompleteSchool'=>$notcompleteSchool, 'notcompleteFreeTime'=>$notcompleteFreeTime))
 
-
-
-        <p>Progress: Completed {{$complete}}/{{$incomplete}} tasks</p>
-
-        <div id="myProgress" style="width:100%; color:gray;">
-
-            <div id="myBar" style="width:calc(({{$complete}}/{{$incomplete}})*100%); background-color:#bababa;color:transparent; border-radius: 6px;">Hi</div>
-        </div>
-
-
-
-    @stop
-
-@section('completedAll')
-    <span>{{$notcomplete}}</span>
-    @stop
 
 @section('content')
 
@@ -33,9 +18,9 @@
 
                         <div id="custom-search-input">
                             <div class="input-group col-md-12">
-                                <input id="date" type="date" class="form-control input-lg" placeholder="Buscar" value="{{\Carbon\Carbon::now()->format('Y-m-d')}}" />
+                                <input id="date" type="date" class="form-control input-lg" placeholder="Buscar" value="{{$now}}" />
                                 <span class="input-group-btn">
-                                <a id="byDate" href="{{action('TodoController@byDate', array('date'=>\Carbon\Carbon::now()->format('Y-m-d')))}}"><button class="btn btn-info btn-lg" type="button">
+                                <a id="byDate" href="{{action('TodoController@byDate', array('date'=>$now))}}"><button class="btn btn-info btn-lg" type="button">
                                 <i class="glyphicon glyphicon-search"></i>
                                 </button>
                                 </a>

@@ -9,6 +9,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="{{ Illuminate\Support\Facades\URL::asset('css/main.css') }}">
 
+
     @yield('style')
 
 </head>
@@ -40,9 +41,7 @@
                         <li>
                             <a href="/todo">Next 7 days</a>
                         </li>
-                        <li>
-                            <a href="#">Today</a>
-                        </li>
+
                         <li>
                             <a href="/events">Calendar</a>
                         </li>
@@ -55,10 +54,10 @@
                             <ul class="dropdown-menu" role="menu">
                                 <li class="dropdown-header">Filter By Type</li>
                                 <li><a href="{{action('TodoController@show3',array('type'=>"all"))}}"  class="search" id="all"> <span class="glyphicon glyphicon-list-alt"  ></span> All Tasks @yield('completedAll')</a></li>
-                                <li><a href="{{action('TodoController@show3',array('type'=>"home"))}}"  class="search" id="home"><span class="glyphicon glyphicon-home"  ></span> Home</a></li>
-                                <li><a href="{{action('TodoController@show3',array('type'=>"school"))}}" class="search" id="school"><span class="glyphicon glyphicon-education" ></span> School</a></li>
-                                <li><a href="{{action('TodoController@show3',array('type'=>"work"))}}" class="search" id="work"><span class="glyphicon glyphicon-lock" ></span> Work</a></li>
-                                <li><a href="{{action('TodoController@show3',array('type'=>"free_time"))}}"  class="search" id="free_time"><span class="glyphicon glyphicon-knight"  ></span> Free time</a></li>
+                                <li><a href="{{action('TodoController@show3',array('type'=>"home"))}}"  class="search" id="home"><span class="glyphicon glyphicon-home"  ></span> Home @yield('completedHome')</a></li>
+                                <li><a href="{{action('TodoController@show3',array('type'=>"school"))}}" class="search" id="school"><span class="glyphicon glyphicon-education" ></span> School @yield('completedSchool')</a></li>
+                                <li><a href="{{action('TodoController@show3',array('type'=>"work"))}}" class="search" id="work"><span class="glyphicon glyphicon-lock" ></span> Work @yield('completedWork')</a></li>
+                                <li><a href="{{action('TodoController@show3',array('type'=>"free_time"))}}"  class="search" id="free_time"><span class="glyphicon glyphicon-knight"  ></span> Free time @yield('completedFreeTime')</a></li>
                             </ul>
                         </li>
                         <li>
@@ -111,7 +110,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 
 
-<script >$(document).ready(function () {
+<script >
+    $(document).ready(function () {
         var trigger = $('.hamburger'),
             overlay = $('.overlay'),
             isClosed = false;
@@ -138,7 +138,8 @@
         $('[data-toggle="offcanvas"]').click(function () {
             $('#wrapper').toggleClass('toggled');
         });
-    });</script>
+    });
+</script>
 
 
 
