@@ -12,10 +12,19 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <style>
+        @font-face{
+        font-family: 'belladona';
+            src: url('{{asset('fonts/BelladonaStencil.ttf')}}');
+        }
+    </style>
 </head>
-<body style="background-image: url('images/bridge.jpg'); -webkit-background-size:cover;">
+{{--style="background-image: url('images/bridge.jpg'); -webkit-background-size:cover;"
+style="background-color: #1a1a1a;"--}}
+<body style="background-image: url('images/lights.jpg'); -webkit-background-size:cover;">
     <div id="app" >
-        <nav class="navbar navbar-default navbar-static-top" style="background-color: #1a1a1a;">
+        <nav class="navbar navbar-default navbar-static-top" style=" border:none;" >
             <div class="container">
                 <div class="navbar-header">
 
@@ -30,6 +39,9 @@
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
                         {{ config('app.name', 'Laravel') }}
+                    </a>
+                    <a class="navbar-brand" href="{{ url('/todo') }}" >
+                        Tasks
                     </a>
                 </div>
 

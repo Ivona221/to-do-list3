@@ -12,6 +12,7 @@ use App\User;
 use App\Todo;
 use Illuminate\Support\Facades\Auth;
 use Repositories\EventRepositoryInterface;
+use App\Event;
 
 class EventRepository implements EventRepositoryInterface
 {
@@ -19,13 +20,8 @@ class EventRepository implements EventRepositoryInterface
      * TodoRepository constructor.
      */
 
-
-
-
     public function __construct()
     {
-
-
 
     }
 

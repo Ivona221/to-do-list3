@@ -1,5 +1,8 @@
 
+
+
 <div class="container">
+
 
 
     <div class="col-sm-offset-2 col-sm-8 ">
@@ -43,6 +46,8 @@
                             <br>
                             <label>Choose the type of the task</label>
 
+                            <input type="hidden" name="user_id" value="{{ Illuminate\Support\Facades\Auth::user()->id}}">
+
                             <select type="text"  id="select"  class="form-control">
 
                                 <option value="work">Work</option>
@@ -53,11 +58,6 @@
 
                             <input type="hidden" value="" name="type" id="hiddenSelect">
 
-
-
-
-
-
                             <input type="hidden" name="date" value={{$date}}>
                         </div>
                     </div>
@@ -65,8 +65,10 @@
                         <div class="col-sm-offset-3 col-sm-6">
 
                             <ul>
-                                @foreach(\App\Todo::where(['date'=>$date,'user_id'=>Auth::user()->id])->get() as $td)
-                                    <li class="list-group-item @if($td->id%2==0) list-group-item-success @else list-group-item-warning @endelse @endif "><span class="glyphicon glyphicon-menu-right"></span> {{$td->task}}</li>
+                                @foreach($todos as $td)
+
+                                    <input id="line" type="hidden" value="{{$td->checked }}">
+                                    <a style="text-decoration: none;" href="{{action('TodoController@update2',array('id'=>$td->id, 'value'=>$td->checked))}}"><li onclick="this.style.textDecoration='line-through'"  class="list-group-item  list-group-item-success " id="list"><span  class="glyphicon glyphicon-menu-right" ></span> {{$td->task}}</li></a>
                                 @endforeach
                             </ul>
 
@@ -90,17 +92,24 @@
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 <script src="http://code.jquery.com/jquery.js"></script>
 
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 
-
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
 <script>
     $("#select").on('change',function() {
         $('#hiddenSelect').val($('#select').val());
     });
+
+
+
+
 </script>
 

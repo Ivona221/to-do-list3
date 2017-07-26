@@ -27,7 +27,12 @@
 
                             <div class="col-sm-6">
                                 <input type="text" name="title" id="task-name" class="form-control" value="">
-                                <input type="date" name="start_date" >
+                                <label>Start date</label>
+                                <br>
+                                <input type="date" name="start_date" value="{{\Carbon\Carbon::now()->format('Y-m-d')}}">
+                                <br>
+                                <label>End date</label>
+                                <br>
                                 <input type="date" name="end_date" >
 
                             </div>
@@ -48,10 +53,6 @@
 
         </div>
     </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-
-
 
 
 @stop

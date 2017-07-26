@@ -46,7 +46,7 @@
             <li><a href="/stats">Statistics</a></li>
             <li><a href="/events">Calendar</a></li>
             <li><div class="dropdown">
-                    <button style="margin:8px; background-color:transparent; color:gainsboro; border:0px solid transparent;" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Types
+                    <button style="margin:8px; background-color:transparent; color:gainsboro; border:0px solid transparent;" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Filter
                         <span class="caret"></span></button>
                     <ul class="dropdown-menu">
                         <li><a href="{{action('TodoController@show3',array('type'=>"all"))}}"  class="search" id="all"> <span class="glyphicon glyphicon-list-alt"  ></span> All Tasks</a></li>

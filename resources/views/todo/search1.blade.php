@@ -1,11 +1,26 @@
 @extends('app')
 
+@section('title')
+
+
+
+    <p>Progress: Completed {{$complete}}/{{$incomplete}} tasks</p>
+
+    <div id="myProgress" style="width:100%; color:gray;">
+
+        <div id="myBar" style="width:calc(({{$complete}}/{{$incomplete}})*100%); background-color:#bababa;color:transparent; border-radius: 6px;">Hi</div>
+    </div>
+
+
+
+@stop
+
 @section('content')
 
 
 
     <div class="container" >
-        <h2></h2>
+        <h2 style="text-transform:capitalize;">{{$type}} tasks</h2>
         <table class="table table-striped">
             <thead>
             <tr>
@@ -20,11 +35,10 @@
                     {{--<td><a href="{{action('TodoController@check',array('id'=>$todo->id,'date'=>$date))}}">{{  Form::checkbox('agree')}}</a></td>--}}
                     {{ Form::open(array("url"=>"/check"))}}
                     {{ Form::hidden('id', $todo->id) }}
-                    <input type="hidden" name="agree" value="1" name="id">
-                    <td>{{  Form::checkbox('agree',1,App\Todo::where('id',$todo->id)->first()->checked ,['id' => 'ck','onChange'=>"this.form.submit()"]) }}</td>
+                    <input type="hidden" name="agree" value="1" >
+                    <td>{{  Form::checkbox('agree',1,$todo->checked ,['id' => 'ck','onChange'=>"this.form.submit()"]) }}</td>
 
-                    {{Form::close()}}
-                    {{--<td><input type="checkbox"  name="checked" value="true" ></td>--}}
+                    {{ Form::close()}}
 
 
 
@@ -43,7 +57,7 @@
 
                         </form></td>
 
-                    <td>@if(App\Todo::where('id',$todo->id)->first()->image) {{Html::image('images/'.App\Todo::where('id',$todo->id)->first()->image, "Choose your image", array( 'width' => 70, 'height' => 70 )) }}@endif</td>
+                    <td>@if($todo->image) {{Html::image('images/'.$todo->image, "Choose your image", array( 'width' => 70, 'height' => 70 )) }}@endif</td>
 
                     <td><form action="/todo/{{ $todo->id }}" method="POST">
                             {{ csrf_field() }}
@@ -58,6 +72,7 @@
         </table>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 
 
 

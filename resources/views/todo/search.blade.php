@@ -1,5 +1,20 @@
 @extends('app')
 
+
+@section('title')
+
+
+
+    <p>Progress: Completed {{$complete}}/{{$incomplete}} tasks</p>
+    <div id="myProgress" style="width:100%; color:gray;">
+
+        <div id="myBar" style="width:calc(({{$complete}}/{{$incomplete}})*100%); background-color:#bababa;color:transparent; border-radius: 6px;">Hi</div>
+    </div>
+
+
+
+@stop
+
 @section('content')
 
 
@@ -78,6 +93,7 @@
         });
 
     </script>
+
 
 
 

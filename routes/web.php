@@ -42,6 +42,8 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::get('/search/{date}','TodoController@byDate');
 
+    Route::get('/up/{id}/{value}','TodoController@update2');
+
     Route::post('/search1','TodoController@search1');
 
     Route ::get('/events','EventController@index');

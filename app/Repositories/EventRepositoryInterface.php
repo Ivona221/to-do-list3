@@ -7,12 +7,8 @@
  */
 namespace Repositories;
 
+
 interface EventRepositoryInterface
 {
-
-
-
     public function find();
-
-
 }

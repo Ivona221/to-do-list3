@@ -1,11 +1,25 @@
 
 @extends('app')
 
+@section('title')
+
+
+
+    <p>Progress: Completed {{$complete}}/{{$incomplete}} tasks</p>
+    <div id="myProgress" style="width:100%; color:gray;">
+
+        <div id="myBar" style="width:calc(({{$complete}}/{{$incomplete}})*100%); background-color:#bababa;color:transparent; border-radius: 6px;">Hi</div>
+    </div>
+
+
+
+@stop
+
 
 
 @section('content')
 
-<h2>Stats for each day</h2>
+<h2>Statistics for each day</h2>
 <table class="table table-striped">
 
     <thead>
@@ -15,12 +29,7 @@
     </tr>
     </thead>
     <tbody>
-    @foreach(\DB::table('todos')
-    ->select('date', \DB::raw('count(*) as total'))
-
-    ->groupBy('date')
-    ->orderBy('total', 'desc')
-    ->get() as $dt)
+    @foreach($order as $dt)
         <tr>
 
             </td>

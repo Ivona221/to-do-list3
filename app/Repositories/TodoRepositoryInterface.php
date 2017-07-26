@@ -20,5 +20,15 @@ interface TodoRepositoryInterface
     public function user();
 
     public function byType($type);
+
+    public function create($data);
+
+    public function complete();
+
+    public function incomplete();
+
+    public function order();
+
+    public function notcomplete();
 }
 

@@ -6,22 +6,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
-
-
-    <style>
-
-        body, html{
-            height:100%;
-
-        }
-
-        body{
-            display:flex;
-            justify-content:center;
-            align-items:center;
-        }
-
-    </style>
+    <link rel="stylesheet" href="css/image.css">
 </head>
 <body >
 

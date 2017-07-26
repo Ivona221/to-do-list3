@@ -2,15 +2,21 @@
 
 @section('title')
 
-    <div class="page-header">
-
-        <h2>Progress: Completed {{\App\Todo::where(['checked'=>true,'user_id'=>Auth::user()->id])->get()->count()}}/{{\App\Todo::where(['user_id'=>Auth::user()->id])->get()->count()}} tasks</h2>
 
 
+        <p>Progress: Completed {{$complete}}/{{$incomplete}} tasks</p>
+
+        <div id="myProgress" style="width:100%; color:gray;">
+
+            <div id="myBar" style="width:calc(({{$complete}}/{{$incomplete}})*100%); background-color:#bababa;color:transparent; border-radius: 6px;">Hi</div>
+        </div>
 
 
-    </div>
 
+    @stop
+
+@section('completedAll')
+    <span>{{$notcomplete}}</span>
     @stop
 
 @section('content')
@@ -23,15 +29,16 @@
 
             <div class="container">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-7">
 
                         <div id="custom-search-input">
                             <div class="input-group col-md-12">
-                                <input type="date" class="form-control input-lg" placeholder="Buscar" />
+                                <input id="date" type="date" class="form-control input-lg" placeholder="Buscar" value="{{\Carbon\Carbon::now()->format('Y-m-d')}}" />
                                 <span class="input-group-btn">
-                         <a id="byDate" href="{{action('TodoController@byDate', array('date'=>\Carbon\Carbon::now()->format('Y-m-d')))}}"><button class="btn btn-info btn-lg" type="button">
-                            <i class="glyphicon glyphicon-search"></i>
-                        </button></a>
+                                <a id="byDate" href="{{action('TodoController@byDate', array('date'=>\Carbon\Carbon::now()->format('Y-m-d')))}}"><button class="btn btn-info btn-lg" type="button">
+                                <i class="glyphicon glyphicon-search"></i>
+                                </button>
+                                </a>
                     </span>
                             </div>
                         </div>
@@ -63,15 +70,13 @@
 
 
     </script>
-    @include('errors.list')
-    @include('partials.box',array('date'=>\Carbon\Carbon::now()->format('Y-m-d')))
-    @include('partials.box' ,array('date'=>\Carbon\Carbon::tomorrow()->format('Y-m-d')))
-    @include('partials.box', array('date'=>\Carbon\Carbon::now()->addDays(2)->format('Y-m-d')))
-    @include('partials.box', array('date'=>\Carbon\Carbon::now()->addDays(3)->format('Y-m-d')))
-    @include('partials.box', array('date'=>\Carbon\Carbon::now()->addDays(4)->format('Y-m-d')))
-    @include('partials.box', array('date'=>\Carbon\Carbon::now()->addDays(5)->format('Y-m-d')))
-    @include('partials.box', array('date'=>\Carbon\Carbon::now()->addDays(6)->format('Y-m-d')))
 
+    @include('errors.list')
+    @foreach($date as $d)
+
+        @include('partials.box', array('date'=>$d,'todos'=>$todos[$d]))
+
+    @endforeach
 
 
 @stop
