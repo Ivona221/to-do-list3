@@ -63,7 +63,7 @@
 
                             <ul>
                                 @foreach($todos as $td)
-                                    <a style="text-decoration: none;" href="{{action('TodoController@update2',array('id'=>$td->id, 'value'=>$td->checked))}}"><li @if($td->checked==1)style="text-decoration: line-through;" @else style="text-decoration: none;" @endif    onclick="this.style.textDecoration='line-through'"  class="list-group-item  list-group-item-success " id="list"><span  class="glyphicon glyphicon-menu-right" ></span> {{$td->task}}</li></a>
+                                    <a style="text-decoration: none;" href="{{action('TodoController@update2',array('id'=>$td->id))}}"><li @if($td->checked==1)style="text-decoration: line-through;" @else style="text-decoration: none;" @endif    onclick="this.style.textDecoration='line-through'"  class="list-group-item  list-group-item-success " id="list"><span  class="glyphicon glyphicon-menu-right" ></span> {{$td->task}}</li></a>
                                 @endforeach
                             </ul>
 

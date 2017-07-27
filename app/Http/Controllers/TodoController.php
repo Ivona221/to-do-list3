@@ -23,7 +23,6 @@ class TodoController extends Controller
     /**
      * TodoController constructor.
      */
-
     protected $todos;
 
     public function __construct(TodoRepository $todos)
@@ -48,7 +47,7 @@ class TodoController extends Controller
 
         $notcompleteFreeTime=$this->todos->notcompleteFreeTime();
         $date = [
-          'zero' => Carbon::now()->format('Y-m-d') ,
+            'zero' => Carbon::now()->format('Y-m-d') ,
             'one'=>Carbon::now()->addDays(1)->format('Y-m-d'),
             'two'=>Carbon::now()->addDays(2)->format('Y-m-d'),
             'three'=>Carbon::now()->addDays(3)->format('Y-m-d'),
@@ -245,7 +244,7 @@ class TodoController extends Controller
         return view('todo.search', compact('todos', 'date','complete','incomplete','notcomplete','notcompleteHome','notcompleteSchool','notcompleteFreeTime','notcompleteWork'));
     }
 
-    public function update2($id, $value){
+    public function update2($id){
 
         $todo=$this->todos->find($id);
 
@@ -255,8 +254,6 @@ class TodoController extends Controller
 
         else
             $todo->checked=false;
-
-
         $todo->save();
         return back();
     }
