@@ -29,7 +29,7 @@
                                 <input type="text" name="title" id="task-name" class="form-control" value="">
                                 <label>Start date</label>
                                 <br>
-                                <input type="date" name="start_date" value="{{\Carbon\Carbon::now()->format('Y-m-d')}}">
+                                <input type="date" name="start_date" value="{{$now}}">
                                 <br>
                                 <label>End date</label>
                                 <br>

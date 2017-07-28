@@ -79,7 +79,9 @@ class EventController extends Controller
     }
 
     public function show(){
-        return view('todo.events');
+
+        $now=$this->events->now();
+        return view('todo.events', compact('now'));
     }
 
     public function store(EventRequest $request){

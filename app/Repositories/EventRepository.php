@@ -65,6 +65,10 @@ class EventRepository implements EventRepositoryInterface
         return \App\Todo::where(['checked'=>false,'user_id'=>Auth::user()->id,'type'=>'free_time'])->orWhere(['checked'=>NULL,'user_id'=>Auth::user()->id, 'type'=>'free_time'])->count();
     }
 
+    public function now(){
+        return \Carbon\Carbon::now()->format('Y-m-d');
+    }
+
 
 
 

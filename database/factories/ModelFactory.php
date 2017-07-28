@@ -24,3 +24,17 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     ];
 });
 
+$factory->define(App\Todo::class, function (Faker\Generator $faker) {
+    static $password;
+
+    return [
+        'task' => $faker->name,
+        'start_date' => $faker->date(),
+        'end_date' => $faker->date(),
+        'start_time' => $faker->time('H:i'),
+        'end_time'=>$faker->time('H:i'),
+        'type'=>$faker->word,
+        'date'=>$faker->date(),
+        'user_id'=>$faker->numberBetween(1-5),
+    ];
+});

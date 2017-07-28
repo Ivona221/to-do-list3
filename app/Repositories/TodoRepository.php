@@ -20,6 +20,7 @@ class TodoRepository implements TodoRepositoryInterface
 {
     /**
      * TodoRepository constructor.
+     * @param Todo $todo
      */
 
     public function __construct(Todo $todo)
@@ -54,8 +55,10 @@ class TodoRepository implements TodoRepositoryInterface
 
     public function create($data)
     {
-        $this->todo->create($data);
+        return $this->todo->create($data);
     }
+
+
 
     public function update($id, $imageName){
 
