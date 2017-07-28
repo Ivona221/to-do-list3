@@ -29,7 +29,7 @@ class ExampleTest extends TestCase
         //Then I want to get the proper response in the proper format(This creates the assertion)
 
 
-        TodoRepository::order();
+
 
         //Get the response in the proper format
 

@@ -54,7 +54,7 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::get('/send','TodoController@sendEmail');
 
-    Route::get('/sendTest', function(){
+    /*Route::get('/sendTest', function(){
         $user = \App\User::findOrFail(8);
 
         Mail::send('emails.reminder', ['user' => $user], function ($m) use ($user) {
@@ -64,14 +64,14 @@ Route::group(['middleware' => 'auth'], function(){
         });
 
         return "Success";
-    });
+    });*/
 
     Route::get('/search1/{type}','TodoController@show3');
 
 
-    Route::get('/todo','TodoController@index')->middleware('auth');
+    Route::get('/todo','TodoController@index')->middleware('auth')->name('home');
 
-    Route::post('/todoAdd','TodoController@store');
+    Route::post('/todoAdd','TodoController@create')->name('home');
 
     Route::get('/todo/{date}','TodoController@show');
 

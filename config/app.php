@@ -165,6 +165,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         MaddHatter\LaravelFullcalendar\ServiceProvider::class,
 
+
         /*
          * Package Service Providers...
          */

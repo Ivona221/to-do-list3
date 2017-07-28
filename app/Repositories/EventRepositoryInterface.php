@@ -25,4 +25,6 @@ interface EventRepositoryInterface
     public function notcompleteSchool();
 
     public function notcompleteFreeTime();
+
+    public function now();
 }
