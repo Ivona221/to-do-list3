@@ -27,6 +27,8 @@ class TodoRepositoryTest extends TestCase
         $this->todoModel = Mockery::mock(Todo::class);
         $this->class = new TodoRepositoryTest($this->todoModel);
 
+
+
     }
 
 

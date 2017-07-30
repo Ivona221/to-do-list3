@@ -92,26 +92,21 @@ Route::group(['middleware' => 'auth'], function(){
 
     });
 
+
+
+    Route::get('edit/{id}','TodoController@editTodo');
+
     Route::get('/images','TodoController@image');
 
-    Route::post('/avatars/{id}',function($id){
-        $imageTempName = request()->file('avatar')->getPathname();
-        $imageName = request()->file('avatar')->getClientOriginalName();
-        $path = base_path() . '/public/images';
-        request()->file('avatar')->move($path , $imageName);
-        DB::table('todos')
-            ->where('id', $id)
-            ->update(['image' => $imageName]);
+    Route::post('/avatars/{id}','TodoController@save');
 
+    Route::post('/edit','TodoController@edit');
 
-
-        return back();
-    });
 });
 
 
 
-Route::resource('todos', 'TodoController');
+//Route::resource('todos', 'TodoController');
 Route::resource('events', 'EventController');
 
 

@@ -12,7 +12,7 @@ use App\Repositories\TodoRepository;
 use Illuminate\Support\Facades\Redirect;
 use Repositories\TodoRepositoryInterface;
 use Illuminate\Support\Facades\DB;
-use Illuminate\View\View;
+use Illuminate\Support\Facades\View;
 
 
 
@@ -64,10 +64,12 @@ class TodoController extends Controller
        }
 
        $now=$this->todos->date();
+        $nowTime=$this->todos->time();
+        $usrId=Auth::user()->id;
 
 
 
-        //return View::make('todo.index',compact('complete','incomplete', 'date', 'todos','notcomplete','notcompleteHome','notcompleteSchool','notcompleteFreeTime','notcompleteWork','now'));
+        return View::make('todo.index',compact('complete','incomplete', 'date', 'todos','notcomplete','notcompleteHome','notcompleteSchool','notcompleteFreeTime','notcompleteWork','now','nowTime','usrId'));
 
     }
 
@@ -216,8 +218,13 @@ class TodoController extends Controller
     {
 
         //$todo=Auth::user()->todos()->create($request->all());
-        $this->todos->create($request->all());
-        return redirect()->route('home');
+
+            $this->todos->create($request->all());
+            //return redirect()->route('home');
+
+
+         return back();
+
     }
 
     public function show(Todo $todos,$date){
@@ -242,13 +249,13 @@ class TodoController extends Controller
         return view('todo.specific', compact('todos','date','number', 'complete','incomplete','notcomplete','notcompleteHome','notcompleteSchool','notcompleteFreeTime','notcompleteWork'));
     }
 
-    public function show2(){
+   /* public function show2(){
         return view('todo.index');
-    }
+    }*/
 
-    public function image(){
+    /*public function image(){
         return view('todo.images');
-    }
+    }*/
 
     public function stats(){
         $complete=$this->todos->complete();
@@ -270,11 +277,14 @@ class TodoController extends Controller
     }
 
     public function save($id){
-        $imageTempName = request()->file('avatar')->getPathname();
+        //$imageTempName = request()->file('avatar')->getPathname();
         $imageName = request()->file('avatar')->getClientOriginalName();
-        $path = base_path() . '/public/uploads/consultants/images/';
+        $path = base_path() . '/public/images';
         request()->file('avatar')->move($path , $imageName);
-        $this->todos->update($id, $imageName);
+        DB::table('todos')
+            ->where('id', $id)
+            ->update(['image' => $imageName]);
+        return back();
     }
 
     public function update(){
@@ -392,7 +402,40 @@ class TodoController extends Controller
             $todo->checked=false;
         $todo->save();
         return back();
+
     }
+
+    public function edit(TodoRequest $request){
+
+
+        $id=request()->get('todoId');
+        $todo=\App\Todo::findOrFail($id);
+        $todo->update($request->all());
+        return back();
+
+    }
+
+    public function editTodo($id){
+        $complete=$this->todos->complete();
+
+        $incomplete=$this->todos->incomplete();
+
+        $notcomplete=$this->todos->notcomplete();
+
+        $notcompleteWork=$this->todos->notcompleteWork();
+
+        $notcompleteHome=$this->todos->notcompleteHome();
+
+        $notcompleteSchool=$this->todos->notcompleteSchool();
+
+        $notcompleteFreeTime=$this->todos->notcompleteFreeTime();
+        $todo=\App\Todo::findOrFail($id);
+        $now=$this->todos->date();
+        $nowTime=$this->todos->time();
+        $usrId=Auth::user()->id;
+        $date=\Carbon\Carbon::now()->format('Y-m-d');
+        return view('todo.edit', compact('todo','now','nowTime', 'date','usrId','complete','incomplete','notcomplete','notcompleteHome','notcompleteSchool','notcompleteFreeTime','notcompleteWork'));
+}
 
 
 

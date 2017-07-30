@@ -100,4 +100,9 @@ class TodoRepository implements TodoRepositoryInterface
             ->orderBy('total', 'desc')
             ->get();
     }
+
+    public function time(){
+        return \Carbon\Carbon::now()->format('H:i');
+
+    }
 }

@@ -21,6 +21,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
 
+use Illuminate\Http\UploadedFile;
+
+use Illuminate\Support\Facades\Storage;
+
+
+
 
 /**
  * @property \Mockery\MockInterface todoRepo
@@ -34,9 +40,9 @@ class TodoControllerTest extends TestCase
     }
 
     /** @test */
-    public function createTest()
+    /*public function createTest()
     {
-        /*$req = [
+        $req = [
             'task' => 'test',
             'start_date' => \Carbon\Carbon::now()->format('Y-m-d'),
             'start_time' => \Carbon\Carbon::now()->format('H:i'),
@@ -46,18 +52,18 @@ class TodoControllerTest extends TestCase
             'user_id' => 1
         ];
 
-        //$req=['task'=>'test'];
+        $req=['task'=>'test'];
 
 
         $request = Mockery::mock(TodoRequest::class);
         $request->shouldReceive('all')->andReturn($req);
         $this->todoRepo->shouldReceive('create')->with($req)->andReturn(true);
-        //\Redirect::shouldReceive('route')->with('home');
+        //Redirect::shouldReceive('route')->with('home');
         //$this->class->create($request$);
-        $this->get('/todoAdd')->assertStatus(200);*/
+        //$this->get('/todoAdd')->assertStatus(200);
 
 
-    }
+    }*/
 
 
     /** @test */
@@ -82,14 +88,77 @@ class TodoControllerTest extends TestCase
 
 
     }*/
+    /** @test */
+    /*public function imageTest(){
+        $this->call('GET', 'todo.images');
 
+    }*/
 
     /** @test */
+    /*public function saveTest(){
 
-    public function imageTest(){
-        $this->call('GET', '/');
+        Storage::fake('avatars');
+
+        $response = $this->json('POST', '/avatar', [
+            'avatar' => UploadedFile::fake()->image('avatar.jpg')
+        ]);
+
+        $path          = storage_path('app/public/matrix.png');
+        $original_name = 'matrix.png';
+        $mime_type     = 'image/png';
+        $size          = 2476;
+        $error         = null;
+        $test          = true;
+
+        $file = new UploadedFile($path, $original_name, $mime_type, $size, $error, $test);
+
+        $this->call('POST', 'avatars/{id}', [], [], ['upload' => $file], []);
+
+        $this->assertResponseOk();
+
+
+    }*/
+
+    /** @test */
+   /* public function imageTest(){
+        $this->visit('/images');
+
+    }*/
+
+   /** @test */
+
+   public function saveTest(){
+       Storage::fake('avatars');
+
+       $response = $this->json('POST', '/avatars', [
+           'avatar' => UploadedFile::fake()->image('avatar.jpg')
+       ]);
+
+       Storage::disk('avatars')->assertExists('avatar.jpg');
+
+       Storage::disk('avatars')->assertMissing('missing.jpg');
+
+       /*$this->call('POST',
+           '/upload',
+           [
+               'id' => 1
+           ],
+           [],
+           $_FILES,
+           []
+       );
+
+       $this->seeJson([
+           'id' => 1,
+           //other vars
+       ]);*/
+   }
 
 
 
-    }
+
+
+
+
+
 }

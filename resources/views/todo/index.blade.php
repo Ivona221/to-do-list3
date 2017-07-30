@@ -59,7 +59,7 @@
     @include('errors.list')
     @foreach($date as $d)
 
-        @include('partials.box', array('date'=>$d,'todos'=>$todos[$d]))
+        @include('partials.box', array('date'=>$d,'todos'=>$todos[$d], 'now'=>$now,'usrId'=>$usrId,'nowTime'=>$nowTime))
 
     @endforeach
 

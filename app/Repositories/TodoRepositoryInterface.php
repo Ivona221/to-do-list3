@@ -40,5 +40,7 @@ interface TodoRepositoryInterface
     public function notcompleteFreeTime();
 
     public function date();
+
+    public function time();
 }
 

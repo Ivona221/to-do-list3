@@ -14,6 +14,7 @@
             {{ Form::open(array("url"=>"/check"))}}
             {{ Form::hidden('id', $todo->id) }}
             <input type="hidden" name="agree" value="1" >
+            <input type="hidden" name="name" value="{{$todo->task}}">
             <td>{{  Form::checkbox('agree',1,$todo->checked ,['id' => 'ck','onChange'=>"this.form.submit()"]) }}</td>
 
             {{ Form::close()}}
@@ -35,7 +36,7 @@
 
                     <br>
 
-                    <button class="btn btn-success" type="submit">Save image</button>
+                    <button id="save" class="btn btn-success" type="submit">Save image</button>
 
                 </form></td>
 
@@ -49,6 +50,11 @@
 
                     <button class="btn btn-danger">Delete Task  <span class="glyphicon glyphicon-trash"></span></button>
                 </form></td>
+
+            <td>
+
+                    <a href="/edit/{{$todo->id}}"><button class="btn btn-info">Edit Task  <span class="glyphicon glyphicon-edit"></span></button></a>
+                </td>
 
 
 
