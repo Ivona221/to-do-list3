@@ -177,7 +177,7 @@ class TodoControllerTest extends TestCase
         $complete=3;
         $date=\Carbon\Carbon::now()->format('Y-m-d');
         $request = Mockery::mock(TodoRequest::class);
-        $request->shouldReceive('key')->with('date')->andReturn($date);
+        $request->shouldReceive('get')->with('date')->andReturn($date);
         $this->todoRepo->shouldReceive('byDate')->with(NULL)->andReturn(Todo::where('date',$date));
         $this->todoRepo->shouldReceive('complete')->andReturn($complete);
         $this->todoRepo->shouldReceive('incomplete')->andReturn($complete);
@@ -202,7 +202,7 @@ class TodoControllerTest extends TestCase
         $type="home";
         $date=\Carbon\Carbon::now()->format('Y-m-d');
         $request = Mockery::mock(TodoRequest::class);
-        $request->shouldReceive('type')->andReturn($type);
+        $request->shouldReceive('get')->with('type')->andReturn($type);
         $this->todoRepo->shouldReceive('byType')->with(NULL)->andReturn(Todo::where('type',$type));
         $this->todoRepo->shouldReceive('complete')->andReturn($complete);
         $this->todoRepo->shouldReceive('incomplete')->andReturn($complete);
@@ -223,7 +223,7 @@ class TodoControllerTest extends TestCase
         $type='home';
         $date=\Carbon\Carbon::now()->format('Y-m-d');
         $request = Mockery::mock(TodoRequest::class);
-        $request->shouldReceive('type')->andReturn($type);
+        $request->shouldReceive('get')->with('type')->andReturn($type);
         $this->todoRepo->shouldReceive('byType')->andReturn(Todo::where('type',$type));
         $this->todoRepo->shouldReceive('complete')->andReturn($complete);
         $this->todoRepo->shouldReceive('incomplete')->andReturn($complete);
@@ -260,12 +260,22 @@ public function byDate(){
 }
 
     /** @test */
-    /*public function save(){
+    public function save(){
 
-        $test_file_path = base_path().'/public/images/photo.jpg';
-        $this->assertTrue(file_exists($test_file_path), 'Test file does not exist');
+        /*$test_file_path = base_path().'/public/images/photo.jpg';
+        $this->assertTrue(file_exists($test_file_path), 'Test file does not exist');*/
 
-    }*/
+        $name="testImage.jpg";
+        $path=base_path(). '/public/images';
+        $request = Mockery::mock(TodoRequest::class);
+        $request->shouldReceive('file')->with('avatar');
+        $request->shouldReceive('move')->with($name, $path)->andReturn(true);
+        DB::shouldReceive('update')->with($name)->andReturn(true);
+
+
+
+
+    }
 
     /** @test */
 
@@ -394,12 +404,32 @@ public function byDate(){
        $this->todoRepo->shouldReceive('update')->with($td)->andReturn(true);
        $request->shouldReceive('all')->andReturn($td);
 
-       Redirect::shouldReceive('route')->with('edit')->andReturnSelf();
+       Redirect::shouldReceive('route')->with('edit', $id)->andReturnSelf();
        $this->class->edit($request);
 
 
 
    }
+
+   /** @test */
+   /*public function update2(){
+       $id=1;
+       $this->todoRepo->shouldReceive('find')->with($id)->andReturn(Todo::where('id',$id));
+       $todo=Mockery::mock(Todo::class);
+
+       $todo->shouldReceive('save')->andReturn(true);
+
+
+       Redirect::shouldReceive('route')->with('home')->andReturnSelf();
+
+       $this->class->update2($id);
+   }*/
+
+
+
+
+
+
 
 
 

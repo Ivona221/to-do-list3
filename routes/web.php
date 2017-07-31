@@ -101,7 +101,7 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::post('/avatars/{id}','TodoController@save');
 
-    Route::post('/edit','TodoController@edit')->name('edit');
+    Route::post('/edit','TodoController@edit');
 
 });
 

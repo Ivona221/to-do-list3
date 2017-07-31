@@ -277,26 +277,24 @@ class TodoController extends Controller
         $todo=$this->todos->find($id);
 
         if($todo->checked==false||$todo->checked==NULL)
-
-        $todo->checked=true;
-
+            $todo->setAttribute(true);
         else
-            $todo->checked=false;
+            $todo->setAttribute(false);
         $todo->save();
-        return back();
+        return Redirect::route('home');
 
     }
 
 
-    //testing
+    //tested
     public function edit(TodoRequest $request){
 
 
         $id=$request->get('todoId');
         $todo=$this->todos->findId($id);
         $todo->update($request->all());
-        //return Redirect::route('edit');
-        return Redirect::route('edit');
+        return Redirect::route('edit',$id);
+        //return back();
 
     }
 
