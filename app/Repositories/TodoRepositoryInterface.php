@@ -42,5 +42,9 @@ interface TodoRepositoryInterface
     public function date();
 
     public function time();
+
+    public function findId($id);
+
+    public function id();
 }
 

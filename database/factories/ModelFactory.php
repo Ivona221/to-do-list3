@@ -35,6 +35,6 @@ $factory->define(App\Todo::class, function (Faker\Generator $faker) {
         'end_time'=>$faker->time('H:i'),
         'type'=>$faker->word,
         'date'=>$faker->date(),
-        'user_id'=>$faker->numberBetween(1-5),
+
     ];
 });

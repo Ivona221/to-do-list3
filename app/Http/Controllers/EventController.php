@@ -114,7 +114,22 @@ class EventController extends Controller
         }
 
         $calendar = \Calendar::addEvents($events);
-        return view('mycalendar', compact('calendar'));
+
+        $complete=$this->events->complete();
+
+        $incomplete=$this->events->incomplete();
+
+        $notcomplete=$this->events->notcomplete();
+
+        $notcompleteWork=$this->events->notcompleteWork();
+
+        $notcompleteHome=$this->events->notcompleteHome();
+
+        $notcompleteSchool=$this->events->notcompleteSchool();
+
+        $notcompleteFreeTime=$this->events->notcompleteFreeTime();
+
+        return view('mycalendar', compact('calendar', 'complete','incomplete','notcomplete','notcompleteHome','notcompleteSchool','notcompleteFreeTime','notcompleteWork'));
 
     }
 

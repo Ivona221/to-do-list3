@@ -105,4 +105,13 @@ class TodoRepository implements TodoRepositoryInterface
         return \Carbon\Carbon::now()->format('H:i');
 
     }
+
+    public function findId($id){
+        return \App\Todo::findOrFail($id);
+
+    }
+
+    public function id(){
+        return Auth::user()->id;
+    }
 }

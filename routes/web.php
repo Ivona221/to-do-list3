@@ -15,6 +15,7 @@ use Illuminate\Http\File;
 //use Faker\Provider\File;
 
 use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\TodoController;
 
 
 
@@ -24,7 +25,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+
 
    /* $file=request()->file('avatar');
     $name = $file->getClientOriginalName();
@@ -35,12 +36,12 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::get('/stats','TodoController@stats');
 
-    Route::post('/check','TodoController@update');
+    Route::post('/check','TodoController@update')->name('date');
 
     Route::post('/search','TodoController@search');
 
 
-    Route::get('/search/{date}','TodoController@byDate');
+    Route::get('/search/{date}','TodoController@byDate')->name('date');;
 
     Route::get('/up/{id}','TodoController@update2');
 
@@ -71,7 +72,7 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::get('/todo','TodoController@index')->middleware('auth')->name('home');
 
-    Route::post('/todoAdd','TodoController@create')->name('home');
+    Route::post('/todoAdd','TodoController@create');
 
     Route::get('/todo/{date}','TodoController@show');
 
@@ -94,13 +95,13 @@ Route::group(['middleware' => 'auth'], function(){
 
 
 
-    Route::get('edit/{id}','TodoController@editTodo');
+    Route::get('edit/{id}','TodoController@editTodo')->name('edit');
 
     Route::get('/images','TodoController@image');
 
     Route::post('/avatars/{id}','TodoController@save');
 
-    Route::post('/edit','TodoController@edit');
+    Route::post('/edit','TodoController@edit')->name('edit');
 
 });
 
@@ -111,3 +112,7 @@ Route::resource('events', 'EventController');
 
 
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');

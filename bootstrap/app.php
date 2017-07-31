@@ -12,9 +12,20 @@
 */
 
 
+
 $app = new Illuminate\Foundation\Application(
     realpath(__DIR__.'/../')
 );
+
+/*$app = new Laravel\Lumen\Application(
+    realpath(__DIR__.'/../')
+);*/
+
+$app->instance('path.storage', app()->basePath() . DIRECTORY_SEPARATOR . 'storage');
+
+
+
+
 
 
 

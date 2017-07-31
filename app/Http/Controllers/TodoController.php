@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Http\Requests\TodoRequest;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -9,10 +10,10 @@ use App\Todo;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Mail;
 use App\Repositories\TodoRepository;
-use Illuminate\Support\Facades\Redirect;
 use Repositories\TodoRepositoryInterface;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\Redirect;
 
 
 
@@ -32,7 +33,8 @@ class TodoController extends Controller
         $this->todos = $todos;
     }
 
-    public function index(Todo $todos){
+    //tested
+    public function index(){
 
         $complete=$this->todos->complete();
 
@@ -63,9 +65,9 @@ class TodoController extends Controller
            $todos[$d]=$this->todos->byDate($d);
        }
 
-       $now=$this->todos->date();
+        $now=$this->todos->date();
         $nowTime=$this->todos->time();
-        $usrId=Auth::user()->id;
+        $usrId=$this->todos->id();
 
 
 
@@ -73,161 +75,23 @@ class TodoController extends Controller
 
     }
 
-    /*public function showGameGeneralInformationForm($game_id = null, $dlc_ind = false)
-    {
-        $user = $this->user->getLoggedUser();
-        $publisher = $this->user->getUserPublisherById($user->id);
-        $tags = $this->tag->getActiveTagsAsArray();
-        $platforms = $dlc_ind ? $this->game->getAllGamePlatforms($game_id)->pluck('name', 'platform_id')->toArray() : $this->platform->getAllPlatformsAsArray();
-        $countries = $this->country->getAllCountriesAsArray();
-        $platform_counter = 0;
-        $active = 'active';
-        $game_tags_ids = [];
-        $tab_counter = 1;
-        $sidebar_data = ['progress_steps' => [], 'show_game_countries_link_ind' => true];
-        $readonly = '';
-        $disabled = '';
-        try {
-            if($dlc_ind) {
-                throw new GameNotFoundException();
-            }
-            $game = $this->game->getGameById($game_id);
-            $game_platforms = $this->game->getAllGamePlatforms($game_id);
-            $game_platform_countries = $this->game->getGamePlatformCountries($game_platforms);
-            $game_tags_ids = $this->game->getGameTagsIds($game_id);
-            $tab_counter = $game_platforms->count();
-            $sidebar_data = $this->get_sidebar_data($game_id);
-            $readonly = ($this->game->isGameSubmitted($game_id)) ? 'readonly' : '';
-            $disabled = ($this->game->isGameSubmitted($game_id)) ? 'disabled' : '';
-        } catch (GameNotFoundException $e) {
-            $sidebar_data['remaining_questions_count'] = $this->question->getLatestVersionOfQuestionsByType()->count();
-            $sidebar_data['steps_remaining'] = GameProgress::PROGRESS_STEP_NUMBER;
-            $game = 'App\Models\Game';
-            $platform = array_slice($platforms, 0, 1, true);
-            $game_platforms[] = [
-                'name'                      => current($platform),
-                'platform_id'               => key($platform),
-                'one_week_notification_ind' => 0,
-                'release_date'              => Carbon::now()->addDay(),
-                'id'                        => 1,
-            ];
-            $game_platform_countries[1] = [
-                'game_platform_countries' => [],
-            ];
-        }
-        JavaScript::put([
-            'platforms'          => $platforms,
-            'tabCounter'         => $tab_counter,
-            'checkOriginalTitle' => URL::route('publisher.game.check.original.title'),
-        ]);
-        return View::make('publisher.game.general_information',
-            array_merge(
-                $sidebar_data,
-                compact(
-                    'publisher',
-                    'tags',
-                    'active',
-                    'platforms',
-                    'countries',
-                    'game',
-                    'game_id',
-                    'game_platforms',
-                    'game_tags_ids',
-                    'platform_counter',
-                    'game_platform_countries',
-                    'progress_steps',
-                    'remaining_questions_count',
-                    'steps_remaining',
-                    'readonly',
-                    'disabled',
-                    'dlc_ind'
-                )
-            )
-        );
-    }*/
-
-    /*public function setUp()
-    {
-        parent::setUp();
-        $this->gameQuestionModel = Mockery::mock(GameQuestion::class);
-        $this->userModel = Mockery::mock(User::class);
-        $this->userBLL = Mockery::mock(UserBLLInterface::class);
-        $this->tag_BLL = Mockery::mock(TagBLLInterface::class);
-        $this->gameBLL = Mockery::mock(GameBLLInterface::class);
-        $this->platform_BLL = Mockery::mock(PlatformBLLInterface::class);
-        $this->country_BLL = Mockery::mock(CountryBLLInterface::class);
-        $this->gameType_BLL = Mockery::mock(GameTypeBLLInterface::class);
-        $this->question = Mockery::mock(Question::class);
-        $this->questionBLL = Mockery::mock(QuestionBLLInterface::class);
-        $this->questionCategoryModel = Mockery::mock(QuestionsCategoryBLL::class);
-        $this->questionsCategoryBLL = Mockery::mock(QuestionsCategoryBLL::class);
-        $this->tag_model = Mockery::mock(Tag::class);
-        $this->platformModel = Mockery::mock(Platform::class);
-        $this->type_model = Mockery::mock(GameType::class);
-        $this->track_model = Mockery::mock(GameTrack::class);
-        $this->gameModel = Mockery::mock(Game::class);
-        $this->countries_model = Mockery::mock(Countries::class);
-        $this->platform_countries = Mockery::mock(GamePlatformCountry::class);
-        $this->class = new GameController(
-            $this->userBLL,
-            $this->tag_BLL,
-            $this->gameBLL,
-            $this->platform_BLL,
-            $this->country_BLL,
-            $this->gameType_BLL,
-            $this->questionBLL,
-            $this->questionsCategoryBLL
-        );
-    }
 
 
 
-    public function showGameGeneralInformationForm()
-    {
-        $user_id = 1;
-        $game_id = null;
-        $questionsCollection = new Collection([$this->question, $this->question]);
-        $user = Mockery::mock(User::class); $user = $this->user->getLoggedUser();
-        $publisher = Mockery::mock(Publisher::class);
-        $platforms = [Mockery::mock(Platform::class), Mockery::mock(Platform::class)];
-        $countries = [
-            Mockery::mock(Countries::class),
-            Mockery::mock(Countries::class),
-            Mockery::mock(Countries::class),
-        ];
-        $tags = [$this->tag_model, $this->tag_model];
-        $game_platform_countries[1] = ['game_platform_countries' => []];
-        $gameNotFoundException = Mockery::mock(GameNotFoundException::class);
-        $this->userBLL->shouldReceive('getLoggedUser')->once()->andReturn($user); $user = $this->user->getLoggedUser();
-        $user->shouldReceive('getAttribute')->with('id')->once()->andReturn($user_id);
-        $this->userBLL->shouldReceive('getUserPublisherById')->once()->with($user_id)->andReturn($publisher); $publisher = Mockery::mock(Publisher::class);
-        $this->tag_BLL->shouldReceive('getActiveTagsAsArray')->once()->andReturn($tags);
-        $this->platform_BLL->shouldReceive('getAllPlatformsAsArray')->once()->andReturn($platforms);
-        $this->country_BLL->shouldReceive('getAllCountriesAsArray')->once()->andReturn($countries);
-        $this->gameBLL->shouldReceive('getGameById')->once()->andThrow($gameNotFoundException);
-        $this->questionBLL->shouldReceive('getLatestVersionOfQuestionsByType')->once()->andReturn($questionsCollection);
-        JavaScriptFacade::shouldReceive('put');
-        URL::shouldReceive('route')->once()->with('publisher.game.check.original.title');
-        View::shouldReceive('make')->with('publisher.game.general_information', Mockery::any())->once();
-        $this->class->showGameGeneralInformationForm();
-    }*/
-
-
-
+    //tested
     public function create(TodoRequest $request)
     {
 
         //$todo=Auth::user()->todos()->create($request->all());
 
             $this->todos->create($request->all());
-            //return redirect()->route('home');
+            return Redirect::route('home');
 
-
-         return back();
 
     }
 
-    public function show(Todo $todos,$date){
+    //tested
+    public function show($date){
 
         $todos=$this->todos->byDate($date);
         $number=$this->todos->count($date);
@@ -246,7 +110,7 @@ class TodoController extends Controller
 
         $notcompleteFreeTime=$this->todos->notcompleteFreeTime();
 
-        return view('todo.specific', compact('todos','date','number', 'complete','incomplete','notcomplete','notcompleteHome','notcompleteSchool','notcompleteFreeTime','notcompleteWork'));
+        return View::make('todo.specific', compact('todos','date','number', 'complete','incomplete','notcomplete','notcompleteHome','notcompleteSchool','notcompleteFreeTime','notcompleteWork'));
     }
 
    /* public function show2(){
@@ -257,6 +121,9 @@ class TodoController extends Controller
         return view('todo.images');
     }*/
 
+
+
+    //tested
     public function stats(){
         $complete=$this->todos->complete();
 
@@ -273,9 +140,12 @@ class TodoController extends Controller
         $notcompleteFreeTime=$this->todos->notcompleteFreeTime();
 
         $order=$this->todos->order();
-        return view('todo.stats' , compact('order', 'complete','incomplete','notcomplete','notcompleteHome','notcompleteSchool','notcompleteFreeTime','notcompleteWork'));
+        return View::make('todo.stats' , compact('order', 'complete','incomplete','notcomplete','notcompleteHome','notcompleteSchool','notcompleteFreeTime','notcompleteWork'));
     }
 
+
+
+    //testing
     public function save($id){
         //$imageTempName = request()->file('avatar')->getPathname();
         $imageName = request()->file('avatar')->getClientOriginalName();
@@ -285,8 +155,13 @@ class TodoController extends Controller
             ->where('id', $id)
             ->update(['image' => $imageName]);
         return back();
+
+
+
+
     }
 
+    //testing
     public function update(){
         $id=request()->get('id');
         $value=request()->get('agree',0);
@@ -296,9 +171,11 @@ class TodoController extends Controller
         else
         $todo->checked=$value;
         $todo->save();
-        return back();
+        return Redirect::route('date');
     }
 
+
+    //tested
     public function search(){
         $date=request()->get('date');
         $todos=$this->todos->byDate($date);
@@ -317,9 +194,11 @@ class TodoController extends Controller
 
         $notcompleteFreeTime=$this->todos->notcompleteFreeTime();
 
-        return view('todo.search', compact('date','todos','complete','incomplete','notcomplete','notcompleteHome','notcompleteSchool','notcompleteFreeTime','notcompleteWork'));
+        return View::make('todo.search', compact('date','todos','complete','incomplete','notcomplete','notcompleteHome','notcompleteSchool','notcompleteFreeTime','notcompleteWork'));
     }
 
+
+    //tested
     public function search1(){
         $type=request()->get('type');
         if($type=='all')
@@ -341,10 +220,11 @@ class TodoController extends Controller
 
         $notcompleteFreeTime=$this->todos->notcompleteFreeTime();
 
-        return view('todo.search1', compact('type','todos','image','complete','incomplete','notcomplete','notcompleteHome','notcompleteSchool','notcompleteFreeTime','notcompleteWork'));
+        return View::make('todo.search1', compact('type','todos','image','complete','incomplete','notcomplete','notcompleteHome','notcompleteSchool','notcompleteFreeTime','notcompleteWork'));
 
     }
 
+    //tested
     public function show3($type){
         if($type =="all")
             $todos=$this->todos->user();
@@ -365,10 +245,11 @@ class TodoController extends Controller
 
         $notcompleteFreeTime=$this->todos->notcompleteFreeTime();
 
-        return view('todo.search1', compact('todos', 'type', 'complete','incomplete','notcomplete','notcompleteHome','notcompleteSchool','notcompleteFreeTime','notcompleteWork'));
+        return View::make('todo.search1', compact('todos', 'type', 'complete','incomplete','notcomplete','notcompleteHome','notcompleteSchool','notcompleteFreeTime','notcompleteWork'));
 
 }
 
+    //tested
     public function byDate($date){
 
         $todos=$this->todos->byDate($date);
@@ -387,9 +268,10 @@ class TodoController extends Controller
 
         $notcompleteFreeTime=$this->todos->notcompleteFreeTime();
 
-        return view('todo.search', compact('todos', 'date','complete','incomplete','notcomplete','notcompleteHome','notcompleteSchool','notcompleteFreeTime','notcompleteWork'));
+        return View::make('todo.search', compact('todos', 'date','complete','incomplete','notcomplete','notcompleteHome','notcompleteSchool','notcompleteFreeTime','notcompleteWork'));
     }
 
+    //testing
     public function update2($id){
 
         $todo=$this->todos->find($id);
@@ -405,16 +287,20 @@ class TodoController extends Controller
 
     }
 
+
+    //testing
     public function edit(TodoRequest $request){
 
 
-        $id=request()->get('todoId');
-        $todo=\App\Todo::findOrFail($id);
+        $id=$request->get('todoId');
+        $todo=$this->todos->findId($id);
         $todo->update($request->all());
-        return back();
+        //return Redirect::route('edit');
+        return Redirect::route('edit');
 
     }
 
+    //tested
     public function editTodo($id){
         $complete=$this->todos->complete();
 
@@ -429,12 +315,12 @@ class TodoController extends Controller
         $notcompleteSchool=$this->todos->notcompleteSchool();
 
         $notcompleteFreeTime=$this->todos->notcompleteFreeTime();
-        $todo=\App\Todo::findOrFail($id);
+        $todo=$this->todos->findId($id);
         $now=$this->todos->date();
         $nowTime=$this->todos->time();
-        $usrId=Auth::user()->id;
-        $date=\Carbon\Carbon::now()->format('Y-m-d');
-        return view('todo.edit', compact('todo','now','nowTime', 'date','usrId','complete','incomplete','notcomplete','notcompleteHome','notcompleteSchool','notcompleteFreeTime','notcompleteWork'));
+        $usrId=$this->todos->id();
+        $date=$this->todos->date();
+        return View::make('todo.edit', compact('todo','now','nowTime', 'date','usrId','complete','incomplete','notcomplete','notcompleteHome','notcompleteSchool','notcompleteFreeTime','notcompleteWork'));
 }
 
 
