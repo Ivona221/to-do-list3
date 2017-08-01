@@ -24,9 +24,7 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Http\UploadedFile;
 
 use Illuminate\Support\Facades\Storage;
-
-Use Carbon\Carbon;
-
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 
@@ -265,12 +263,40 @@ public function byDate(){
         /*$test_file_path = base_path().'/public/images/photo.jpg';
         $this->assertTrue(file_exists($test_file_path), 'Test file does not exist');*/
 
-        $name="testImage.jpg";
-        $path=base_path(). '/public/images';
+
+        /*$file= request()->file('avatar');
+        $imageName=$this->todos->getName($file);
+        $path = base_path() . '/public/images';
+        request()->file('avatar')->move($path , $imageName);
+        $this->todos->updateImage($id,$imageName);
+        //from more pages
+        //return back();*/
+        $imageName='clock.png';
+        $id=8;
+
+        $path = base_path(). '/public/images/clock.png';
+        $original_name = 'unnamed';
+        $mime_type = 'image/png';
+        $size = 2192;
+        $error = null;
+        $test = true;
+
+        $file = new UploadedFile($path, $original_name, $mime_type, $size, $error, $test);
+
         $request = Mockery::mock(TodoRequest::class);
-        $request->shouldReceive('file')->with('avatar');
-        $request->shouldReceive('move')->with($name, $path)->andReturn(true);
-        DB::shouldReceive('update')->with($name)->andReturn(true);
+        $this->todoRepo->shouldReceive('getName')->with(NULL)->andReturn($imageName);
+
+        $this->todoRepo->shouldReceive('moveFile')->with(NULL,"/home/imi/Downloads/to-do-list3-master/public/images","clock.png")->andReturn(true);
+
+        $this->todoRepo->shouldReceive('updateImage')->with($id,$imageName)->andReturn(true);
+
+        Redirect::shouldReceive('back')->andReturnSelf();
+
+
+
+        $this->class->save($id);
+
+
 
 
 
@@ -279,15 +305,26 @@ public function byDate(){
 
     /** @test */
 
-    /*public function update(){
-        $id=1;
+    public function update(){
+        $id=8;
+        $bool=false;
+        $td =(object) [
+            'task' => 'test',
+            'start_date' => \Carbon\Carbon::now()->format('Y-m-d'),
+            'start_time' => \Carbon\Carbon::now()->format('H:i'),
+            'end_date' => \Carbon\Carbon::now()->format('Y-m-d'),
+            'end_time' => \Carbon\Carbon::now()->format('H:i'),
+            'type' => 'work', 'date' => \Carbon\Carbon::now()->format('Y-m-d'),
+            'user_id' => 1,
+            'checked'=>false,
+        ];
         $request = Mockery::mock(TodoRequest::class);
-        $id1=$request->shouldReceive('get')->with('id')->andReturn($id);
-        $request->shouldReceive('get')->with('agree')->andReturn(true);
-        $this->todoRepo->shouldReceive('find')->with(NULL)->andReturn(Todo::where('id',$id1));
-        $todo=Mockery::mock(Todo::class);
+        $request->shouldReceive('get')->with('id')->andReturn($id);
 
-        $todo->shouldReceive('save');
+        $this->todoRepo->shouldReceive('find')->with(NULL)->andReturn($td);
+        //$this->todoRepo->shouldReceive('getAttribute')->with('checked')->andReturn($bool);
+        $this->todoRepo->shouldReceive('updateChecked')->once()->andReturn(false);
+
 
 
         Redirect::shouldReceive('route')->with('date')->andReturnSelf();
@@ -295,7 +332,34 @@ public function byDate(){
 
 
 
-    }*/
+    }
+
+    /** @test */
+    public function update2(){
+        $id=1;
+        $td = (object)[
+            'task' => 'test',
+            'start_date' => \Carbon\Carbon::now()->format('Y-m-d'),
+            'start_time' => \Carbon\Carbon::now()->format('H:i'),
+            'end_date' => \Carbon\Carbon::now()->format('Y-m-d'),
+            'end_time' => \Carbon\Carbon::now()->format('H:i'),
+            'type' => 'work', 'date' => \Carbon\Carbon::now()->format('Y-m-d'),
+            'user_id' => 1,
+            'checked' => 1,
+        ];
+        $bool = false;
+        $this->todoRepo->shouldReceive('find')->with($id)->andReturn($td);
+        $this->todoRepo->shouldReceive('getAttribute')->with('checked')->andReturn($bool);
+        $this->todoRepo->shouldReceive('setAttribute')->with('checked')->andReturn(false);
+
+        //$todo=Mockery::mock(Todo::class);
+
+        $this->todoRepo->shouldReceive('updateChecked')->once()->andReturn(true);
+
+        Redirect::shouldReceive('route')->with('home')->andReturnSelf();
+
+        $this->class->update2($id);
+    }
     /** @test */
     /*public function imageTest(){
         $this->call('GET', 'todo.images');
@@ -411,19 +475,7 @@ public function byDate(){
 
    }
 
-   /** @test */
-   /*public function update2(){
-       $id=1;
-       $this->todoRepo->shouldReceive('find')->with($id)->andReturn(Todo::where('id',$id));
-       $todo=Mockery::mock(Todo::class);
 
-       $todo->shouldReceive('save')->andReturn(true);
-
-
-       Redirect::shouldReceive('route')->with('home')->andReturnSelf();
-
-       $this->class->update2($id);
-   }*/
 
 
 

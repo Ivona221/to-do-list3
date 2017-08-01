@@ -107,13 +107,35 @@ class TodoRepository implements TodoRepositoryInterface
     }
 
     public function findId($id){
-        return \App\Todo::findOrFail($id);
+        return \App\Todo::findOrFail($id)->first();
 
     }
 
     public function id(){
         return Auth::user()->id;
     }
+
+    public function updateChecked($id,$bool1){
+        return DB::table('todos')->where('id', $id)->update(['checked' => $bool1]);
+    }
+
+    public function updateImage($id, $imageName){
+        return DB::table('todos')
+            ->where('id', $id)
+            ->update(['image' => $imageName]);
+    }
+
+    public function getName($file){
+        return $file->getClientOriginalName();
+    }
+
+    public function moveFile($file, $path, $imageName){
+        return $file->move($path , $imageName);
+    }
+
+
+
+
 
 
 

@@ -28,9 +28,11 @@ class TodoController extends Controller
      */
     protected $todos;
 
+
     public function __construct(TodoRepository $todos)
     {
         $this->todos = $todos;
+
     }
 
     //tested
@@ -148,13 +150,15 @@ class TodoController extends Controller
     //testing
     public function save($id){
         //$imageTempName = request()->file('avatar')->getPathname();
-        $imageName = request()->file('avatar')->getClientOriginalName();
+        $file= request()->file('avatar');
+        $imageName=$this->todos->getName($file);
         $path = base_path() . '/public/images';
-        request()->file('avatar')->move($path , $imageName);
-        DB::table('todos')
-            ->where('id', $id)
-            ->update(['image' => $imageName]);
-        return back();
+
+
+        $this->todos->moveFile($file, $path, $imageName);
+        $this->todos->updateImage($id,$imageName);
+        //from more pages
+        return Redirect::back();
 
 
 
@@ -164,14 +168,33 @@ class TodoController extends Controller
     //testing
     public function update(){
         $id=request()->get('id');
-        $value=request()->get('agree',0);
+
+
         $todo=$this->todos->find($id);
         if($todo->checked==true)
-            $todo->checked=false;
+            $bool=false;
         else
-        $todo->checked=$value;
-        $todo->save();
+        $bool=true;
+        $this->todos->updateChecked($id,$bool);
         return Redirect::route('date');
+    }
+
+    //testing
+    public function update2($id){
+
+        $todo = $this->todos->find($id);
+
+        if($todo->checked == false||$todo->checked == NULL)
+            $bool1 = true;
+        else
+            $bool1 = false;
+
+
+
+        $this->todos->updateChecked($id, $bool1);
+
+        return Redirect::route('home');
+
     }
 
 
@@ -271,19 +294,6 @@ class TodoController extends Controller
         return View::make('todo.search', compact('todos', 'date','complete','incomplete','notcomplete','notcompleteHome','notcompleteSchool','notcompleteFreeTime','notcompleteWork'));
     }
 
-    //testing
-    public function update2($id){
-
-        $todo=$this->todos->find($id);
-
-        if($todo->checked==false||$todo->checked==NULL)
-            $todo->setAttribute(true);
-        else
-            $todo->setAttribute(false);
-        $todo->save();
-        return Redirect::route('home');
-
-    }
 
 
     //tested
@@ -292,7 +302,7 @@ class TodoController extends Controller
 
         $id=$request->get('todoId');
         $todo=$this->todos->findId($id);
-        $todo->update($request->all());
+        $todo->update(request()->all());
         return Redirect::route('edit',$id);
         //return back();
 

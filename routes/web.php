@@ -16,6 +16,8 @@ use Illuminate\Http\File;
 
 use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\TodoController;
+use Laravel\Socialite\Facades\Socialite as Socialize;
+
 
 
 
@@ -116,3 +118,7 @@ Route::resource('events', 'EventController');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+Route::get('auth/{provider}', 'AuthController@redirectToProvider');
+Route::get('auth/{provider}/callback', 'AuthController@handleProviderCallback');
+

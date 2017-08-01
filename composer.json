@@ -6,9 +6,11 @@
     "type": "project",
     "require": {
         "php": ">=5.6.4",
+        "doctrine/dbal": "^2.5",
         "guzzlehttp/guzzle": "~6.2",
         "laravel/dusk": "^1.1",
         "laravel/framework": "5.4.*",
+        "laravel/socialite": "~2.0",
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.4",
         "maddhatter/laravel-fullcalendar": "^1.2"

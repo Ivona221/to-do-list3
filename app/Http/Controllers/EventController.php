@@ -75,7 +75,7 @@ class EventController extends Controller
 
 
 
-        return view('mycalendar', compact('calendar','complete','incomplete','notcomplete','notcompleteHome','notcompleteSchool','notcompleteFreeTime','notcompleteWork'));
+        return View::make('mycalendar', compact('calendar','complete','incomplete','notcomplete','notcompleteHome','notcompleteSchool','notcompleteFreeTime','notcompleteWork'));
     }
 
     public function show(){
