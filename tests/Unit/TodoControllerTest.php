@@ -115,7 +115,19 @@ class TodoControllerTest extends TestCase
         $date=\Carbon\Carbon::now()->format('Y-m-d');
         $number=Todo::where('date',$date)->count();
         $date=\Carbon\Carbon::now()->format('Y-m-d');
-        $this->todoRepo->shouldReceive('byDate')->with($date)->andReturn(Todo::where('date',$date));
+        $todos=[
+            'task' => 'test',
+            'start_date' => \Carbon\Carbon::now()->format('Y-m-d'),
+            'start_time' => \Carbon\Carbon::now()->format('H:i'),
+            'end_date' => \Carbon\Carbon::now()->format('Y-m-d'),
+            'end_time' => \Carbon\Carbon::now()->format('H:i'),
+            'type' => 'work',
+            'date'=>$date,
+            'user_id' => 1,
+
+
+        ];
+        $this->todoRepo->shouldReceive('byDate')->with($date)->andReturn($todos);
         $this->todoRepo->shouldReceive('complete')->andReturn($complete);
         $this->todoRepo->shouldReceive('incomplete')->andReturn($complete);
         $this->todoRepo->shouldReceive('notcomplete')->andReturn($complete);
@@ -175,8 +187,20 @@ class TodoControllerTest extends TestCase
         $complete=3;
         $date=\Carbon\Carbon::now()->format('Y-m-d');
         $request = Mockery::mock(TodoRequest::class);
+        $todos=[
+            'task' => 'test',
+            'start_date' => \Carbon\Carbon::now()->format('Y-m-d'),
+            'start_time' => \Carbon\Carbon::now()->format('H:i'),
+            'end_date' => \Carbon\Carbon::now()->format('Y-m-d'),
+            'end_time' => \Carbon\Carbon::now()->format('H:i'),
+            'type' => 'work',
+            'date'=>$date,
+            'user_id' => 1,
+
+
+        ];
         $request->shouldReceive('get')->with('date')->andReturn($date);
-        $this->todoRepo->shouldReceive('byDate')->with(NULL)->andReturn(Todo::where('date',$date));
+        $this->todoRepo->shouldReceive('byDate')->with(NULL)->andReturn($todos);
         $this->todoRepo->shouldReceive('complete')->andReturn($complete);
         $this->todoRepo->shouldReceive('incomplete')->andReturn($complete);
         $this->todoRepo->shouldReceive('notcomplete')->andReturn($complete);
@@ -199,9 +223,21 @@ class TodoControllerTest extends TestCase
         $complete=3;
         $type="home";
         $date=\Carbon\Carbon::now()->format('Y-m-d');
+        $todos=[
+            'task' => 'test',
+            'start_date' => \Carbon\Carbon::now()->format('Y-m-d'),
+            'start_time' => \Carbon\Carbon::now()->format('H:i'),
+            'end_date' => \Carbon\Carbon::now()->format('Y-m-d'),
+            'end_time' => \Carbon\Carbon::now()->format('H:i'),
+            'type' => 'work',
+            'date'=>$date,
+            'user_id' => 1,
+
+
+        ];
         $request = Mockery::mock(TodoRequest::class);
         $request->shouldReceive('get')->with('type')->andReturn($type);
-        $this->todoRepo->shouldReceive('byType')->with(NULL)->andReturn(Todo::where('type',$type));
+        $this->todoRepo->shouldReceive('byType')->with(NULL)->andReturn($todos);
         $this->todoRepo->shouldReceive('complete')->andReturn($complete);
         $this->todoRepo->shouldReceive('incomplete')->andReturn($complete);
         $this->todoRepo->shouldReceive('notcomplete')->andReturn($complete);
@@ -220,9 +256,21 @@ class TodoControllerTest extends TestCase
         $complete=3;
         $type='home';
         $date=\Carbon\Carbon::now()->format('Y-m-d');
+        $todos=[
+            'task' => 'test',
+            'start_date' => \Carbon\Carbon::now()->format('Y-m-d'),
+            'start_time' => \Carbon\Carbon::now()->format('H:i'),
+            'end_date' => \Carbon\Carbon::now()->format('Y-m-d'),
+            'end_time' => \Carbon\Carbon::now()->format('H:i'),
+            'type' => 'work',
+            'date'=>$date,
+            'user_id' => 1,
+
+
+        ];
         $request = Mockery::mock(TodoRequest::class);
         $request->shouldReceive('get')->with('type')->andReturn($type);
-        $this->todoRepo->shouldReceive('byType')->andReturn(Todo::where('type',$type));
+        $this->todoRepo->shouldReceive('byType')->andReturn($todos);
         $this->todoRepo->shouldReceive('complete')->andReturn($complete);
         $this->todoRepo->shouldReceive('incomplete')->andReturn($complete);
         $this->todoRepo->shouldReceive('notcomplete')->andReturn($complete);
@@ -242,7 +290,19 @@ public function byDate(){
 
     $complete=3;
     $date=\Carbon\Carbon::now()->format('Y-m-d');
-    $this->todoRepo->shouldReceive('byDate')->andReturn(Todo::where('date',$date));
+    $todos=[
+        'task' => 'test',
+        'start_date' => \Carbon\Carbon::now()->format('Y-m-d'),
+        'start_time' => \Carbon\Carbon::now()->format('H:i'),
+        'end_date' => \Carbon\Carbon::now()->format('Y-m-d'),
+        'end_time' => \Carbon\Carbon::now()->format('H:i'),
+        'type' => 'work',
+        'date'=>$date,
+        'user_id' => 1,
+
+
+    ];
+    $this->todoRepo->shouldReceive('byDate')->andReturn($todos);
     $this->todoRepo->shouldReceive('complete')->andReturn($complete);
     $this->todoRepo->shouldReceive('incomplete')->andReturn($complete);
     $this->todoRepo->shouldReceive('notcomplete')->andReturn($complete);
@@ -260,17 +320,6 @@ public function byDate(){
     /** @test */
     public function save(){
 
-        /*$test_file_path = base_path().'/public/images/photo.jpg';
-        $this->assertTrue(file_exists($test_file_path), 'Test file does not exist');*/
-
-
-        /*$file= request()->file('avatar');
-        $imageName=$this->todos->getName($file);
-        $path = base_path() . '/public/images';
-        request()->file('avatar')->move($path , $imageName);
-        $this->todos->updateImage($id,$imageName);
-        //from more pages
-        //return back();*/
         $imageName='clock.png';
         $id=8;
 

@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Auth;
 use App\User;
+use Laravel\Socialite\Facades\Socialite;
 
 use Illuminate\Http\Request;
 
@@ -29,7 +29,10 @@ class AuthController extends Controller
      */
     public function handleProviderCallback($provider)
     {
+        if($provider=='facebook')
         $user = Socialite::driver($provider)->stateless()->user();
+        else
+            $user = Socialite::driver($provider)->user();
 
         $authUser = $this->findOrCreateUser($user, $provider);
         Auth::login($authUser, true);
