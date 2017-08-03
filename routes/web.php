@@ -53,9 +53,21 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::get('/event','EventController@show');
 
+    Route::get('/eventCreate','OcasionController@eventCreate')->name('ocasion');
+
     Route::post('/eventAdd','EventController@store');
 
     Route::get('/send','TodoController@sendEmail');
+
+    Route::post('/eventNew','OcasionController@eventNew');
+
+    Route::get('/allOccasions','OcasionController@show')->name('allOccasions');
+
+    Route::delete('/occasion/{id}', function ($id) {
+        \App\Ocasion::findOrFail($id)->delete();
+        return back();
+
+    });
 
     /*Route::get('/sendTest', function(){
         $user = \App\User::findOrFail(8);
@@ -99,11 +111,15 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::get('edit/{id}','TodoController@editTodo')->name('edit');
 
+    Route::get('edit/occasion/{id}','OcasionController@editOccasion')->name('editOccasion');
+
     Route::get('/images','TodoController@image');
 
     Route::post('/avatars/{id}','TodoController@save');
 
     Route::post('/edit','TodoController@edit');
+
+    Route::post('/editOcc','OcasionController@editOcc');
 
 });
 

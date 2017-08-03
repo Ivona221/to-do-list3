@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Ocasion;
 use App\Repositories\EventRepository;
 use Illuminate\Http\Request;
 
@@ -10,6 +11,10 @@ use MaddHatter\LaravelFullcalendar\Calendar;
 use App\Event;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\EventRequest;
+
+use Illuminate\Support\Facades\View;
+use App\User;
+
 
 class EventController extends Controller
 {
@@ -139,4 +144,6 @@ class EventController extends Controller
         return $event;
 
     }
+
+
 }

@@ -19,7 +19,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        'App\Console\Commands\ToDo'
+        'App\Console\Commands\ToDo',
+        'App\Console\Commands\Event'
     ];
 
     /**
@@ -33,6 +34,7 @@ class Kernel extends ConsoleKernel
 
 
         $schedule->command('email:task')->everyMinute();
+        /*$schedule->command('email:event')->everyTenMinutes();*/
 
 
     }

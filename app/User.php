@@ -38,5 +38,11 @@ class User extends Authenticatable
     public function images(){
         return $this->hasMany('App\Image');
     }
+
+    public function ocasions(){
+        return $this->belongsToMany('App\Ocasion')->withTimestamps();
+    }
+
+
 }
 

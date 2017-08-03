@@ -11,7 +11,11 @@
 </head>
 <body >
 
-<p>Yout task is due in 5 minutes</p>
+<p>You were invited to a an event</p>
+<p>Event:{{$occasion}}</p>
+<p>Place:{{$place}}</p>
+<p>Date:{{$date}}</p>
+<p>Time{{$time}}</p>
 
 </body>
 </html>
