@@ -1,5 +1,6 @@
 @extends('app')
-
+@include('partials.sidebar', array('complete'=>$complete,'incomplete'=>$incomplete,'notcomplete'=>$notcomplete,'notcompleteWork'=>$notcompleteWork,
+'notcompleteHome'=>$notcompleteHome, 'notcompleteSchool'=>$notcompleteSchool, 'notcompleteFreeTime'=>$notcompleteFreeTime))
 @section('content')
 
 
@@ -72,7 +73,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
     <script>
         $('#users_list').select2({
-            placeholder:'Choose Participants'
+            placeholder:'Choose Participants',
+
 
 
         });

@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
 use App\Ocasion;
+use App\User;
 
 class Event extends Command
 {
@@ -40,7 +41,7 @@ class Event extends Command
     public function handle()
     {
 
-        $occasions =Ocasion::all();
+        /*$occasions =Ocasion::all();
         $i=0;
         foreach($occasions as $occasion) {
             $users[$i++] = $occasion->usersList();
@@ -50,16 +51,22 @@ class Event extends Command
                     Mail::send('emails.event', ['occasion' => $occasion->name,'place'=>$occasion->place,'time'=>$occasion->time,'date'=>$occasion->date], function ($m) use ($u) {
 
 
-                        $m->to('ivonamilanova@yahoo.com', $u)->subject('Invitation!');
+                        $m->to($u, $u)->subject('Invitation!');
                     });
                 }
             }
 
+        }*/
+
+        $occasions = Ocasion::all();
+        foreach ($occasions as $occasion) {
+
+            $users = $occasion->usersEmail();
+            foreach ($users as $user) {
+                Mail::send('emails.event', ['occasion' => $occasion->name, 'place' => $occasion->place, 'time' => $occasion->time, 'date' => $occasion->date], function ($m) use ($user) {
+                    $m->to($user, $user)->subject('Invitation!');
+                });
+            }
         }
-
-
-
-
-
     }
 }

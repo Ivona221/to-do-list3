@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\View;
 use App\Http\Requests\OcasionRequest;
 use Illuminate\Support\Facades\Redirect;
 use App\Ocasion;
+use Illuminate\Support\Facades\Mail;
 
 class OcasionController extends Controller
 {
@@ -31,7 +32,23 @@ class OcasionController extends Controller
         foreach($userArray as $ua){
             $nameArray[$ua->name]=$ua->name;
         }
-        return View::make('events.createEvent', compact('organizer_id','users'));
+
+        $complete=$this->ocasions->complete();
+
+        $incomplete=$this->ocasions->incomplete();
+
+        $notcomplete=$this->ocasions->notcomplete();
+
+        $notcompleteWork=$this->ocasions->notcompleteWork();
+
+        $notcompleteHome=$this->ocasions->notcompleteHome();
+
+        $notcompleteSchool=$this->ocasions->notcompleteSchool();
+
+        $notcompleteFreeTime=$this->ocasions->notcompleteFreeTime();
+
+
+        return View::make('events.createEvent', compact('organizer_id','users','complete','incomplete','notcomplete','notcompleteHome','notcompleteSchool','notcompleteFreeTime','notcompleteWork'));
 
 
     }
@@ -42,6 +59,17 @@ class OcasionController extends Controller
         $ocasion=$this->ocasions->create($request->all());
         $participants=$request->get('users');
         $ocasion->users()->attach($participants);
+
+
+
+
+            $users = $ocasion->usersEmail();
+            foreach ($users as $user) {
+                Mail::send('emails.event', ['occasion' => $ocasion->name, 'place' => $ocasion->place, 'time' => $ocasion->time, 'date' => $ocasion->date], function ($m) use ($user) {
+                    $m->to($user, $user)->subject('Invitation!');
+                });
+            }
+
         return Redirect::route('ocasion');
 
     }
@@ -113,6 +141,13 @@ class OcasionController extends Controller
 
         //laravel takes care of deleting and adding
         $this->syncUsers($occasion, $request->input('users'));
+
+        $users = $occasion->usersEmail();
+        foreach ($users as $user) {
+            Mail::send('emails.event', ['occasion' => $occasion->name, 'place' => $occasion->place, 'time' => $occasion->time, 'date' => $occasion->date], function ($m) use ($user) {
+                $m->to($user, $user)->subject('Invitation!');
+            });
+        }
         return Redirect::back();
 
 

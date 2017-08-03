@@ -11,11 +11,12 @@
 </head>
 <body >
 
-<p>You were invited to a an event</p>
-<p>Event:{{$occasion}}</p>
-<p>Place:{{$place}}</p>
-<p>Date:{{$date}}</p>
-<p>Time{{$time}}</p>
-
+<h1>You were invited to an event</h1>
+<div style="border:1px dashed olivedrab; width:50%;">
+<p>Event: {{$occasion}}</p>
+<p>Place: {{$place}}</p>
+<p>Date: {{$date}}</p>
+<p>Time: {{$time}}</p>
+</div>
 </body>
 </html>
