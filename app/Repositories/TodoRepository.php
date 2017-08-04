@@ -50,20 +50,16 @@ class TodoRepository implements TodoRepositoryInterface
     }
 
     public function byType($type){
+
         return $this->todo->where(['type'=> $type,'user_id'=>Auth::user()->id])->get();
     }
 
-    public function create($data)
-    {
+    public function create($data){
         return $this->todo->create($data);
     }
 
-
-
     public function update($id, $imageName){
-
         $this->todo->where('id',$id)->update(['image' => $imageName]);
-
     }
 
     public function complete(){

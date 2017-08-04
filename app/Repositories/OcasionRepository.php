@@ -32,6 +32,28 @@ class OcasionRepository implements OcasionRepositoryInterface
         return $this->ocasion->create($data);
     }
 
+    public function userId(){
+        return Auth::user()->id;
+    }
+
+    public function allUsers(){
+        return User::all();
+    }
+
+    public function attachPart($participants, $ocasion){
+        return $ocasion->users()->attach($participants);
+
+
+    }
+
+    public function userMail($ocasion){
+        return $ocasion->usersEmal();
+    }
+
+    public function pluck(){
+        return User::pluck('name','id')->toArray();
+    }
+
     public function complete(){
         return \App\Todo::where(['checked'=>true,'user_id'=>Auth::user()->id])->get()->count();
     }

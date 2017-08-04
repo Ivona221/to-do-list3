@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\TodoRequest;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
+//use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Todo;
 use Illuminate\Support\Facades\Input;
@@ -14,6 +14,7 @@ use Repositories\TodoRepositoryInterface;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Request;
 
 
 
@@ -96,6 +97,7 @@ class TodoController extends Controller
     public function show($date){
 
         $todos=$this->todos->byDate($date);
+
         $number=$this->todos->count($date);
 
         $complete=$this->todos->complete();
@@ -148,26 +150,23 @@ class TodoController extends Controller
 
 
     //testing
-    public function save($id){
+    public function save(TodoRequest $request, $id){
         //$imageTempName = request()->file('avatar')->getPathname();
-        $file= request()->file('avatar');
+        $file= $request->file('avatar');
+
         $imageName=$this->todos->getName($file);
-        $path = base_path() . '/public/images';
+        $path = '/home/imi/Downloads/to-do-list3-master/public/images';
 
 
         $this->todos->moveFile($file, $path, $imageName);
         $this->todos->updateImage($id,$imageName);
         //from more pages
         return Redirect::back();
-
-
-
-
     }
 
-    //testing
-    public function update(){
-        $id=request()->get('id');
+    //testingF
+    public function update(TodoRequest $request){
+        $id=$request->get('id');
 
 
         $todo=$this->todos->find($id);
@@ -199,8 +198,8 @@ class TodoController extends Controller
 
 
     //tested
-    public function search(){
-        $date=request()->get('date');
+    public function search(TodoRequest $request){
+        $date=$request->get('date');
         $todos=$this->todos->byDate($date);
 
         $complete=$this->todos->complete();
@@ -222,8 +221,8 @@ class TodoController extends Controller
 
 
     //tested
-    public function search1(){
-        $type=request()->get('type');
+    public function search1(TodoRequest $request){
+        $type=$request->get('type');
         if($type=='all')
             $todos=$this->todos->user();
         else
@@ -302,7 +301,7 @@ class TodoController extends Controller
 
         $id=$request->get('todoId');
         $todo=$this->todos->findId($id);
-        $todo->update(request()->all());
+        $todo->update($request->all());
         return Redirect::route('edit',$id);
         //return back();
 

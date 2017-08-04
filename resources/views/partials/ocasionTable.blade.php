@@ -34,9 +34,9 @@
 
             <td>
                 @if($occasion->organizer_id==$user)
-                <a href="/edit/occasion/{{$occasion->id}}"><button class="btn btn-info">Edit Task  <span class="glyphicon glyphicon-edit"></span></button></a>
+                <a href="/edit/occasion/{{$occasion->id}}"><button class="btn btn-info">Edit Event  <span class="glyphicon glyphicon-edit"></span></button></a>
                 @else
-                    <a href="/edit/occasion/{{$occasion->id}}"><button class="btn btn-info" disabled>Edit Task  <span class="glyphicon glyphicon-edit"></span></button></a>
+                    <a href="/edit/occasion/{{$occasion->id}}"><button class="btn btn-info" disabled>Edit Event <span class="glyphicon glyphicon-edit"></span></button></a>
                     @endif
             </td>
 

@@ -58,12 +58,9 @@ class OcasionController extends Controller
 
         $ocasion=$this->ocasions->create($request->all());
         $participants=$request->get('users');
+        //$this->ocasions->attachPart($ocasion,$participants);
         $ocasion->users()->attach($participants);
-
-
-
-
-            $users = $ocasion->usersEmail();
+        $users = $ocasion->usersEmail();
             foreach ($users as $user) {
                 Mail::send('emails.event', ['occasion' => $ocasion->name, 'place' => $ocasion->place, 'time' => $ocasion->time, 'date' => $ocasion->date], function ($m) use ($user) {
                     $m->to($user, $user)->subject('Invitation!');

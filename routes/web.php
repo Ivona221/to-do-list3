@@ -138,3 +138,4 @@ Route::get('/home', 'HomeController@index');
 Route::get('auth/{provider}', 'AuthController@redirectToProvider');
 Route::get('auth/{provider}/callback', 'AuthController@handleProviderCallback');
 
+

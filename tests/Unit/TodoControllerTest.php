@@ -26,6 +26,8 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Request;
+
 
 
 
@@ -57,7 +59,7 @@ class TodoControllerTest extends TestCase
             'user_id' => 1
         ];
 
-        $req=['task'=>'test'];
+        //$req=['task'=>'test'];
 
 
         $request = Mockery::mock(TodoRequest::class);
@@ -89,14 +91,14 @@ class TodoControllerTest extends TestCase
         $this->todoRepo->shouldReceive('byDate')->andReturn($td);
         $time=\Carbon\Carbon::now()->format('H:i');
         $this->todoRepo->shouldReceive('id')->andReturn(1);
-    $this->todoRepo->shouldReceive('incomplete')->andReturn($complete);
-    $this->todoRepo->shouldReceive('notcomplete')->andReturn($complete);
-    $this->todoRepo->shouldReceive('notcompleteWork')->andReturn($complete);
-    $this->todoRepo->shouldReceive('notcompleteHome')->andReturn($complete);
-    $this->todoRepo->shouldReceive('notcompleteFreeTime')->andReturn($complete);
-    $this->todoRepo->shouldReceive('notcompleteSchool')->andReturn($complete);
-    $this->todoRepo->shouldReceive('date')->andReturn($date1);
-    $this->todoRepo->shouldReceive('time')->andReturn($time);
+        $this->todoRepo->shouldReceive('incomplete')->andReturn($complete);
+        $this->todoRepo->shouldReceive('notcomplete')->andReturn($complete);
+        $this->todoRepo->shouldReceive('notcompleteWork')->andReturn($complete);
+        $this->todoRepo->shouldReceive('notcompleteHome')->andReturn($complete);
+        $this->todoRepo->shouldReceive('notcompleteFreeTime')->andReturn($complete);
+        $this->todoRepo->shouldReceive('notcompleteSchool')->andReturn($complete);
+        $this->todoRepo->shouldReceive('date')->andReturn($date1);
+        $this->todoRepo->shouldReceive('time')->andReturn($time);
 
     View::shouldReceive('make')->with('todo.index', Mockery::any());
     $this->class->index();
@@ -200,7 +202,7 @@ class TodoControllerTest extends TestCase
 
         ];
         $request->shouldReceive('get')->with('date')->andReturn($date);
-        $this->todoRepo->shouldReceive('byDate')->with(NULL)->andReturn($todos);
+        $this->todoRepo->shouldReceive('byDate')->with($date)->andReturn($todos);
         $this->todoRepo->shouldReceive('complete')->andReturn($complete);
         $this->todoRepo->shouldReceive('incomplete')->andReturn($complete);
         $this->todoRepo->shouldReceive('notcomplete')->andReturn($complete);
@@ -211,7 +213,7 @@ class TodoControllerTest extends TestCase
 
         View::shouldReceive('make')->with('todo.search', Mockery::any());
 
-        $this->class->search();
+        $this->class->search($request);
 
 
 
@@ -237,7 +239,7 @@ class TodoControllerTest extends TestCase
         ];
         $request = Mockery::mock(TodoRequest::class);
         $request->shouldReceive('get')->with('type')->andReturn($type);
-        $this->todoRepo->shouldReceive('byType')->with(NULL)->andReturn($todos);
+        $this->todoRepo->shouldReceive('byType')->with($type)->andReturn($todos);
         $this->todoRepo->shouldReceive('complete')->andReturn($complete);
         $this->todoRepo->shouldReceive('incomplete')->andReturn($complete);
         $this->todoRepo->shouldReceive('notcomplete')->andReturn($complete);
@@ -248,7 +250,7 @@ class TodoControllerTest extends TestCase
 
          View::shouldReceive('make')->with('todo.search1', Mockery::any());
 
-        $this->class->search1();
+        $this->class->search1($request);
     }
 
     /** @test */
@@ -320,33 +322,65 @@ public function byDate(){
     /** @test */
     public function save(){
 
-        $imageName='clock.png';
-        $id=8;
+        /*$imageName='alien.png';
+        $id=4;
 
-        $path = base_path(). '/public/images/clock.png';
-        $original_name = 'unnamed';
+
+        $original_name = 'alien.png';
         $mime_type = 'image/png';
         $size = 2192;
         $error = null;
         $test = true;
 
-        $file = new UploadedFile($path, $original_name, $mime_type, $size, $error, $test);
+        $todos=[
+            'task' => 'test',
+            'start_date' => \Carbon\Carbon::now()->format('Y-m-d'),
+            'start_time' => \Carbon\Carbon::now()->format('H:i'),
+            'end_date' => \Carbon\Carbon::now()->format('Y-m-d'),
+            'end_time' => \Carbon\Carbon::now()->format('H:i'),
+            'type' => 'work',
+            'date'=>\Carbon\Carbon::now()->format('Y-m-d'),
+            'user_id' => 1,
+            'avatar' => new UploadedFile($path,Mockery::any()),
 
+        ];
+
+        $file = new UploadedFile($path,Mockery::any());
         $request = Mockery::mock(TodoRequest::class);
-        $this->todoRepo->shouldReceive('getName')->with(NULL)->andReturn($imageName);
+        $fileMock= Mockery::mock(UploadedFile::class);
+        $request->shouldReceive('get')->once()->with('avatar')->andReturn($fileMock);*/
+        $path ='/home/imi/Downloads/to-do-list3-master/public/images/alien.png';
+        /*$todos=[
+            'task' => 'test',
+            'start_date' => \Carbon\Carbon::now()->format('Y-m-d'),
+            'start_time' => \Carbon\Carbon::now()->format('H:i'),
+            'end_date' => \Carbon\Carbon::now()->format('Y-m-d'),
+            'end_time' => \Carbon\Carbon::now()->format('H:i'),
+            'type' => 'work',
+            'date'=>\Carbon\Carbon::now()->format('Y-m-d'),
+            'user_id' => 1,
+            'avatar' => new UploadedFile($path,Mockery::any()),
 
-        $this->todoRepo->shouldReceive('moveFile')->with(NULL,"/home/imi/Downloads/to-do-list3-master/public/images","clock.png")->andReturn(true);
-
+        ];*/
+        $imageName='alien.png';
+        $id=4;
+        $original_name = 'alien.png';
+        $mime_type = 'image/png';
+        $size = 2192;
+        $error = null;
+        $test = true;
+        $file = new UploadedFile($path,Mockery::any());
+        $request = Mockery::mock(TodoRequest::class);
+        $request->shouldReceive('file')->with('avatar')->andReturn($file);
+        //Request::shouldReceive('file')->with('avatar')->andReturn($file);
+        $this->todoRepo->shouldReceive('getName')->with((object)$file)->andReturn($imageName);
+        $this->todoRepo->shouldReceive('moveFile')->with((object)$file,"/home/imi/Downloads/to-do-list3-master/public/images","alien.png")->andReturn(true);
         $this->todoRepo->shouldReceive('updateImage')->with($id,$imageName)->andReturn(true);
-
         Redirect::shouldReceive('back')->andReturnSelf();
 
 
 
-        $this->class->save($id);
-
-
-
+        $this->class->save($request,  $id);
 
 
 
@@ -370,14 +404,14 @@ public function byDate(){
         $request = Mockery::mock(TodoRequest::class);
         $request->shouldReceive('get')->with('id')->andReturn($id);
 
-        $this->todoRepo->shouldReceive('find')->with(NULL)->andReturn($td);
+        $this->todoRepo->shouldReceive('find')->with($id)->andReturn($td);
         //$this->todoRepo->shouldReceive('getAttribute')->with('checked')->andReturn($bool);
         $this->todoRepo->shouldReceive('updateChecked')->once()->andReturn(false);
 
 
 
         Redirect::shouldReceive('route')->with('date')->andReturnSelf();
-        $this->class->update();
+        $this->class->update($request);
 
 
 
