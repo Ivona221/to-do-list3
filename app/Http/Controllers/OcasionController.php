@@ -25,10 +25,10 @@ class OcasionController extends Controller
     public function eventCreate(){
 
 
-        $organizer_id=Auth::user()->id;
+        $organizer_id=$this->ocasions->userId();
         $userArray=User::all();
 
-        $users=User::pluck('name','id')->toArray();
+        $users=$this->ocasions->pluck();
         foreach($userArray as $ua){
             $nameArray[$ua->name]=$ua->name;
         }
@@ -57,8 +57,13 @@ class OcasionController extends Controller
 
 
         $ocasion=$this->ocasions->create($request->all());
+        //dd($ocasion);
+
         $participants=$request->get('users');
+
+        $bool=true;
         //$this->ocasions->attachPart($ocasion,$participants);
+        //dd($ocasion->users());
         $ocasion->users()->attach($participants);
         $users = $ocasion->usersEmail();
             foreach ($users as $user) {
@@ -88,7 +93,7 @@ class OcasionController extends Controller
         $notcompleteFreeTime=$this->ocasions->notcompleteFreeTime();
         $occasions=Ocasion::all();
 
-        $user=Auth::user()->id;
+        $user=$this->ocasions->userId();
 
         return View::make('events.ocasions', compact('user','occasions','complete','incomplete','notcomplete','notcompleteHome','notcompleteSchool','notcompleteFreeTime','notcompleteWork'));
     }
@@ -108,23 +113,20 @@ class OcasionController extends Controller
 
         $notcompleteFreeTime=$this->ocasions->notcompleteFreeTime();
 
-        $users=User::pluck('name','id')->toArray();
-
-        $occasion=Ocasion::where('id',$id)->first();
-
-        $organizer_id=Ocasion::where('id',$id)->first()->organizer_id;
-
-        $name=Ocasion::where('id',$id)->first()->name;
-
-        $place=Ocasion::where('id',$id)->first()->place;
-
-        $date=Ocasion::where('id',$id)->first()->date;
-
-        $time=Ocasion::where('id',$id)->first()->time;
+        $users=$this->ocasions->pluck();
 
 
+        $occasion=$this->ocasions->occasion($id);
 
+        $organizer_id=$this->ocasions->organizerId($id);
 
+        $name=$this->ocasions->name($id);
+
+        $place=$this->ocasions->place($id);
+
+        $date=$this->ocasions->date($id);
+
+        $time=$this->ocasions->time($id);
 
         return View::make('events.edit', compact('name','place','date','time','users','organizer_id','occasion','complete','incomplete','notcomplete','notcompleteHome','notcompleteSchool','notcompleteFreeTime','notcompleteWork','id'));
 
@@ -137,9 +139,10 @@ class OcasionController extends Controller
         $occasion->update($request->all());
 
         //laravel takes care of deleting and adding
-        $this->syncUsers($occasion, $request->input('users'));
+        $this->ocasions->syncUsers($occasion, $request->input('users'));
 
         $users = $occasion->usersEmail();
+
         foreach ($users as $user) {
             Mail::send('emails.event', ['occasion' => $occasion->name, 'place' => $occasion->place, 'time' => $occasion->time, 'date' => $occasion->date], function ($m) use ($user) {
                 $m->to($user, $user)->subject('Invitation!');
@@ -153,5 +156,6 @@ class OcasionController extends Controller
 
     private function syncUsers(Ocasion $occasion, array $users){
         $occasion->users()->sync($users);
+        dd( $occasion->users()->sync($users));
     }
 }

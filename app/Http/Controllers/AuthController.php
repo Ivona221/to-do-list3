@@ -30,7 +30,8 @@ class AuthController extends Controller
     public function handleProviderCallback($provider)
     {
 //        if($provider=='facebook')
-        $user = Socialite::driver($provider)->user();
+        //maybe stateless needs to be removed cURL dertificate reqiured
+        $user = Socialite::driver($provider)->stateless()->user();
 //        else
 //            $user = Socialite::driver($provider)->user();
 

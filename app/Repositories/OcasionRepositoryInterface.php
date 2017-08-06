@@ -28,4 +28,14 @@ interface OcasionRepositoryInterface
 
     public function notcompleteFreeTime();
 
+    public function name($id);
+
+    public function time($id);
+
+    public function date($id);
+
+    public function place($id);
+
+    public function organizerId($id);
+
 }

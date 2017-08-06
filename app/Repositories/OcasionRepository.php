@@ -83,12 +83,38 @@ class OcasionRepository implements OcasionRepositoryInterface
         return \App\Todo::where(['checked'=>false,'user_id'=>Auth::user()->id,'type'=>'free_time'])->orWhere(['checked'=>NULL,'user_id'=>Auth::user()->id, 'type'=>'free_time'])->count();
     }
 
+    public function name($id){
+        return Ocasion::where('id',$id)->first()->name;
+
+    }
+    public function time($id){
+        return  Ocasion::where('id',$id)->first()->time;
+
+    }
+
+    public function date($id){
+        return Ocasion::where('id',$id)->first()->date;
+
+    }
+
+    public function place($id){
+        return Ocasion::where('id',$id)->first()->place;
 
 
+    }
 
+    public function organizerId($id){
+        return Ocasion::where('id',$id)->first()->organizer_id;
+    }
 
+    public function occasion($id){
+        return Ocasion::where('id',$id)->first();
+    }
 
+    public function syncUsers($occasion, $users){
+        return $occasion->users()->sync($users);
 
+    }
 
 
 }
