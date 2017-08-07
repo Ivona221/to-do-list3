@@ -56,6 +56,9 @@
                         <li>
                             <a href="/allOccasions">All events</a>
                         </li>
+                        <li>
+                            <a href="/editProfile">Edit your profile</a>
+                        </li>
 
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Filters <span class="caret"></span></a>
@@ -93,7 +96,7 @@
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href=""><span class="glyphicon glyphicon-user"></span> {{Auth::user()->name}}</a></li>
+                <li><a href="/profile"><img @if(Auth::user()->avatar)src="{{asset('images/'.Auth::user()->avatar)}}" @else src="{{asset('images/user.jpg')}}" @endif width="25px" height="25px" style="border-radius: 50%"> {{Auth::user()->name}}</a></li>
                 <li><a href="/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
                 <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
             </ul>

@@ -103,7 +103,7 @@ class TodoRepository implements TodoRepositoryInterface
     }
 
     public function findId($id){
-        return \App\Todo::findOrFail($id)->first();
+        return Todo::findOrFail($id)->first();
 
     }
 

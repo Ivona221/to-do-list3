@@ -30,7 +30,7 @@ class TodoController extends Controller
     protected $todos;
 
 
-    public function __construct(TodoRepository $todos)
+    public function __construct(TodoRepositoryInterface $todos)
     {
         $this->todos = $todos;
 
@@ -329,6 +329,19 @@ class TodoController extends Controller
         $date=$this->todos->date();
         return View::make('todo.edit', compact('todo','now','nowTime', 'date','usrId','complete','incomplete','notcomplete','notcompleteHome','notcompleteSchool','notcompleteFreeTime','notcompleteWork'));
 }
+
+        public function namechange(Request $request){
+
+
+        $name=request()->get('changedName');
+
+        $user=Auth::user();
+        $user->name=$name;
+
+        $user->save();
+        return Redirect::back();
+
+        }
 
 
 

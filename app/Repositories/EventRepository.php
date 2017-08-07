@@ -37,7 +37,7 @@ class EventRepository implements EventRepositoryInterface
     }
 
     public function complete(){
-        return \App\Todo::where(['checked'=>true,'user_id'=>Auth::user()->id])->get()->count();
+        return Todo::where(['checked'=>true,'user_id'=>Auth::user()->id])->get()->count();
     }
 
     public function incomplete(){

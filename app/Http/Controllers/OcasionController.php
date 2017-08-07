@@ -11,11 +11,12 @@ use App\Http\Requests\OcasionRequest;
 use Illuminate\Support\Facades\Redirect;
 use App\Ocasion;
 use Illuminate\Support\Facades\Mail;
+use Repositories\OcasionRepositoryInterface;
 
 class OcasionController extends Controller
 {
 
-    public function __construct(OcasionRepository $ocasions)
+    public function __construct(OcasionRepositoryInterface $ocasions)
     {
 
         $this->ocasions = $ocasions;
@@ -57,13 +58,13 @@ class OcasionController extends Controller
 
 
         $ocasion=$this->ocasions->create($request->all());
-        //dd($ocasion);
+
 
         $participants=$request->get('users');
 
         $bool=true;
         //$this->ocasions->attachPart($ocasion,$participants);
-        //dd($ocasion->users());
+//        dd($ocasion->users());
         $ocasion->users()->attach($participants);
         $users = $ocasion->usersEmail();
             foreach ($users as $user) {

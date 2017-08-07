@@ -36,6 +36,13 @@ Auth::routes();
 
 Route::group(['middleware' => 'auth'], function(){
 
+    Route::post('/updateimg','TodoController@namechange');
+
+    Route::get('/editProfile','HomeController@editProfile');
+
+    Route::post('/changeTheName','HomeController@nameChange');
+
+
     Route::get('/stats','TodoController@stats');
 
     Route::post('/check','TodoController@update')->name('date');
@@ -120,6 +127,16 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/edit','TodoController@edit');
 
     Route::post('/editOcc','OcasionController@editOcc');
+
+    Route::get('/profile','HomeController@image');
+
+    Route::post('/image','HomeController@upload');
+
+
+
+
+
+
 
 });
 

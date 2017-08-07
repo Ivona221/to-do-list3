@@ -28,12 +28,12 @@
                 <input type="time" name="start_time" id="start_time" value="{{$nowTime}}">
                 <label>Pick end date and time</label>
                 <br>
-                <input type="date" name="end_date" id="end_date" value="{{$now}}">
-                <input type="time" name="end_time" id="end_time" value="{{$nowTime}}">
+                <input type="date" name="end_date" id="end_date" value="{{ $now }}">
+                <input type="time" name="end_time" id="end_time" value="{{ $nowTime }}">
                 <br>
                 <label>Choose the type of the task</label>
 
-                <input type="hidden" name="user_id" value="{{ $usrId}}" id="usrId">
+                <input type="hidden" name="user_id" value="{{ $usrId }}" id="usrId">
 
                 <select type="text"  id="select"  class="form-control" >
 

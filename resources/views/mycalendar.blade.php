@@ -63,6 +63,12 @@
                         <li>
                             <a href="/event">Add Events</a>
                         </li>
+                        <li>
+                            <a href="/eventCreate">Create an event</a>
+                        </li>
+                        <li>
+                            <a href="/allOccasions">All events</a>
+                        </li>
 
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Filters <span class="caret"></span></a>

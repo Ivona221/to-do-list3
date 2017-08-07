@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Http\Requests\OcasionRequest;
+use Repositories\OcasionRepositoryInterface;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -26,9 +27,10 @@ class OcasionControllerTest extends TestCase
      */
     public function setUp()
     {
-        $this->occasionRepo = Mockery::mock(OcasionRepository::class);
+        $this->occasionRepo = Mockery::mock(OcasionRepositoryInterface::class);
         $this->class = new OcasionController($this->occasionRepo);
         $this->todo=Mockery::mock(Ocasion::class);
+        $this->user=Mockery::mock(User::class);
 
     }
 
@@ -75,16 +77,17 @@ class OcasionControllerTest extends TestCase
         ];
         $users=factory(User::class,3)->create();
 
+        $user=factory(User::class)->create();
 
         $email=['ivonamilanova@yahoo.com', 'ross@friends.com'];
 
-        $this->occasionRepo->shouldReceive('create')->with($occasion)->andReturn(true);
+        $this->occasionRepo->shouldReceive('create')->with($occasion)->andReturn($user);
 
         $request = Mockery::mock(OcasionRequest::class);
         $request->shouldReceive('all')->andReturn($occasion);
         $request->shouldReceive('get')->with('users')->andReturn((object)$users);
 
-        $occasion->shouldReceive('users')->andReturn();
+        $this->occasionRepo->shouldReceive('users')->andReturn();
         /*$this->occasionRepo->shouldReceive('attachPart')->with((object)$users, true)->andReturn(true);
         $this->occasionRepo->shouldReceive('userMail')->with((object)$occasion)->andReturn($email);*/
         $array=['occasion' => 'someName', 'place' => 'somePlace', 'time' => \Carbon\Carbon::now()->format('Y-m-d'), 'date' => \Carbon\Carbon::now()->format('H:i')];
