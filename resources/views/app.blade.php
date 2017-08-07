@@ -56,9 +56,7 @@
                         <li>
                             <a href="/allOccasions">All events</a>
                         </li>
-                        <li>
-                            <a href="/editProfile">Edit your profile</a>
-                        </li>
+
 
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Filters <span class="caret"></span></a>
