@@ -8,7 +8,7 @@
 
 
 
-    <div class="container" >
+    <div class="container">
         <h2 style="text-transform:capitalize;">{{$type}} tasks</h2>
         @include('partials.table',array('todos'=>$todos))
     </div>

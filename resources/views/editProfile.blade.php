@@ -8,10 +8,10 @@
 @section('content')
     <h2>Edit profile {{$user->name}}</h2>
 
-    <form action="{{ url('updateimg')}}" method="POST" class="form-horizontal" >
-        {{ csrf_field() }}
+    <form action="{{ url('updateimg')}}" method="POST" class="form-horizontal">
+    {{ csrf_field() }}
 
-        <!-- Task Name -->
+    <!-- Task Name -->
         <div class="form-group">
             <div class="col-sm-6">
                 <label>Name</label>
@@ -44,7 +44,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <script>
-        $("#select").on('change',function() {
+        $("#select").on('change', function () {
             $('#hiddenSelect').val($('#select').val());
         });
     </script>

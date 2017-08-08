@@ -14,8 +14,8 @@
             width: 100%; /* Full width */
             height: 100%; /* Full height */
             overflow: auto; /* Enable scroll if needed */
-            background-color: rgb(0,0,0); /* Fallback color */
-            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            background-color: rgb(0, 0, 0); /* Fallback color */
+            background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
         }
 
         /* Modal Content */
@@ -42,20 +42,21 @@
             cursor: pointer;
         }
     </style>
-    @stop
+@stop
 @section('content')
     <div>
         <form action="/image" method="POST" enctype="multipart/form-data">
             {{csrf_field()}}
-    <img @if($user->avatar)src="images/{{$user->avatar}}" @else src="images/user.jpg" @endif width="200px" height="200px" style="border-radius: 50%; display:inline-block;">
-        <h2 >{{$user->name}} <a id="myBtn"><span class="glyphicon glyphicon-pencil"></span></a></h2>
-        <p>
+            <img @if($user->avatar)src="images/{{$user->avatar}}" @else src="images/user.jpg" @endif width="200px"
+                 height="200px" style="border-radius: 50%; display:inline-block;">
+            <h2>{{$user->name}} <a id="myBtn"><span class="glyphicon glyphicon-pencil"></span></a></h2>
+            <p>
 
-            <input  type="file" name="avatar" />
-            <input type="hidden" name="userId" value="{{$user->id}}">
-            <br>
-            <button class="btn btn-success" id="buttonUpdate" name="updateImage">Upload your profile image</button>
-        </p>
+                <input type="file" name="avatar"/>
+                <input type="hidden" name="userId" value="{{$user->id}}">
+                <br>
+                <button class="btn btn-success" id="buttonUpdate" name="updateImage">Upload your profile image</button>
+            </p>
         </form>
     </div>
 
@@ -68,8 +69,8 @@
             <span class="close">&times;</span>
             <form action="/updateimg" method="POST">
                 {{csrf_field()}}
-            <p>Enter your new username:</p>
-            <input name="changedName" value="{{$user->name}}">
+                <p>Enter your new username:</p>
+                <input name="changedName" value="{{$user->name}}">
                 <br>
                 <br>
                 <button class="btn btn-success" type="submit">Change your username</button>
@@ -88,17 +89,17 @@
         var span = document.getElementsByClassName("close")[0];
 
         // When the user clicks the button, open the modal
-        btn.onclick = function() {
+        btn.onclick = function () {
             modal.style.display = "block";
         }
 
         // When the user clicks on <span> (x), close the modal
-        span.onclick = function() {
+        span.onclick = function () {
             modal.style.display = "none";
         }
 
         // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
+        window.onclick = function (event) {
             if (event.target == modal) {
                 modal.style.display = "none";
             }

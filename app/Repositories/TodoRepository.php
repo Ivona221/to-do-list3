@@ -103,7 +103,7 @@ class TodoRepository implements TodoRepositoryInterface
     }
 
     public function findId($id){
-        return Todo::findOrFail($id)->first();
+        return Todo::where('id',$id)->first();
 
     }
 
@@ -127,6 +127,10 @@ class TodoRepository implements TodoRepositoryInterface
 
     public function moveFile($file, $path, $imageName){
         return $file->move($path , $imageName);
+    }
+
+    public function authUser(){
+        return Auth::user();
     }
 
 

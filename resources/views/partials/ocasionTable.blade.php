@@ -21,26 +21,33 @@
             <td>{{ $occasion->time }}</td>
 
 
-            <td><form action="/occasion/{{ $occasion->id }}" method="POST">
+            <td>
+                <form action="/occasion/{{ $occasion->id }}" method="POST">
                     {{ csrf_field() }}
                     {{ method_field('DELETE') }}
 
                     @if($occasion->organizer_id==$user)
-                    <button class="btn btn-danger" >Delete Event  <span class="glyphicon glyphicon-trash"></span></button>
-                        @else
-                        <button class="btn btn-danger" disabled>Delete Event  <span class="glyphicon glyphicon-trash"></span></button>
-                        @endif
-                </form></td>
+                        <button class="btn btn-danger">Delete Event <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                    @else
+                        <button class="btn btn-danger" disabled>Delete Event <span
+                                    class="glyphicon glyphicon-trash"></span></button>
+                    @endif
+                </form>
+            </td>
 
             <td>
                 @if($occasion->organizer_id==$user)
-                <a href="/edit/occasion/{{$occasion->id}}"><button class="btn btn-info">Edit Event  <span class="glyphicon glyphicon-edit"></span></button></a>
+                    <a href="/edit/occasion/{{$occasion->id}}">
+                        <button class="btn btn-info">Edit Event <span class="glyphicon glyphicon-edit"></span></button>
+                    </a>
                 @else
-                    <a href="/edit/occasion/{{$occasion->id}}"><button class="btn btn-info" disabled>Edit Event <span class="glyphicon glyphicon-edit"></span></button></a>
-                    @endif
+                    <a href="/edit/occasion/{{$occasion->id}}">
+                        <button class="btn btn-info" disabled>Edit Event <span class="glyphicon glyphicon-edit"></span>
+                        </button>
+                    </a>
+                @endif
             </td>
-
-
 
 
         </tr>

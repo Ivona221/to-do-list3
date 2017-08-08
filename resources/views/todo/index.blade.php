@@ -10,7 +10,7 @@
 
     <div class="container">
 
-        <div class="col-sm-offset-2 col-sm-9"style="margin-bottom:30px;">
+        <div class="col-sm-offset-2 col-sm-9" style="margin-bottom:30px;">
 
             <div class="container">
                 <div class="row">
@@ -18,9 +18,11 @@
 
                         <div id="custom-search-input">
                             <div class="input-group col-md-12">
-                                <input id="date" type="date" class="form-control input-lg" placeholder="Buscar" value="{{$now}}" />
+                                <input id="date" type="date" class="form-control input-lg" placeholder="Buscar"
+                                       value="{{$now}}"/>
                                 <span class="input-group-btn">
-                                <a id="byDate" href="{{action('TodoController@byDate', array('date'=>$now))}}"><button class="btn btn-info btn-lg" type="button">
+                                <a id="byDate" href="{{action('TodoController@byDate', array('date'=>$now))}}"><button
+                                            class="btn btn-info btn-lg" type="button">
                                 <i class="glyphicon glyphicon-search"></i>
                                 </button>
                                 </a>
@@ -32,9 +34,6 @@
             </div>
 
 
-
-
-
         </div>
     </div>
 
@@ -43,15 +42,12 @@
     <script>
 
 
+        $(document).ready(function () {
+            $('#date').on('change', function () {
 
-        $(document).ready(function(){
-            $('#date').on('change', function(){
-
-                $('#byDate').attr("href", "http://127.0.0.1:8000/search/"+$('#date').val());
+                $('#byDate').attr("href", "http://127.0.0.1:8000/search/" + $('#date').val());
             });
         });
-
-
 
 
     </script>

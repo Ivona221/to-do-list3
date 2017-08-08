@@ -33,7 +33,7 @@ $factory->define(App\Todo::class, function (Faker\Generator $faker) {
         'end_date' => $faker->date(),
         'start_time' => $faker->time('H:i'),
         'end_time'=>$faker->time('H:i'),
-        'type'=>$faker->word,
+        'type'=>$faker->randomElement(['home', 'work','free_time','school']),
         'date'=>$faker->date(),
 
     ];

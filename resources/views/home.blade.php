@@ -14,7 +14,10 @@
             venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium.
         </p>
 
-        <a href="/todo" style="text-decoration: none; color:white;"><button style="border:1px solid white; background-color:transparent; border-radius:2px;">Get started</button></a>
+        <a href="/todo" style="text-decoration: none; color:white;">
+            <button style="border:1px solid white; background-color:transparent; border-radius:2px;">Get started
+            </button>
+        </a>
     </div>
 
 @endsection

@@ -35,41 +35,36 @@ class HomeController extends Controller
         return view('home');
     }
 
-    public function image(){
-        $complete=$this->todos->complete();
+    public function image()
+    {
+        $complete = $this->todos->complete();
+        $incomplete = $this->todos->incomplete();
+        $notcomplete = $this->todos->notcomplete();
+        $notcompleteWork = $this->todos->notcompleteWork();
+        $notcompleteHome = $this->todos->notcompleteHome();
+        $notcompleteSchool = $this->todos->notcompleteSchool();
+        $notcompleteFreeTime = $this->todos->notcompleteFreeTime();
 
-        $incomplete=$this->todos->incomplete();
+        $user = Auth::user();
 
-        $notcomplete=$this->todos->notcomplete();
-
-        $notcompleteWork=$this->todos->notcompleteWork();
-
-        $notcompleteHome=$this->todos->notcompleteHome();
-
-        $notcompleteSchool=$this->todos->notcompleteSchool();
-
-        $notcompleteFreeTime=$this->todos->notcompleteFreeTime();
-
-        $user=Auth::user();
-        return View::make('profile', compact('complete','incomplete','notcomplete','notcompleteWork','notcompleteHome','notcompleteFreeTime','notcompleteSchool','user'));
+        return View::make('profile', compact('complete', 'incomplete', 'notcomplete', 'notcompleteWork', 'notcompleteHome', 'notcompleteFreeTime', 'notcompleteSchool', 'user'));
     }
 
-    public function upload(Request $request){
-        $userId=$request->get('userId');
+    public function upload(Request $request)
+    {
+        $userId = $request->get('userId');
 
-        $user=User::where('id',$userId)->first();
+        $user = User::where('id', $userId)->first();
 
-        $file= $request->file('avatar');
+        $file = $request->file('avatar');
 
+        $imageName = $this->todos->getName($file);
 
-        $imageName=$this->todos->getName($file);
         $path = '/home/imi/Downloads/to-do-list3-master/public/images';
 
+        $file->move($path, $imageName);
 
-
-        $file->move($path , $imageName);
-
-        $user->avatar=$imageName;
+        $user->avatar = $imageName;
 
         $user->save();
 
@@ -77,24 +72,18 @@ class HomeController extends Controller
     }
 
 
+    public function editProfile()
+    {
+        $complete = $this->todos->complete();
+        $incomplete = $this->todos->incomplete();
+        $notcomplete = $this->todos->notcomplete();
+        $notcompleteWork = $this->todos->notcompleteWork();
+        $notcompleteHome = $this->todos->notcompleteHome();
+        $notcompleteSchool = $this->todos->notcompleteSchool();
+        $notcompleteFreeTime = $this->todos->notcompleteFreeTime();
 
-    public function editProfile(){
-        $complete=$this->todos->complete();
+        $user = Auth::user()->first();
 
-        $incomplete=$this->todos->incomplete();
-
-        $notcomplete=$this->todos->notcomplete();
-
-        $notcompleteWork=$this->todos->notcompleteWork();
-
-        $notcompleteHome=$this->todos->notcompleteHome();
-
-        $notcompleteSchool=$this->todos->notcompleteSchool();
-
-        $notcompleteFreeTime=$this->todos->notcompleteFreeTime();
-
-        $user=Auth::user()->first();
-
-        return View::make('editProfile',compact('complete','incomplete','notcomplete','notcompleteWork','notcompleteHome','notcompleteFreeTime','notcompleteSchool','user'));
+        return View::make('editProfile', compact('complete', 'incomplete', 'notcomplete', 'notcompleteWork', 'notcompleteHome', 'notcompleteFreeTime', 'notcompleteSchool', 'user'));
     }
 }

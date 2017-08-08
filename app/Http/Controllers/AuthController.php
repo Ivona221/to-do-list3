@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Auth;
 use App\User;
 use Laravel\Socialite\Facades\Socialite;
@@ -29,14 +30,12 @@ class AuthController extends Controller
      */
     public function handleProviderCallback($provider)
     {
-//        if($provider=='facebook')
-        //maybe stateless needs to be removed cURL dertificate reqiured
         $user = Socialite::driver($provider)->stateless()->user();
-//        else
-//            $user = Socialite::driver($provider)->user();
 
         $authUser = $this->findOrCreateUser($user, $provider);
+
         Auth::login($authUser, true);
+
         return redirect('/todo');
     }
 
@@ -54,8 +53,8 @@ class AuthController extends Controller
             return $authUser;
         }
         return User::create([
-            'name'     => $user->name,
-            'email'    => $user->email,
+            'name' => $user->name,
+            'email' => $user->email,
             'provider' => $provider,
             'provider_id' => $user->id
         ]);

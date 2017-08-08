@@ -14,7 +14,6 @@
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
 
-
         <!-- Task Name -->
         <div class="form-group">
             <label for="task-name" class="col-sm-3 control-label">Task</label>
@@ -35,7 +34,7 @@
 
                 <input type="hidden" name="user_id" value="{{ $usrId }}" id="usrId">
 
-                <select type="text"  id="select"  class="form-control" >
+                <select type="text" id="select" class="form-control">
 
                     <option value="work">Work</option>
                     <option value="school">School</option>
@@ -52,7 +51,6 @@
         </div>
         <div class="form-group">
             <div class="col-sm-offset-3 col-sm-6">
-
 
 
             </div>
@@ -78,9 +76,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <script>
-        $("#select").on('change',function() {
+        $("#select").on('change', function () {
             $('#hiddenSelect').val($('#select').val());
         });
     </script>
 
-    @stop
+@stop

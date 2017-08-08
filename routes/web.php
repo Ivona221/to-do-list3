@@ -50,7 +50,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/search','TodoController@search');
 
 
-    Route::get('/search/{date}','TodoController@byDate')->name('date');;
+    Route::get('/search/{date}','TodoController@byDate');
 
     Route::get('/up/{id}','TodoController@update2');
 
@@ -133,7 +133,7 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('/image','HomeController@upload');
 
 
-
+    Route::post('/addmoney/stripe','OcasionController@validateStripe');
 
 
 
@@ -154,5 +154,35 @@ Route::get('/home', 'HomeController@index');
 
 Route::get('auth/{provider}', 'AuthController@redirectToProvider');
 Route::get('auth/{provider}/callback', 'AuthController@handleProviderCallback');
+
+Route::get('/_debugbar/assets/stylesheets', [
+    'as' => 'debugbar-css',
+    'uses' => '\Barryvdh\Debugbar\Controllers\AssetController@css'
+]);
+
+Route::get('/_debugbar/assets/javascript', [
+    'as' => 'debugbar-js',
+    'uses' => '\Barryvdh\Debugbar\Controllers\AssetController@js'
+]);
+
+Route::post ( '/stripe', function () {
+    \Stripe\Stripe::setApiKey ( 'test_SecretKey' );
+    try {
+        \Stripe\Charge::create ( array (
+            "amount" => 300 * 100,
+            "currency" => "usd",
+            "source" => request()->get ( 'stripeToken' ), // obtained with Stripe.js
+            "description" => "Test payment."
+        ) );
+        Session::flash ( 'success-message', 'Payment done successfully !' );
+        return Redirect::back ();
+    } catch ( \Exception $e ) {
+        Session::flash ( 'fail-message', "Error! Please Try again." );
+        return Redirect::back ();
+    }
+} );
+
+
+
 
 

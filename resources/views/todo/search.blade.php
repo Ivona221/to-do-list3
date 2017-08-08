@@ -3,25 +3,14 @@
 @include('partials.sidebar', array('complete'=>$complete,'incomplete'=>$incomplete,'notcomplete'=>$notcomplete,'notcompleteWork'=>$notcompleteWork,
 'notcompleteHome'=>$notcompleteHome, 'notcompleteSchool'=>$notcompleteSchool, 'notcompleteFreeTime'=>$notcompleteFreeTime))
 
-@section('title')
 
-
-
-    <p>Progress: Completed {{$complete}}/{{$incomplete}} tasks</p>
-    <div id="myProgress" style="width:100%; color:gray;">
-
-        <div id="myBar" style="width:calc(({{$complete}}/{{$incomplete}})*100%); background-color:#bababa;color:transparent; border-radius: 6px;">Hi</div>
-    </div>
-
-
-
-@stop
 
 @section('content')
 
 
 
-    <div class="container" >
+    <div class="container">
+        <p>This page has {{$views}} views</p>
         <h2>Tasks for {{$date}} </h2>
         @include('partials.table', array('todos',$todos))
     </div>
@@ -29,8 +18,8 @@
 
     <script>
 
-        $(document).ready(function(){
-            $('#ck').on('change', function(){
+        $(document).ready(function () {
+            $('#ck').on('change', function () {
                 $('#btn').submit();
             });
         });

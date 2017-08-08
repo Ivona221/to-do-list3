@@ -64,7 +64,7 @@ class OcasionControllerTest extends TestCase
     }
 
     /** @test */
-    public function eventNew(){
+   /* public function eventNew(){
         $date=\Carbon\Carbon::now()->format('Y-m-d');
         $time=\Carbon\Carbon::now()->format('H:i');
         $occasion=[
@@ -88,10 +88,9 @@ class OcasionControllerTest extends TestCase
         $request->shouldReceive('get')->with('users')->andReturn((object)$users);
 
         $this->occasionRepo->shouldReceive('users')->andReturn();
-        /*$this->occasionRepo->shouldReceive('attachPart')->with((object)$users, true)->andReturn(true);
-        $this->occasionRepo->shouldReceive('userMail')->with((object)$occasion)->andReturn($email);*/
+
         $array=['occasion' => 'someName', 'place' => 'somePlace', 'time' => \Carbon\Carbon::now()->format('Y-m-d'), 'date' => \Carbon\Carbon::now()->format('H:i')];
-        //Mail::shouldReceive('send')->with('emails.event', Mockery::any());
+
         $subject = "The subject";
         $user = factory(User::class) -> create();
 
@@ -113,7 +112,7 @@ class OcasionControllerTest extends TestCase
         Redirect::shouldReceive('route')->with('ocasion')->andReturnSelf();
 
         $this->class->eventNew($request);
-    }
+    }*/
 
     /** @test */
     public function show(){

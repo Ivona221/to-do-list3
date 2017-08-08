@@ -10,23 +10,7 @@ namespace Repositories;
 
 interface OcasionRepositoryInterface
 {
-    public function create($data);
 
-    public function complete();
-
-    public function incomplete();
-
-
-
-    public function notcomplete();
-
-    public function notcompleteWork();
-
-    public function notcompleteHome();
-
-    public function notcompleteSchool();
-
-    public function notcompleteFreeTime();
 
     public function name($id);
 
@@ -36,6 +20,26 @@ interface OcasionRepositoryInterface
 
     public function place($id);
 
+    public function complete();
+
+    public function incomplete();
+
+    public function create($data);
+
+    public function notcomplete();
+
     public function organizerId($id);
+
+    public function notcompleteWork();
+
+    public function notcompleteHome();
+
+    public function notcompleteSchool();
+
+    public function notcompleteFreeTime();
+
+
+
+
 
 }

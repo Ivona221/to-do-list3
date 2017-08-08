@@ -16,14 +16,14 @@
 
 
             <div class="col-sm-6">
-                <label for="occasion-name" >Event</label>
+                <label for="occasion-name">Event</label>
 
 
                 <input type="text" name="name" id="occasion-name" class="form-control" value="{{$name}}">
-                <label for="occasion-place" >Place</label>
+                <label for="occasion-place">Place</label>
 
                 <input type="text" name="place" id="occasion-place" class="form-control" value="{{$place}}">
-                <label for="occasion-date" >Date</label>
+                <label for="occasion-date">Date</label>
 
                 <input type="date" name="date" id="occasion-date" class="form-control" value="{{$date}}">
 
@@ -38,7 +38,6 @@
                 <input type="hidden" name="organizer_id" value="{{$organizer_id}}">
 
                 <input type="hidden" name="eventId" value="{{$id}}">
-
 
 
             </div>
@@ -66,7 +65,7 @@
 
     <script>
         $('#users_list').select2({
-            placeholder:'Choose Participants'
+            placeholder: 'Choose Participants'
 
 
         });

@@ -11,7 +11,7 @@ namespace Repositories;
 interface TodoRepositoryInterface
 {
 
-    public function byDate( $date);
+    public function byDate($date);
 
     public function count($date);
 
@@ -46,5 +46,7 @@ interface TodoRepositoryInterface
     public function findId($id);
 
     public function id();
+
+    public function authUser();
 }
 

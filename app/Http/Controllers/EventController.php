@@ -33,12 +33,13 @@ class EventController extends Controller
 
     }
 
-    public function index(){
+    public function index()
+    {
         $events = [];
 
         $data = $this->events->find();
 
-        if($data->count()){
+        if ($data->count()) {
 
             foreach ($data as $key => $value) {
 
@@ -50,8 +51,7 @@ class EventController extends Controller
 
                     new \DateTime($value->start_date),
 
-                    new \DateTime($value->end_date.' +1 day')
-
+                    new \DateTime($value->end_date . ' +1 day')
 
 
                 );
@@ -62,41 +62,34 @@ class EventController extends Controller
 
         $calendar = \Calendar::addEvents($events);
 
-        $complete=$this->events->complete();
-
-        $incomplete=$this->events->incomplete();
-
-        $notcomplete=$this->events->notcomplete();
-
-        $notcompleteWork=$this->events->notcompleteWork();
-
-        $notcompleteHome=$this->events->notcompleteHome();
-
-        $notcompleteSchool=$this->events->notcompleteSchool();
-
-        $notcompleteFreeTime=$this->events->notcompleteFreeTime();
+        $complete = $this->events->complete();
+        $incomplete = $this->events->incomplete();
+        $notcomplete = $this->events->notcomplete();
+        $notcompleteWork = $this->events->notcompleteWork();
+        $notcompleteHome = $this->events->notcompleteHome();
+        $notcompleteSchool = $this->events->notcompleteSchool();
+        $notcompleteFreeTime = $this->events->notcompleteFreeTime();
 
 
-
-
-
-        return View::make('mycalendar', compact('calendar','complete','incomplete','notcomplete','notcompleteHome','notcompleteSchool','notcompleteFreeTime','notcompleteWork'));
+        return View::make('mycalendar', compact('calendar', 'complete', 'incomplete', 'notcomplete', 'notcompleteHome', 'notcompleteSchool', 'notcompleteFreeTime', 'notcompleteWork'));
     }
 
-    public function show(){
+    public function show()
+    {
 
-        $now=$this->events->now();
+        $now = $this->events->now();
         return view('todo.events', compact('now'));
     }
 
-    public function store(EventRequest $request){
+    public function store(EventRequest $request)
+    {
 
         $this->create($request);
         $events = [];
 
         $data = $this->events->find();
 
-        if($data->count()){
+        if ($data->count()) {
 
             foreach ($data as $key => $value) {
 
@@ -108,8 +101,7 @@ class EventController extends Controller
 
                     new \DateTime($value->start_date),
 
-                    new \DateTime($value->end_date.' +1 day')
-
+                    new \DateTime($value->end_date . ' +1 day')
 
 
                 );
@@ -120,27 +112,23 @@ class EventController extends Controller
 
         $calendar = \Calendar::addEvents($events);
 
-        $complete=$this->events->complete();
+        $complete = $this->events->complete();
+        $incomplete = $this->events->incomplete();
+        $notcomplete = $this->events->notcomplete();
+        $notcompleteWork = $this->events->notcompleteWork();
+        $notcompleteHome = $this->events->notcompleteHome();
+        $notcompleteSchool = $this->events->notcompleteSchool();
+        $notcompleteFreeTime = $this->events->notcompleteFreeTime();
 
-        $incomplete=$this->events->incomplete();
-
-        $notcomplete=$this->events->notcomplete();
-
-        $notcompleteWork=$this->events->notcompleteWork();
-
-        $notcompleteHome=$this->events->notcompleteHome();
-
-        $notcompleteSchool=$this->events->notcompleteSchool();
-
-        $notcompleteFreeTime=$this->events->notcompleteFreeTime();
-
-        return view('mycalendar', compact('calendar', 'complete','incomplete','notcomplete','notcompleteHome','notcompleteSchool','notcompleteFreeTime','notcompleteWork'));
+        return view('mycalendar', compact('calendar', 'complete', 'incomplete', 'notcomplete', 'notcompleteHome', 'notcompleteSchool', 'notcompleteFreeTime', 'notcompleteWork'));
 
     }
 
-    public function create(EventRequest $request){
+    public function create(EventRequest $request)
+    {
 
-        $event=Auth::user()->events()->create($request->all());
+        $event = Auth::user()->events()->create($request->all());
+
         return $event;
 
     }

@@ -10,6 +10,8 @@ namespace Repositories;
 
 interface EventRepositoryInterface
 {
+    public function now();
+
     public function find();
 
     public function complete();
@@ -26,5 +28,4 @@ interface EventRepositoryInterface
 
     public function notcompleteFreeTime();
 
-    public function now();
 }

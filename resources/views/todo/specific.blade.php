@@ -7,7 +7,7 @@
 
 
 
-    <div class="container" >
+    <div class="container">
         <h2>Tasks for {{$date}} {{$number}}</h2>
         @include('partials.table',array('todos'=>$todos))
     </div>

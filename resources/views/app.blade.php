@@ -1,13 +1,12 @@
-
 <!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet"/>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="{{ Illuminate\Support\Facades\URL::asset('css/main.css') }}">
 
 
@@ -24,7 +23,6 @@
             <div class="navbar-header">
 
 
-
                 <!-- Sidebar -->
                 <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation">
                     <ul class="nav sidebar-nav">
@@ -34,7 +32,7 @@
                             </a>
                         </li>
                         <li>
-                            <a >@yield('title')</a>
+                            <a>@yield('title')</a>
                         </li>
                         <li>
                             <a href="/home">Home</a>
@@ -59,14 +57,25 @@
 
 
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Filters <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Filters <span
+                                        class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li class="dropdown-header">Filter By Type</li>
-                                <li><a href="{{action('TodoController@show3',array('type'=>"all"))}}"  class="search" id="all"> <span class="glyphicon glyphicon-list-alt"  ></span> All Tasks @yield('completedAll')</a></li>
-                                <li><a href="{{action('TodoController@show3',array('type'=>"home"))}}"  class="search" id="home"><span class="glyphicon glyphicon-home"  ></span> Home @yield('completedHome')</a></li>
-                                <li><a href="{{action('TodoController@show3',array('type'=>"school"))}}" class="search" id="school"><span class="glyphicon glyphicon-education" ></span> School @yield('completedSchool')</a></li>
-                                <li><a href="{{action('TodoController@show3',array('type'=>"work"))}}" class="search" id="work"><span class="glyphicon glyphicon-lock" ></span> Work @yield('completedWork')</a></li>
-                                <li><a href="{{action('TodoController@show3',array('type'=>"free_time"))}}"  class="search" id="free_time"><span class="glyphicon glyphicon-knight"  ></span> Free time @yield('completedFreeTime')</a></li>
+                                <li><a href="{{action('TodoController@show3',array('type'=>"all"))}}" class="search"
+                                       id="all"> <span class="glyphicon glyphicon-list-alt"></span> All
+                                        Tasks @yield('completedAll')</a></li>
+                                <li><a href="{{action('TodoController@show3',array('type'=>"home"))}}" class="search"
+                                       id="home"><span class="glyphicon glyphicon-home"></span>
+                                        Home @yield('completedHome')</a></li>
+                                <li><a href="{{action('TodoController@show3',array('type'=>"school"))}}" class="search"
+                                       id="school"><span class="glyphicon glyphicon-education"></span>
+                                        School @yield('completedSchool')</a></li>
+                                <li><a href="{{action('TodoController@show3',array('type'=>"work"))}}" class="search"
+                                       id="work"><span class="glyphicon glyphicon-lock"></span>
+                                        Work @yield('completedWork')</a></li>
+                                <li><a href="{{action('TodoController@show3',array('type'=>"free_time"))}}"
+                                       class="search" id="free_time"><span class="glyphicon glyphicon-knight"></span>
+                                        Free time @yield('completedFreeTime')</a></li>
                             </ul>
                         </li>
                         <li>
@@ -79,22 +88,23 @@
                 <!-- /#sidebar-wrapper -->
 
 
-                <a class="navbar-brand" href="#">&nbsp;&nbsp;&nbsp;<button   type="button" class="hamburger is-closed" data-toggle="offcanvas">
-                        <span  class="hamb-top"></span>
+                <a class="navbar-brand" href="#">&nbsp;&nbsp;&nbsp;<button type="button" class="hamburger is-closed"
+                                                                           data-toggle="offcanvas">
+                        <span class="hamb-top"></span>
                         <span class="hamb-middle"></span>
                         <span class="hamb-bottom"></span>
-                    </button></a>
+                    </button>
+                </a>
             </div>
             <ul class="nav navbar-nav">
-                <li ><a href="/home">Name of the website</a></li>
-
-
-
+                <li><a href="/home">Name of the website</a></li>
 
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/profile"><img @if(Auth::user()->avatar)src="{{asset('images/'.Auth::user()->avatar)}}" @else src="{{asset('images/user.jpg')}}" @endif width="25px" height="25px" style="border-radius: 50%"> {{Auth::user()->name}}</a></li>
+                <li><a href="/profile"><img @if(Auth::user()->avatar)src="{{asset('images/'.Auth::user()->avatar)}}"
+                                            @else src="{{asset('images/user.jpg')}}" @endif width="25px" height="25px"
+                                            style="border-radius: 50%"> {{Auth::user()->name}}</a></li>
                 <li><a href="/register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
                 <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
             </ul>
@@ -121,7 +131,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 
 
-<script >
+<script>
     $(document).ready(function () {
         var trigger = $('.hamburger'),
             overlay = $('.overlay'),
@@ -151,7 +161,6 @@
         });
     });
 </script>
-
 
 
 @yield('footer')

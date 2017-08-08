@@ -4,10 +4,10 @@
 
 
 
-    <div class="container" >
+    <div class="container">
         <div class="col-sm-offset-2 col-sm-8 ">
             <div class="panel panel-default bg-info">
-                <div class="panel-heading bg-warning" >
+                <div class="panel-heading bg-warning">
 
                     Add a new Event
 
@@ -33,11 +33,10 @@
                                 <br>
                                 <label>End date</label>
                                 <br>
-                                <input type="date" name="end_date" >
+                                <input type="date" name="end_date">
 
                             </div>
                         </div>
-
 
 
                         <!-- Add Task Button -->

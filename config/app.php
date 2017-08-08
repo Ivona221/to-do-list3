@@ -164,6 +164,10 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         MaddHatter\LaravelFullcalendar\ServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
+        Laravel\Cashier\CashierServiceProvider::class,
+        Cartalyst\Stripe\Laravel\StripeServiceProvider::class,
+
 
 
 
@@ -241,6 +245,9 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Calendar' => MaddHatter\LaravelFullcalendar\Facades\Calendar::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
+        'Cashier' => Laravel\Cashier\CashierServiceProvider::class,
+        'Stripe' => Cartalyst\Stripe\Laravel\Facades\Stripe::class,
 
     ],
 

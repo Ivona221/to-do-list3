@@ -11,10 +11,13 @@ namespace App\Repositories;
 use App\User;
 use App\Todo;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Repositories\EventRepositoryInterface;
 use App\Event;
 use Repositories\OcasionRepositoryInterface;
 use App\Ocasion;
+use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Cache;
 
 class OcasionRepository implements OcasionRepositoryInterface
 {
@@ -25,6 +28,7 @@ class OcasionRepository implements OcasionRepositoryInterface
     public function __construct(Ocasion $ocasion)
     {
         $this->ocasion = $ocasion;
+        $this->storage=Redis::Connection();
     }
 
     public function create($data)
@@ -32,87 +36,111 @@ class OcasionRepository implements OcasionRepositoryInterface
         return $this->ocasion->create($data);
     }
 
-    public function userId(){
+    public function userId()
+    {
         return Auth::user()->id;
     }
 
-    public function allUsers(){
+    public function allUsers()
+    {
         return User::all();
     }
 
-    public function attachPart($participants, $ocasion){
+    public function attachPart($participants, $ocasion)
+    {
         return $ocasion->users()->attach($participants);
-
-
     }
 
-    public function userMail($ocasion){
+    public function userMail($ocasion)
+    {
         return $ocasion->usersEmal();
     }
 
-    public function pluck(){
-        return User::pluck('name','id')->toArray();
+    public function pluck()
+    {
+        return User::pluck('name', 'id')->toArray();
     }
 
-    public function complete(){
-        return \App\Todo::where(['checked'=>true,'user_id'=>Auth::user()->id])->get()->count();
+    public function complete()
+    {
+        return \App\Todo::where(['checked' => true, 'user_id' => Auth::user()->id])->get()->count();
     }
 
-    public function incomplete(){
-        return \App\Todo::where(['user_id'=>Auth::user()->id])->get()->count();
-
-    }
-
-    public function notcomplete(){
-        return \App\Todo::where(['checked'=>false,'user_id'=>Auth::user()->id])->orWhere(['checked'=>NULL,'user_id'=>Auth::user()->id])->get()->count();
-    }
-
-    public function notcompleteWork(){
-        return \App\Todo::where(['checked'=>false,'user_id'=>Auth::user()->id,'type'=>"work"])->orWhere(['checked'=>NULL,'user_id'=>Auth::user()->id, 'type'=>"work"])->count();
-    }
-
-    public function notcompleteHome(){
-        return \App\Todo::where(['checked'=>false,'user_id'=>Auth::user()->id,'type'=>'home'])->orWhere(['checked'=>NULL,'user_id'=>Auth::user()->id, 'type'=>'home'])->count();
-    }
-
-    public function notcompleteSchool(){
-        return \App\Todo::where(['checked'=>false,'user_id'=>Auth::user()->id,'type'=>'school'])->orWhere(['checked'=>NULL,'user_id'=>Auth::user()->id, 'type'=>'school'])->count();
-    }
-
-    public function notcompleteFreeTime(){
-        return \App\Todo::where(['checked'=>false,'user_id'=>Auth::user()->id,'type'=>'free_time'])->orWhere(['checked'=>NULL,'user_id'=>Auth::user()->id, 'type'=>'free_time'])->count();
-    }
-
-    public function name($id){
-        return Ocasion::where('id',$id)->first()->name;
-
-    }
-    public function time($id){
-        return  Ocasion::where('id',$id)->first()->time;
+    public function incomplete()
+    {
+        return \App\Todo::where(['user_id' => Auth::user()->id])->get()->count();
 
     }
 
-    public function date($id){
-        return Ocasion::where('id',$id)->first()->date;
+    public function notcomplete()
+    {
+        return \App\Todo::where(['checked' => false, 'user_id' => Auth::user()->id])->orWhere(['checked' => NULL, 'user_id' => Auth::user()->id])->get()->count();
+    }
+
+    public function notcompleteWork()
+    {
+        return \App\Todo::where(['checked' => false, 'user_id' => Auth::user()->id, 'type' => "work"])->orWhere(['checked' => NULL, 'user_id' => Auth::user()->id, 'type' => "work"])->count();
+    }
+
+    public function notcompleteHome()
+    {
+        return \App\Todo::where(['checked' => false, 'user_id' => Auth::user()->id, 'type' => 'home'])->orWhere(['checked' => NULL, 'user_id' => Auth::user()->id, 'type' => 'home'])->count();
+    }
+
+    public function notcompleteSchool()
+    {
+        return \App\Todo::where(['checked' => false, 'user_id' => Auth::user()->id, 'type' => 'school'])->orWhere(['checked' => NULL, 'user_id' => Auth::user()->id, 'type' => 'school'])->count();
+    }
+
+    public function notcompleteFreeTime()
+    {
+        return \App\Todo::where(['checked' => false, 'user_id' => Auth::user()->id, 'type' => 'free_time'])->orWhere(['checked' => NULL, 'user_id' => Auth::user()->id, 'type' => 'free_time'])->count();
+    }
+
+    public function name($id)
+    {
+        return Ocasion::where('id', $id)->first()->name;
+    }
+
+    public function time($id)
+    {
+        return Ocasion::where('id', $id)->first()->time;
+    }
+
+    public function date($id)
+    {
+        return Ocasion::where('id', $id)->first()->date;
 
     }
 
-    public function place($id){
-        return Ocasion::where('id',$id)->first()->place;
-
-
+    public function place($id)
+    {
+        return Ocasion::where('id', $id)->first()->place;
     }
 
-    public function organizerId($id){
-        return Ocasion::where('id',$id)->first()->organizer_id;
+    public function organizerId($id)
+    {
+        return Ocasion::where('id', $id)->first()->organizer_id;
     }
 
-    public function occasion($id){
-        return Ocasion::where('id',$id)->first();
+    public function occasion($id)
+    {
+        return Ocasion::where('id', $id)->first();
     }
 
-    public function syncUsers($occasion, $users){
+    public function syncUsers($occasion, $users)
+    {
         return $occasion->users()->sync($users);
+    }
+
+    public function fetchAll(){
+        $result=Cache::remember('events_cache',1,function(){
+
+            return $this->ocasion->get();
+        });
+
+        return $result;
+
 
     }
 

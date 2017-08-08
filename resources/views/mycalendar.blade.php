@@ -24,14 +24,12 @@
 <body>
 
 
-
 <div id="wrapper">
 
 
     <nav class="navbar navbar-inverse ">
         <div class="container-fluid">
             <div class="navbar-header">
-
 
 
                 <!-- Sidebar -->
@@ -45,10 +43,14 @@
                         <li>
                             <a><p>Progress: Completed {{$complete}}/{{$incomplete}} tasks</p>
 
-                                <div id="myProgress" style="width:100%;" >
+                                <div id="myProgress" style="width:100%;">
 
-                                    <div id="myBar" style="width:calc(({{$complete}}/{{$incomplete}})*100%); background-color:#bababa;color:transparent; border-radius: 6px;">Hi</div>
-                                </div></a>
+                                    <div id="myBar"
+                                         style="width:calc(({{$complete}}/{{$incomplete}})*100%); background-color:#bababa;color:transparent; border-radius: 6px;">
+                                        Hi
+                                    </div>
+                                </div>
+                            </a>
                         </li>
                         <li>
                             <a href="/home">Home</a>
@@ -71,14 +73,25 @@
                         </li>
 
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Filters <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Filters <span
+                                        class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
                                 <li class="dropdown-header">Filter By Type</li>
-                                <li><a href="{{action('TodoController@show3',array('type'=>"all"))}}"  class="search" id="all"> <span class="glyphicon glyphicon-list-alt"  ></span> All Tasks  <span>{{ $notcomplete }}</span></a></li>
-                                <li><a href="{{action('TodoController@show3',array('type'=>"home"))}}"  class="search" id="home"><span class="glyphicon glyphicon-home"  ></span> Home  <span>{{ $notcompleteHome }}</span></a></li>
-                                <li><a href="{{action('TodoController@show3',array('type'=>"school"))}}" class="search" id="school"><span class="glyphicon glyphicon-education" ></span> School  <span>{{ $notcompleteSchool }}</span></a></li>
-                                <li><a href="{{action('TodoController@show3',array('type'=>"work"))}}" class="search" id="work"><span class="glyphicon glyphicon-lock" ></span> Work  <span>{{ $notcompleteWork }}</span></a></li>
-                                <li><a href="{{action('TodoController@show3',array('type'=>"free_time"))}}"  class="search" id="free_time"><span class="glyphicon glyphicon-knight"  ></span> Free time  <span>{{ $notcompleteFreeTime }}</span></a></li>
+                                <li><a href="{{action('TodoController@show3',array('type'=>"all"))}}" class="search"
+                                       id="all"> <span class="glyphicon glyphicon-list-alt"></span> All Tasks
+                                        <span>{{ $notcomplete }}</span></a></li>
+                                <li><a href="{{action('TodoController@show3',array('type'=>"home"))}}" class="search"
+                                       id="home"><span class="glyphicon glyphicon-home"></span> Home
+                                        <span>{{ $notcompleteHome }}</span></a></li>
+                                <li><a href="{{action('TodoController@show3',array('type'=>"school"))}}" class="search"
+                                       id="school"><span class="glyphicon glyphicon-education"></span> School
+                                        <span>{{ $notcompleteSchool }}</span></a></li>
+                                <li><a href="{{action('TodoController@show3',array('type'=>"work"))}}" class="search"
+                                       id="work"><span class="glyphicon glyphicon-lock"></span> Work
+                                        <span>{{ $notcompleteWork }}</span></a></li>
+                                <li><a href="{{action('TodoController@show3',array('type'=>"free_time"))}}"
+                                       class="search" id="free_time"><span class="glyphicon glyphicon-knight"></span>
+                                        Free time <span>{{ $notcompleteFreeTime }}</span></a></li>
                             </ul>
                         </li>
                         <li>
@@ -91,17 +104,16 @@
                 <!-- /#sidebar-wrapper -->
 
 
-                <a class="navbar-brand" href="#">&nbsp;&nbsp;&nbsp;<button   type="button" class="hamburger is-closed" data-toggle="offcanvas">
-                        <span  class="hamb-top"></span>
+                <a class="navbar-brand" href="#">&nbsp;&nbsp;&nbsp;<button type="button" class="hamburger is-closed"
+                                                                           data-toggle="offcanvas">
+                        <span class="hamb-top"></span>
                         <span class="hamb-middle"></span>
                         <span class="hamb-bottom"></span>
-                    </button></a>
+                    </button>
+                </a>
             </div>
             <ul class="nav navbar-nav">
-                <li ><a href="/home">Name of the website</a></li>
-
-
-
+                <li><a href="/home">Name of the website</a></li>
 
 
             </ul>
@@ -122,28 +134,27 @@
     </div>
 
 
+    <div class="container">
 
-<div class="container">
+        <div class="panel panel-primary">
 
-    <div class="panel panel-primary">
+            <div class="panel-heading">
 
-        <div class="panel-heading">
+                MY Calender
 
-            MY Calender
+            </div>
 
-        </div>
+            <div class="panel-body">
 
-        <div class="panel-body" >
+                {!! $calendar->calendar() !!}
 
-            {!! $calendar->calendar() !!}
+                {!! $calendar->script() !!}
 
-            {!! $calendar->script() !!}
+            </div>
 
         </div>
 
     </div>
-
-</div>
 </div>
 
 <script>
