@@ -31,8 +31,8 @@
                     <?php Session::forget('error');?>
                 @endif
 
-                    <!-- New Task Form -->
-                    <form action="{{ url('/eventNew')}}" method="POST" class="form-horizontal" >
+                <!-- New Task Form -->
+                    <form action="{{ url('/eventNew')}}" method="POST" class="form-horizontal">
 
                     {{ csrf_field() }}
 
@@ -63,81 +63,82 @@
                                 {!! Form::select('users[]',[$users],null,['id'=>'users_list','class'=>'form-control','multiple']) !!}
                                 <input type="hidden" name="organizer_id" value="{{$organizer_id}}">
 
+                                <input type="hidden" name="stripe_transaction_id" value="{{str_random(15)}}">
 
 
-                                                <div class="panel-body">
+                                <div class="panel-body">
 
 
-                                                        <div class="form-group{{ $errors->has('card_no') ? ' has-error' : '' }}">
-                                                            <label for="card_no" class="col-md-4 control-label">Card No</label>
-                                                            <div class="col-md-6">
-                                                                <input id="card_no" type="text" class="form-control" name="card_no" value="{{ old('card_no') }}" autofocus>
-                                                                @if ($errors->has('card_no'))
-                                                                    <span class="help-block">
+                                    <div class="form-group{{ $errors->has('card_no') ? ' has-error' : '' }}">
+                                        <label for="card_no" class="col-md-4 control-label">Card No</label>
+                                        <div class="col-md-6">
+                                            <input id="card_no" type="text" class="form-control" name="card_no"
+                                                   value="{{ old('card_no') }}" autofocus>
+                                            @if ($errors->has('card_no'))
+                                                <span class="help-block">
                                         <strong>{{ $errors->first('card_no') }}</strong>
                                     </span>
-                                                                @endif
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group{{ $errors->has('ccExpiryMonth') ? ' has-error' : '' }}">
-                                                            <label for="ccExpiryMonth" class="col-md-4 control-label">Expiry Month</label>
-                                                            <div class="col-md-6">
-                                                                <input id="ccExpiryMonth" type="text" class="form-control" name="ccExpiryMonth" value="{{ old('ccExpiryMonth') }}" autofocus>
-                                                                @if ($errors->has('ccExpiryMonth'))
-                                                                    <span class="help-block">
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="form-group{{ $errors->has('ccExpiryMonth') ? ' has-error' : '' }}">
+                                        <label for="ccExpiryMonth" class="col-md-4 control-label">Expiry Month</label>
+                                        <div class="col-md-6">
+                                            <input id="ccExpiryMonth" type="text" class="form-control"
+                                                   name="ccExpiryMonth" value="{{ old('ccExpiryMonth') }}" autofocus>
+                                            @if ($errors->has('ccExpiryMonth'))
+                                                <span class="help-block">
                                         <strong>{{ $errors->first('ccExpiryMonth') }}</strong>
                                     </span>
-                                                                @endif
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group{{ $errors->has('ccExpiryYear') ? ' has-error' : '' }}">
-                                                            <label for="ccExpiryYear" class="col-md-4 control-label">Expiry Year</label>
-                                                            <div class="col-md-6">
-                                                                <input id="ccExpiryYear" type="text" class="form-control" name="ccExpiryYear" value="{{ old('ccExpiryYear') }}" autofocus>
-                                                                @if ($errors->has('ccExpiryYear'))
-                                                                    <span class="help-block">
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="form-group{{ $errors->has('ccExpiryYear') ? ' has-error' : '' }}">
+                                        <label for="ccExpiryYear" class="col-md-4 control-label">Expiry Year</label>
+                                        <div class="col-md-6">
+                                            <input id="ccExpiryYear" type="text" class="form-control"
+                                                   name="ccExpiryYear" value="{{ old('ccExpiryYear') }}" autofocus>
+                                            @if ($errors->has('ccExpiryYear'))
+                                                <span class="help-block">
                                         <strong>{{ $errors->first('ccExpiryYear') }}</strong>
                                     </span>
-                                                                @endif
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group{{ $errors->has('cvvNumber') ? ' has-error' : '' }}">
-                                                            <label for="cvvNumber" class="col-md-4 control-label">CVV No.</label>
-                                                            <div class="col-md-6">
-                                                                <input id="cvvNumber" type="text" class="form-control" name="cvvNumber" value="{{ old('cvvNumber') }}" autofocus>
-                                                                @if ($errors->has('cvvNumber'))
-                                                                    <span class="help-block">
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="form-group{{ $errors->has('cvvNumber') ? ' has-error' : '' }}">
+                                        <label for="cvvNumber" class="col-md-4 control-label">CVV No.</label>
+                                        <div class="col-md-6">
+                                            <input id="cvvNumber" type="text" class="form-control" name="cvvNumber"
+                                                   value="{{ old('cvvNumber') }}" autofocus>
+                                            @if ($errors->has('cvvNumber'))
+                                                <span class="help-block">
                                         <strong>{{ $errors->first('cvvNumber') }}</strong>
                                     </span>
-                                                                @endif
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group{{ $errors->has('amount') ? ' has-error' : '' }}">
-                                                            <label for="amount" class="col-md-4 control-label">Amount</label>
-                                                            <div class="col-md-6">
-                                                                <input id="amount" type="text" class="form-control" name="amount" value="{{ old('amount') }}" autofocus>
-                                                                @if ($errors->has('amount'))
-                                                                    <span class="help-block">
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="form-group{{ $errors->has('amount') ? ' has-error' : '' }}">
+                                        <label for="amount" class="col-md-4 control-label">Amount</label>
+                                        <div class="col-md-6">
+                                            <input id="amount" type="text" class="form-control" name="amount"
+                                                   value="{{ old('amount') }}" autofocus>
+                                            @if ($errors->has('amount'))
+                                                <span class="help-block">
                                         <strong>{{ $errors->first('amount') }}</strong>
                                     </span>
-                                                                @endif
-                                                            </div>
-                                                        </div>
+                                            @endif
+                                        </div>
+                                    </div>
 
-                                                        <div class="form-group">
-                                                            <div class="col-md-6 col-md-offset-4">
-                                                                <button type="submit" class="btn btn-primary">
-                                                                    Paywith Stripe
-                                                                </button>
-                                                            </div>
-                                                        </div>
+                                    <div class="form-group">
+                                        <div class="col-md-6 col-md-offset-4">
+                                            <button type="submit" class="btn btn-primary">
+                                                Paywith Stripe
+                                            </button>
+                                        </div>
+                                    </div>
 
-                                                </div>
-
-
-
-
-
+                                </div>
 
 
                             </div>
@@ -152,11 +153,6 @@
                             </div>
                         </div>
                     </form>
-
-
-
-
-
 
 
                 </div>
@@ -176,19 +172,19 @@
 
         });
 
-        $(function() {
-            $('form.require-validation').bind('submit', function(e) {
-                var $form         = $(e.target).closest('form'),
+        $(function () {
+            $('form.require-validation').bind('submit', function (e) {
+                var $form = $(e.target).closest('form'),
                     inputSelector = ['input[type=email]', 'input[type=password]',
                         'input[type=text]', 'input[type=file]',
                         'textarea'].join(', '),
-                    $inputs       = $form.find('.required').find(inputSelector),
+                    $inputs = $form.find('.required').find(inputSelector),
                     $errorMessage = $form.find('div.error'),
-                    valid         = true;
+                    valid = true;
 
                 $errorMessage.addClass('hide');
                 $('.has-error').removeClass('has-error');
-                $inputs.each(function(i, el) {
+                $inputs.each(function (i, el) {
                     var $input = $(el);
                     if ($input.val() === '') {
                         $input.parent().addClass('has-error');
@@ -200,7 +196,7 @@
         });
 
 
-        $form.on('submit', function(e) {
+        $form.on('submit', function (e) {
             if (!$form.data('cc-on-file')) {
                 e.preventDefault();
                 Stripe.setPublishableKey($form.data('stripe-publishable-key'));
