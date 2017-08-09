@@ -33,6 +33,8 @@ class OcasionRepository implements OcasionRepositoryInterface
 
     public function create($data)
     {
+        Cache::put('event',$this->ocasion->create($data),5);
+        Cache::forget('events_cache');
         return $this->ocasion->create($data);
     }
 

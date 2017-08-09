@@ -19,22 +19,13 @@ use App\Http\Controllers\TodoController;
 use Laravel\Socialite\Facades\Socialite as Socialize;
 
 
-
-
 Route::get('/', function () {
     return view('welcome');
-});
+    });
 
-Auth::routes();
+    Auth::routes();
 
-
-
-   /* $file=request()->file('avatar');
-    $name = $file->getClientOriginalName();
-    Storage::disk('local')->put($name, $file);
-    return back();*/
-
-Route::group(['middleware' => 'auth'], function(){
+    Route::group(['middleware' => 'auth'], function(){
 
     Route::post('/updateimg','TodoController@namechange');
 
@@ -42,13 +33,11 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::post('/changeTheName','HomeController@nameChange');
 
-
     Route::get('/stats','TodoController@stats');
 
     Route::post('/check','TodoController@update')->name('date');
 
     Route::post('/search','TodoController@search');
-
 
     Route::get('/search/{date}','TodoController@byDate');
 
@@ -71,25 +60,14 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/allOccasions','OcasionController@show')->name('allOccasions');
 
     Route::delete('/occasion/{id}', function ($id) {
+
+        Cache::forget('events_cache');
         \App\Ocasion::findOrFail($id)->delete();
         return back();
 
     });
 
-    /*Route::get('/sendTest', function(){
-        $user = \App\User::findOrFail(8);
-
-        Mail::send('emails.reminder', ['user' => $user], function ($m) use ($user) {
-
-
-            $m->to($user->email, $user->name)->subject('Your Reminder!');
-        });
-
-        return "Success";
-    });*/
-
     Route::get('/search1/{type}','TodoController@show3');
-
 
     Route::get('/todo','TodoController@index')->middleware('auth')->name('home');
 
@@ -97,24 +75,15 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::get('/todo/{date}','TodoController@show');
 
-
     Route::get('/search','TodoController@show2');
 
-
-
-//Route::get('/todo/{date}/{value}','TodoController@check');
-
     Route::get('/todo/{date}/{value}','TodoController@check');
-
-
 
     Route::delete('/todo/{id}', function ($id) {
         \App\Todo::findOrFail($id)->delete();
         return back();
 
     });
-
-
 
     Route::get('edit/{id}','TodoController@editTodo')->name('edit');
 
@@ -132,55 +101,26 @@ Route::group(['middleware' => 'auth'], function(){
 
     Route::post('/image','HomeController@upload');
 
-
     Route::post('/addmoney/stripe','OcasionController@validateStripe');
+
+    Route::get('/subscription','HomeController@showSubscribe');
+
+    Route::post('/postSubscription', 'HomeController@postSubscription');
 
 
 
 
 });
 
-
-
-//Route::resource('todos', 'TodoController');
 Route::resource('events', 'EventController');
-
-
-
-
-Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
 Route::get('auth/{provider}', 'AuthController@redirectToProvider');
+
 Route::get('auth/{provider}/callback', 'AuthController@handleProviderCallback');
 
-Route::get('/_debugbar/assets/stylesheets', [
-    'as' => 'debugbar-css',
-    'uses' => '\Barryvdh\Debugbar\Controllers\AssetController@css'
-]);
 
-Route::get('/_debugbar/assets/javascript', [
-    'as' => 'debugbar-js',
-    'uses' => '\Barryvdh\Debugbar\Controllers\AssetController@js'
-]);
-
-Route::post ( '/stripe', function () {
-    \Stripe\Stripe::setApiKey ( 'test_SecretKey' );
-    try {
-        \Stripe\Charge::create ( array (
-            "amount" => 300 * 100,
-            "currency" => "usd",
-            "source" => request()->get ( 'stripeToken' ), // obtained with Stripe.js
-            "description" => "Test payment."
-        ) );
-        Session::flash ( 'success-message', 'Payment done successfully !' );
-        return Redirect::back ();
-    } catch ( \Exception $e ) {
-        Session::flash ( 'fail-message', "Error! Please Try again." );
-        return Redirect::back ();
-    }
-} );
 
 
 

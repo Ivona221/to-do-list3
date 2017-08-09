@@ -69,8 +69,6 @@ class OcasionController extends Controller
 
         $participants = $request1->get('users');
 
-        $bool = true;
-
         $ocasion->users()->attach($participants);
 
         $users = $ocasion->usersEmail();

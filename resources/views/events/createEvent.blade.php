@@ -21,14 +21,14 @@
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
                             {!! $message !!}
                         </div>
-                        <?php Session::forget('success');?>
+                        {{ Session::forget('success')}}
                     @endif
                     @if ($message = Session::get('error'))
                         <div class="custom-alerts alert alert-danger fade in">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
                             {!! $message !!}
                         </div>
-                    <?php Session::forget('error');?>
+                    {{ Session::forget('error')}}
                 @endif
 
                 <!-- New Task Form -->
@@ -70,8 +70,8 @@
 
 
                                     <div class="form-group{{ $errors->has('card_no') ? ' has-error' : '' }}">
-                                        <label for="card_no" class="col-md-4 control-label">Card No</label>
-                                        <div class="col-md-6">
+                                        <label for="card_no" >Card No</label>
+
                                             <input id="card_no" type="text" class="form-control" name="card_no"
                                                    value="{{ old('card_no') }}" autofocus>
                                             @if ($errors->has('card_no'))
@@ -80,10 +80,10 @@
                                     </span>
                                             @endif
                                         </div>
-                                    </div>
+
                                     <div class="form-group{{ $errors->has('ccExpiryMonth') ? ' has-error' : '' }}">
-                                        <label for="ccExpiryMonth" class="col-md-4 control-label">Expiry Month</label>
-                                        <div class="col-md-6">
+                                        <label for="ccExpiryMonth" >Expiry Month</label>
+
                                             <input id="ccExpiryMonth" type="text" class="form-control"
                                                    name="ccExpiryMonth" value="{{ old('ccExpiryMonth') }}" autofocus>
                                             @if ($errors->has('ccExpiryMonth'))
@@ -92,10 +92,10 @@
                                     </span>
                                             @endif
                                         </div>
-                                    </div>
+
                                     <div class="form-group{{ $errors->has('ccExpiryYear') ? ' has-error' : '' }}">
-                                        <label for="ccExpiryYear" class="col-md-4 control-label">Expiry Year</label>
-                                        <div class="col-md-6">
+                                        <label for="ccExpiryYear" >Expiry Year</label>
+
                                             <input id="ccExpiryYear" type="text" class="form-control"
                                                    name="ccExpiryYear" value="{{ old('ccExpiryYear') }}" autofocus>
                                             @if ($errors->has('ccExpiryYear'))
@@ -104,10 +104,10 @@
                                     </span>
                                             @endif
                                         </div>
-                                    </div>
+
                                     <div class="form-group{{ $errors->has('cvvNumber') ? ' has-error' : '' }}">
-                                        <label for="cvvNumber" class="col-md-4 control-label">CVV No.</label>
-                                        <div class="col-md-6">
+                                        <label for="cvvNumber" >CVV No.</label>
+
                                             <input id="cvvNumber" type="text" class="form-control" name="cvvNumber"
                                                    value="{{ old('cvvNumber') }}" autofocus>
                                             @if ($errors->has('cvvNumber'))
@@ -116,10 +116,10 @@
                                     </span>
                                             @endif
                                         </div>
-                                    </div>
+
                                     <div class="form-group{{ $errors->has('amount') ? ' has-error' : '' }}">
-                                        <label for="amount" class="col-md-4 control-label">Price</label>
-                                        <div class="col-md-6">
+                                        <label for="amount" >Price</label>
+
                                             <input id="amount" type="hidden" class="form-control" name="amount"
                                                    value="10" autofocus>
                                             <h4>10$</h4>
@@ -130,7 +130,8 @@
                                     </span>
                                             @endif
                                         </div>
-                                    </div>
+
+
 
                                     <div class="form-group">
                                         <div class="col-md-6 col-md-offset-4">
@@ -167,58 +168,7 @@
 
         });
 
-        $(function () {
-            $('form.require-validation').bind('submit', function (e) {
-                var $form = $(e.target).closest('form'),
-                    inputSelector = ['input[type=email]', 'input[type=password]',
-                        'input[type=text]', 'input[type=file]',
-                        'textarea'].join(', '),
-                    $inputs = $form.find('.required').find(inputSelector),
-                    $errorMessage = $form.find('div.error'),
-                    valid = true;
 
-                $errorMessage.addClass('hide');
-                $('.has-error').removeClass('has-error');
-                $inputs.each(function (i, el) {
-                    var $input = $(el);
-                    if ($input.val() === '') {
-                        $input.parent().addClass('has-error');
-                        $errorMessage.removeClass('hide');
-                        e.preventDefault(); // cancel on first error
-                    }
-                });
-            });
-        });
-
-
-        $form.on('submit', function (e) {
-            if (!$form.data('cc-on-file')) {
-                e.preventDefault();
-                Stripe.setPublishableKey($form.data('stripe-publishable-key'));
-                Stripe.createToken({
-                    number: $('.card-number').val(),
-                    cvc: $('.card-cvc').val(),
-                    exp_month: $('.card-expiry-month').val(),
-                    exp_year: $('.card-expiry-year').val()
-                }, stripeResponseHandler);
-            }
-        });
-
-        function stripeResponseHandler(status, response) {
-            if (response.error) {
-                $('.error')
-                    .removeClass('hide')
-                    .find('.alert')
-                    .text(response.error.message);
-            } else {
-                // token contains id, last4, and card type
-                var token = response['id'];
-                // insert the token into the form so it gets submitted to the server
-                $form.find('input[type=text]').empty();
-                $form.append("<input type='hidden' name='stripeToken' value='" + token + "'/>");
-                $form.get(0).submit();
-            }
-        }
     </script>
 
 

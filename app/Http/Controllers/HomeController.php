@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\TodoRequest;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\View;
+
+use Cartalyst\Stripe\Stripe;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
-use App\User;
-use Illuminate\Support\Facades\Redirect;
 use Repositories\TodoRepositoryInterface;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\View;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 
 class HomeController extends Controller
@@ -86,4 +87,84 @@ class HomeController extends Controller
 
         return View::make('editProfile', compact('complete', 'incomplete', 'notcomplete', 'notcompleteWork', 'notcompleteHome', 'notcompleteFreeTime', 'notcompleteSchool', 'user'));
     }
+
+    public function showSubscribe(){
+        $complete = $this->todos->complete();
+        $incomplete = $this->todos->incomplete();
+        $notcomplete = $this->todos->notcomplete();
+        $notcompleteWork = $this->todos->notcompleteWork();
+        $notcompleteHome = $this->todos->notcompleteHome();
+        $notcompleteSchool = $this->todos->notcompleteSchool();
+        $notcompleteFreeTime = $this->todos->notcompleteFreeTime();
+        return View::make('subscription', compact('complete', 'incomplete', 'notcomplete', 'notcompleteWork', 'notcompleteHome', 'notcompleteFreeTime', 'notcompleteSchool'));
+    }
+
+    public function postSubscription(Request $request1){
+
+
+
+        $validator = Validator::make($request1->all(), [
+            'card_no' => 'required',
+            'ccExpiryMonth' => 'required',
+            'ccExpiryYear' => 'required',
+            'cvvNumber' => 'required',
+            'amount' => 'required',
+        ]);
+
+        $input = $request1->all();
+        if ($validator->passes()) {
+            $input = array_except($input,array('_token'));
+
+            $stripe = Stripe::make('sk_test_mZ8v6bq6B3yz9qeqqclfrExd');
+
+            try {
+                $token = $stripe->tokens()->create([
+                    'card' => [
+                        'number'    => $request1->get('card_no'),
+                        'exp_month' => $request1->get('ccExpiryMonth'),
+                        'exp_year'  => $request1->get('ccExpiryYear'),
+                        'cvc'       => $request1->get('cvvNumber'),
+                    ],
+                ]);
+                if (!isset($token['id'])) {
+                    Session::put('error','The Stripe Token was not generated correctly');
+
+                }
+                $charge = $stripe->charges()->create([
+                    'card' => $token['id'],
+                    'currency' => 'USD',
+                    'amount'   => $request1->get('amount'),
+                    'description' => 'Add in wallet',
+                ]);
+                if($charge['status'] == 'succeeded') {
+
+
+                    Session::put('success','Successful transaction');
+                    return redirect()->back();
+                } else {
+                    Session::put('error','Money not add in wallet!!');
+
+                }
+            } catch (Exception $e) {
+                Session::put('error',$e->getMessage());
+
+            } catch(\Cartalyst\Stripe\Exception\CardErrorException $e) {
+                Session::put('error',$e->getMessage());
+
+            } catch(\Cartalyst\Stripe\Exception\MissingParameterException $e) {
+                Session::put('error',$e->getMessage());
+
+            }
+        }
+        Session::put('error','All fields are required!!');
+
+        $user = Auth::user();
+        $user->newSubscription('main',$request1->get('plan'))->create($request1->token);
+        return Redirect::back();
+
+
+    }
+
+
+
 }
