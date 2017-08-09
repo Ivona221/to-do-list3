@@ -118,10 +118,12 @@
                                         </div>
                                     </div>
                                     <div class="form-group{{ $errors->has('amount') ? ' has-error' : '' }}">
-                                        <label for="amount" class="col-md-4 control-label">Amount</label>
+                                        <label for="amount" class="col-md-4 control-label">Price</label>
                                         <div class="col-md-6">
-                                            <input id="amount" type="text" class="form-control" name="amount"
-                                                   value="{{ old('amount') }}" autofocus>
+                                            <input id="amount" type="hidden" class="form-control" name="amount"
+                                                   value="10" autofocus>
+                                            <h4>10$</h4>
+
                                             @if ($errors->has('amount'))
                                                 <span class="help-block">
                                         <strong>{{ $errors->first('amount') }}</strong>
@@ -133,7 +135,7 @@
                                     <div class="form-group">
                                         <div class="col-md-6 col-md-offset-4">
                                             <button type="submit" class="btn btn-primary">
-                                                Paywith Stripe
+                                                Create an event
                                             </button>
                                         </div>
                                     </div>
@@ -144,14 +146,7 @@
                             </div>
                         </div>
 
-                        <!-- Add Task Button -->
-                        <div class="form-group">
-                            <div class="col-sm-offset-3 col-sm-6">
-                                <button type="submit" class="btn btn-default">
-                                    <i class="fa fa-btn fa-plus"></i>Create Event
-                                </button>
-                            </div>
-                        </div>
+
                     </form>
 
 
