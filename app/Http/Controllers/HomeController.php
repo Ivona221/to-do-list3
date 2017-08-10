@@ -195,6 +195,8 @@ class HomeController extends Controller
             Session::put('error','No active subscriptions!!');
             return Redirect::back();
         }
+
+
     }
 
 
