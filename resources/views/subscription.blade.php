@@ -2,98 +2,152 @@
 @include('partials.sidebar', array('complete'=>$complete,'incomplete'=>$incomplete,'notcomplete'=>$notcomplete,'notcompleteWork'=>$notcompleteWork,
 'notcompleteHome'=>$notcompleteHome, 'notcompleteSchool'=>$notcompleteSchool, 'notcompleteFreeTime'=>$notcompleteFreeTime))
 @section('content')
+    @if ($message = Session::get('success'))
+        <div class="custom-alerts alert alert-success fade in">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+            {!! $message !!}
+        </div>
+        <?php Session::forget('success');?>
+    @endif
+    @if ($message = Session::get('error'))
+        <div class="custom-alerts alert alert-danger fade in">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
+            {!! $message !!}
+        </div>
+        <?php Session::forget('error');?>
+    @endif
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="panel panel-default">
-                    @if ($message = Session::get('success'))
-                        <div class="custom-alerts alert alert-success fade in">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
-                            {!! $message !!}
-                        </div>
-                        <?php Session::forget('success');?>
-                    @endif
-                    @if ($message = Session::get('error'))
-                        <div class="custom-alerts alert alert-danger fade in">
-                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true"></button>
-                            {!! $message !!}
-                        </div>
-                        <?php Session::forget('error');?>
-                    @endif
-                    <div class="panel-heading">Subscribe</div>
-                    <div class="panel-body">
-                        <form class="form-horizontal" method="POST" id="payment-form" role="form" action="/postSubscription" >
-                            {{ csrf_field() }}
-                            <div class="form-group{{ $errors->has('card_no') ? ' has-error' : '' }}">
-                                <label for="card_no" class="col-md-4 control-label">Card No</label>
-                                <div class="col-md-6">
-                                    <input id="card_no" type="text" class="form-control" name="card_no" value="{{ old('card_no') }}" autofocus>
-                                    @if ($errors->has('card_no'))
-                                        <span class="help-block">
-                                        <strong>{{ $errors->first('card_no') }}</strong>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="form-group{{ $errors->has('ccExpiryMonth') ? ' has-error' : '' }}">
-                                <label for="ccExpiryMonth" class="col-md-4 control-label">Expiry Month</label>
-                                <div class="col-md-6">
-                                    <input id="ccExpiryMonth" type="text" class="form-control" name="ccExpiryMonth" value="{{ old('ccExpiryMonth') }}" autofocus>
-                                    @if ($errors->has('ccExpiryMonth'))
-                                        <span class="help-block">
-                                        <strong>{{ $errors->first('ccExpiryMonth') }}</strong>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="form-group{{ $errors->has('ccExpiryYear') ? ' has-error' : '' }}">
-                                <label for="ccExpiryYear" class="col-md-4 control-label">Expiry Year</label>
-                                <div class="col-md-6">
-                                    <input id="ccExpiryYear" type="text" class="form-control" name="ccExpiryYear" value="{{ old('ccExpiryYear') }}" autofocus>
-                                    @if ($errors->has('ccExpiryYear'))
-                                        <span class="help-block">
-                                        <strong>{{ $errors->first('ccExpiryYear') }}</strong>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="form-group{{ $errors->has('cvvNumber') ? ' has-error' : '' }}">
-                                <label for="cvvNumber" class="col-md-4 control-label">CVV No.</label>
-                                <div class="col-md-6">
-                                    <input id="cvvNumber" type="text" class="form-control" name="cvvNumber" value="{{ old('cvvNumber') }}" autofocus>
-                                    @if ($errors->has('cvvNumber'))
-                                        <span class="help-block">
-                                        <strong>{{ $errors->first('cvvNumber') }}</strong>
-                                    </span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="form-group{{ $errors->has('amount') ? ' has-error' : '' }}">
-                                <label for="amount" class="col-md-4 control-label">Plan</label>
-                                <div class="col-md-6">
-                                    <select id="select">
-                                        <option value="123">Diamond($20.00/month)</option>
-                                        <option value="155">Gold($10.00/month)</option>
-                                    </select>
-                                    <input type="text" id="hiddenSelect" name="plan" value="">
 
-                                </div>
-                            </div>
+    <div class="col-sm-offset-1 col-sm-3 " >
+        <div class="panel panel-default bg-warning">
+            <div class="panel-heading bg-success" style="background-color:#896978 ;color:white;">
+                <h3 >Immediate</h3>
+                <hr>
+                <p style="font-size: 20px">$9.99/month</p>
+                <p ><form action="/newSubImmediate" method="POST">
+                    {{ csrf_field() }}
+                    <script
+                            src="https://checkout.stripe.com/checkout.js" class="stripe-button btn-success"
+                            data-key="pk_test_YO2uwcqiZIMLdGewYuDeFhbB"
+                            data-image="/images/sub1.svg"
+                            data-name="Immediate Plan"
+                            data-description="Immediate subscription"
+                            data-amount="999.9"
+                            data-email="{{\Illuminate\Support\Facades\Auth::user()->email}}"
+                            data-label="Subscribe">
+                    </script>
+                    <script>
 
-                            <div class="form-group">
-                                <div class="col-md-6 col-md-offset-4">
-                                    <button type="submit" class="btn btn-primary">
-                                        Paywith Stripe
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+                        document.getElementsByClassName("stripe-button-el")[0].style.display = 'none';
+                    </script>
+                    <button type="submit" class="btn btn-custom">Subscribe</button>
+                </form></p>
             </div>
+            <div style="padding: 5px;">
+                <h4>Benefits of this membership</h4>
+                <ul>
+                    <li>
+                        Lorem ipsum dolor sit amet, mel esse ubique noster ad, vis eu nemore tractatos.
+                    </li>
+                    <li>
+                        Eu pri dissentias honestatis, pri in ludus debitis minimum.
+                    </li>
+                    <li>
+                        Feugait oportere vel eu.
+                    </li>
+                </ul>
+            </div>
+
         </div>
     </div>
+
+    <div class="col-sm-offset-1 col-sm-3 ">
+        <div class="panel panel-default bg-warning">
+            <div class="panel-heading bg-success" style="background-color: #839791; color:white;">
+                <h3 >Gold</h3>
+                <hr>
+                <p style="font-size: 20px">$10.00/month</p>
+                <p style="padding-left:50%;"><form action="/newSubGold" method="POST">
+                    {{ csrf_field() }}
+                    <script
+                            src="https://checkout.stripe.com/checkout.js" class="stripe-button btn-success"
+                            data-key="pk_test_YO2uwcqiZIMLdGewYuDeFhbB"
+                            data-image="/images/sub1.svg"
+                            data-name="Gold Plan"
+                            data-description="Gold subscription"
+                            data-amount="1000"
+                            data-email="{{\Illuminate\Support\Facades\Auth::user()->email}}"
+                            data-label="Subscribe">
+                    </script>
+                    <script>
+
+                        document.getElementsByClassName("stripe-button-el")[1].style.display = 'none';
+                    </script>
+                    <button type="submit" class="btn btn-custom">Subscribe</button>
+                </form></p>
+            </div >
+            <div style="padding: 5px;">
+                <h4>Benefits of this membership</h4>
+                <ul>
+                    <li>
+                        Lorem ipsum dolor sit amet, mel esse ubique noster ad, vis eu nemore tractatos.
+                    </li>
+                    <li>
+                        Eu pri dissentias honestatis, pri in ludus debitis minimum.
+                    </li>
+                    <li>
+                        Feugait oportere vel eu.
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-sm-offset-1 col-sm-3 ">
+        <div class="panel panel-default bg-warning">
+            <div class="panel-heading bg-success" style="background-color: #839791;color:white;">
+                <h3 >Diamond</h3>
+                <hr>
+                <p style="font-size: 20px">$20.00/month</p>
+                <p style="padding-left:50%;"><form action="/newSubDiamond" method="POST">
+                    {{ csrf_field() }}
+                    <script
+                            src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                            data-key="pk_test_YO2uwcqiZIMLdGewYuDeFhbB"
+                            data-image="/images/sub1.svg"
+                            data-name="Diamond Plan"
+                            data-description="Diamond subscription"
+                            data-amount="2000"
+                            data-email="{{\Illuminate\Support\Facades\Auth::user()->email}}"
+                            data-label="Subscribe" >
+                    </script>
+                    <script>
+
+                        document.getElementsByClassName("stripe-button-el")[2].style.display = 'none';
+                    </script>
+                    <button type="submit" class="btn btn-custom">Subscribe</button>
+                </form></p>
+            </div>
+            <div style="padding: 5px;">
+                <h4>Benefits of this membership</h4>
+                <ul>
+                    <li>
+                        Lorem ipsum dolor sit amet, mel esse ubique noster ad, vis eu nemore tractatos.
+                    </li>
+                    <li>
+                        Eu pri dissentias honestatis, pri in ludus debitis minimum.
+                    </li>
+                    <li>
+                        Feugait oportere vel eu.
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <a href="/cancelSubscription" style="position:relative; left:48%;"><button class="btn btn-danger">Cancel Subscription</button></a>
 
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -107,8 +161,6 @@
         $("#select").on('change', function () {
             $('#hiddenSelect').val($('#select').val());
         });
-
-
     </script>
 
 

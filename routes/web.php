@@ -49,7 +49,7 @@ Route::get('/', function () {
 
     Route::get('/event','EventController@show');
 
-    Route::get('/eventCreate','OcasionController@eventCreate')->name('ocasion');
+    Route::get('/eventCreate','OcasionController@eventCreate')->name('ocasion')->middleware('sub');
 
     Route::post('/eventAdd','EventController@store');
 
@@ -103,12 +103,17 @@ Route::get('/', function () {
 
     Route::post('/addmoney/stripe','OcasionController@validateStripe');
 
-    Route::get('/subscription','HomeController@showSubscribe');
+    Route::get('/subscription','HomeController@showSubscribe')->name('subscription');
 
     Route::post('/postSubscription', 'HomeController@postSubscription');
 
+    Route::get('/cancelSubscription','HomeController@cancelSub');
 
+    Route::post('/newSubImmediate','HomeController@newSub');
 
+    Route::post('/newSubGold','HomeController@newSubGold');
+
+    Route::post('/newSubDiamond','HomeController@newSubDiamond');
 
 });
 
