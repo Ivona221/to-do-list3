@@ -65,7 +65,7 @@ class HomeController extends Controller
         } else {
             $imageName = $this->todos->getName($file);
 
-            $path = '/home/imi/Downloads/to-do-list3-master/public/images';
+            $path = base_path().'/public/images';
 
             $file->move($path, $imageName);
 
@@ -205,10 +205,11 @@ class HomeController extends Controller
 
     public function newSub()
     {
+        $user=Auth::user();
         \Stripe\Stripe::setApiKey("sk_test_mZ8v6bq6B3yz9qeqqclfrExd");
         if (Auth::user()->subscribed('main')) {
             Session::put('error', 'You are already subscribed to a plan. Cancel it first!!');
-            return Redirect::back();
+            return Redirect::back()->with('data', 'immediate');;
         } else {
 
             try {
@@ -218,8 +219,11 @@ class HomeController extends Controller
                      'plan' => 'immediate'
                  ));*/
                 Auth::user()->newSubscription('main', '155')->create($_POST['stripeToken']);
+
+                $user->stripe_plan='immediate';
+                $user->save();
                 Session::put('success', 'Plan created successfully');
-                return Redirect::back();
+                return Redirect::back()->with('data', 'immediate');
 
             } catch (Exception $e) {
                 Session::put('error', 'Unable to sign you up');
@@ -234,10 +238,11 @@ class HomeController extends Controller
 
     public function newSubDiamond()
     {
+        $user=Auth::user();
         \Stripe\Stripe::setApiKey("sk_test_mZ8v6bq6B3yz9qeqqclfrExd");
         if (Auth::user()->subscribed('main')) {
             Session::put('error', 'You are already subscribed to a plan. Cancel it first!!');
-            return Redirect::back();
+            return Redirect::back()->with('data', 'diamond');
         } else {
             try {
                 /* $customer = \Stripe\Customer::create(array(
@@ -246,8 +251,10 @@ class HomeController extends Controller
                      'plan' => '123'
                  ));*/
                 Auth::user()->newSubscription('main', '155')->create($_POST['stripeToken']);
+                $user->stripe_plan='diamond';
+                $user->save();
                 Session::put('success', 'Plan created successfully');
-                return Redirect::back();
+                return Redirect::back()->with('data', 'diamond');
 
             } catch (Exception $e) {
                 Session::put('error', 'Unable to sign you up');
@@ -262,10 +269,11 @@ class HomeController extends Controller
 
     public function newSubGold()
     {
+        $user=Auth::user();
         \Stripe\Stripe::setApiKey("sk_test_mZ8v6bq6B3yz9qeqqclfrExd");
         if (Auth::user()->subscribed('main')) {
             Session::put('error', 'You are already subscribed to a plan. Cancel it first!!');
-            return Redirect::back();
+            return Redirect::back()->with('data', 'gold');
         } else {
 
 
@@ -278,8 +286,10 @@ class HomeController extends Controller
                     'plan' => '155'
                 ));*/
                 Auth::user()->newSubscription('main', '155')->create($_POST['stripeToken']);
+                $user->stripe_plan='gold';
+                $user->save();
                 Session::put('success', 'Plan created successfully');
-                return Redirect::back();
+                return Redirect::back()->with('data', 'gold');;
 
             } catch (Exception $e) {
                 Session::put('error', 'Unable to sign you up');

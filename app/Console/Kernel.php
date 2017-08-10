@@ -36,7 +36,7 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('email:task')->everyMinute();
         /*$schedule->command('email:event')->everyTenMinutes();*/
-        //$schedule->command('email:subscribe')->everyMinute();
+        $schedule->command('email:subscribe')->monthly();
 
 
     }

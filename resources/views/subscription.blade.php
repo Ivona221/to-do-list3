@@ -18,9 +18,9 @@
     @endif
 
 
-    <div class="col-sm-offset-1 col-sm-3 " >
-        <div class="panel panel-default bg-warning">
-            <div class="panel-heading bg-success" style="background-color:#896978 ;color:white;">
+    <div  class="col-sm-offset-1 col-sm-3 " >
+        <div @if(Auth::user()->stripe_plan=='immediate') style="  box-shadow:0 0 20px #757083;" @endif class="panel panel-default bg-warning">
+            <div class="panel-heading bg-success" style="background-color:#0B2027 ;color:white;">
                 <h3 >Immediate</h3>
                 <hr>
                 <p style="font-size: 20px">$9.99/month</p>
@@ -61,9 +61,9 @@
         </div>
     </div>
 
-    <div class="col-sm-offset-1 col-sm-3 ">
-        <div class="panel panel-default bg-warning">
-            <div class="panel-heading bg-success" style="background-color: #839791; color:white;">
+    <div  class="col-sm-offset-1 col-sm-3 ">
+        <div @if(Auth::user()->stripe_plan=='gold') style="  box-shadow:0 0 20px #757083;" @endif class="panel panel-default bg-warning">
+            <div class="panel-heading bg-success" style="background-color: #40798C; color:white;">
                 <h3 >Gold</h3>
                 <hr>
                 <p style="font-size: 20px">$10.00/month</p>
@@ -104,9 +104,9 @@
         </div>
     </div>
 
-    <div class="col-sm-offset-1 col-sm-3 ">
-        <div class="panel panel-default bg-warning">
-            <div class="panel-heading bg-success" style="background-color: #839791;color:white;">
+    <div  class="col-sm-offset-1 col-sm-3 ">
+        <div @if(Auth::user()->stripe_plan=='diamond') style="  box-shadow:0 0 20px #757083;" @endif class="panel panel-default bg-warning">
+            <div class="panel-heading bg-success" style="background-color: #70A9A1;color:white;">
                 <h3 >Diamond</h3>
                 <hr>
                 <p style="font-size: 20px">$20.00/month</p>
@@ -146,6 +146,7 @@
 
         </div>
     </div>
+
 
     <a href="/cancelSubscription" style="position:relative; left:48%;"><button class="btn btn-danger">Cancel Subscription</button></a>
 
