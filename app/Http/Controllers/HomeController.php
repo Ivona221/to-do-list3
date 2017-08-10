@@ -197,6 +197,8 @@ class HomeController extends Controller
         }
     }
 
+
+
     public function newSub()
     {
         \Stripe\Stripe::setApiKey("sk_test_mZ8v6bq6B3yz9qeqqclfrExd");
