@@ -101,7 +101,11 @@ class TodoController extends Controller
     {
 
         $storage=Redis::Connection();
+
+
+
         $popular=$storage->zRevRange('todoViews',0,2);
+
 
         foreach($popular as $value){
             $date1[$value]=str_replace('todo:','',$value);

@@ -7,6 +7,7 @@
 
     <title>Laravel</title>
 
+
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
@@ -30,6 +31,8 @@
         <div class="title m-b-md">
             Laravel
         </div>
+
+        <h4>This page has {{$visits}} visitors</h4>
 
         <div class="links">
             <a href="https://laravel.com/docs">Documentation</a>

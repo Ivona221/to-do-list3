@@ -17,10 +17,13 @@ use Illuminate\Http\File;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\TodoController;
 use Laravel\Socialite\Facades\Socialite as Socialize;
+use Illuminate\Support\Facades\Redis;
 
 
 Route::get('/', function () {
-    return view('welcome');
+    $visits=Redis::incr('visits');
+
+    return view('welcome', compact('visits'));
     });
 
     Auth::routes();
@@ -114,6 +117,10 @@ Route::get('/', function () {
     Route::post('/newSubGold','HomeController@newSubGold');
 
     Route::post('/newSubDiamond','HomeController@newSubDiamond');
+
+    Route::get('/chat','ChatController@show');
+
+    Route::post('/chat','ChatController');
 
 });
 

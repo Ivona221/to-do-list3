@@ -60,6 +60,9 @@
                         <li>
                             <a href="/allOccasions">All events</a>
                         </li>
+                        <li>
+                            <a href="/subscription">Subscriptions</a>
+                        </li>
 
 
                         <li class="dropdown">

@@ -13,6 +13,7 @@
         </tr>
         </thead>
         <tbody>
+        @if($date1)
         @foreach($date1 as $d1)
             <tr>
 
@@ -22,7 +23,7 @@
 
             </tr>
         @endforeach
-
+        @endif
 
         </tbody>
     </table>
