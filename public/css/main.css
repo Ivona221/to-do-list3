@@ -166,6 +166,18 @@
     background-color: #E9967A;
 }
 
+.sidebar-nav li:nth-child(12):before {
+    background-color: #7FFFD4;
+}
+
+.sidebar-nav li:nth-child(13):before {
+    background-color: #DC143C;
+}
+
+.sidebar-nav li:nth-child(14):before {
+    background-color: #8FBC8F;
+}
+
 .sidebar-nav li:hover:before,
 .sidebar-nav li.open:hover:before {
     width: 100%;

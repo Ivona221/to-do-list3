@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddAditionalSubscriptionsToUsersTable extends Migration
+class CreateRepliesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class AddAditionalSubscriptionsToUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function ($table) {
-           /* $table->tinyInteger('stripe_active')->default(0);
-            $table->string('stripe_plan',25)->nullable();
-            $table->timestamp('subscription_ends_at')->nullable();*/
+        Schema::create('replies', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('thread_id');
+            $table->integer('user_id');
+            $table->text('body');
+            $table->timestamps();
         });
     }
 
@@ -27,6 +29,6 @@ class AddAditionalSubscriptionsToUsersTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('replies');
     }
 }

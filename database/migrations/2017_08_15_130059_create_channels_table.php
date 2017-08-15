@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddAditionalSubscriptionsToUsersTable extends Migration
+class CreateChannelsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class AddAditionalSubscriptionsToUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function ($table) {
-           /* $table->tinyInteger('stripe_active')->default(0);
-            $table->string('stripe_plan',25)->nullable();
-            $table->timestamp('subscription_ends_at')->nullable();*/
+        Schema::create('channels', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name', 50);
+            $table->string('slug', 50);
+            $table->timestamps();
         });
     }
 
@@ -27,6 +28,6 @@ class AddAditionalSubscriptionsToUsersTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('channels');
     }
 }
