@@ -15,7 +15,6 @@ use Repositories\TodoRepositoryInterface;
 use Illuminate\Support\Facades\DB;
 
 
-
 class TodoRepository implements TodoRepositoryInterface
 {
     /**
@@ -28,117 +27,134 @@ class TodoRepository implements TodoRepositoryInterface
         $this->todo = $todo;
     }
 
-    public function date(){
+    public function date()
+    {
         return \Carbon\Carbon::now()->format('Y-m-d');
     }
 
-    public function byDate( $date){
-        return $this->todo->where(['date'=>$date,'user_id'=>Auth::user()->id])->get();
+    public function byDate($date)
+    {
+        return $this->todo->where(['date' => $date, 'user_id' => Auth::user()->id])->get();
     }
 
-    public function count($date){
-        return $this->todo->where(['date'=>$date])->count();
+    public function count($date)
+    {
+        return $this->todo->where(['date' => $date])->count();
 
     }
 
-    public function find($id){
+    public function find($id)
+    {
         return $this->todo->findOrFail($id);
     }
 
-    public function user(){
-       return $this->todo->where(['user_id'=>Auth::user()->id])->get();
+    public function user()
+    {
+        return $this->todo->where(['user_id' => Auth::user()->id])->get();
     }
 
-    public function byType($type){
+    public function byType($type)
+    {
 
-        return $this->todo->where(['type'=> $type,'user_id'=>Auth::user()->id])->get();
+        return $this->todo->where(['type' => $type, 'user_id' => Auth::user()->id])->get();
     }
 
-    public function create($data){
+    public function create($data)
+    {
         return $this->todo->create($data);
     }
 
-    public function update($id, $imageName){
-        $this->todo->where('id',$id)->update(['image' => $imageName]);
+    public function update($id, $imageName)
+    {
+        $this->todo->where('id', $id)->update(['image' => $imageName]);
     }
 
-    public function complete(){
-        return $this->todo->where(['checked'=>true,'user_id'=>Auth::user()->id])->get()->count();
+    public function complete()
+    {
+        return $this->todo->where(['checked' => true, 'user_id' => Auth::user()->id])->get()->count();
     }
 
-    public function incomplete(){
-       return $this->todo->where(['user_id'=>Auth::user()->id])->get()->count();
+    public function incomplete()
+    {
+        return $this->todo->where(['user_id' => Auth::user()->id])->get()->count();
 
     }
 
-    public function notcomplete(){
-        return $this->todo->where(['checked'=>false,'user_id'=>Auth::user()->id])->orWhere(['checked'=>NULL,'user_id'=>Auth::user()->id])->get()->count();
+    public function notcomplete()
+    {
+        return $this->todo->where(['checked' => false, 'user_id' => Auth::user()->id])->orWhere(['checked' => NULL, 'user_id' => Auth::user()->id])->get()->count();
     }
 
-    public function notcompleteWork(){
-        return $this->todo->where(['checked'=>false,'user_id'=>Auth::user()->id,'type'=>"work"])->orWhere(['checked'=>NULL,'user_id'=>Auth::user()->id, 'type'=>"work"])->count();
+    public function notcompleteWork()
+    {
+        return $this->todo->where(['checked' => false, 'user_id' => Auth::user()->id, 'type' => "work"])->orWhere(['checked' => NULL, 'user_id' => Auth::user()->id, 'type' => "work"])->count();
     }
 
-    public function notcompleteHome(){
-        return $this->todo->where(['checked'=>false,'user_id'=>Auth::user()->id,'type'=>'home'])->orWhere(['checked'=>NULL,'user_id'=>Auth::user()->id, 'type'=>'home'])->count();
+    public function notcompleteHome()
+    {
+        return $this->todo->where(['checked' => false, 'user_id' => Auth::user()->id, 'type' => 'home'])->orWhere(['checked' => NULL, 'user_id' => Auth::user()->id, 'type' => 'home'])->count();
     }
 
-    public function notcompleteSchool(){
-        return $this->todo->where(['checked'=>false,'user_id'=>Auth::user()->id,'type'=>'school'])->orWhere(['checked'=>NULL,'user_id'=>Auth::user()->id, 'type'=>'school'])->count();
+    public function notcompleteSchool()
+    {
+        return $this->todo->where(['checked' => false, 'user_id' => Auth::user()->id, 'type' => 'school'])->orWhere(['checked' => NULL, 'user_id' => Auth::user()->id, 'type' => 'school'])->count();
     }
 
-    public function notcompleteFreeTime(){
-        return $this->todo->where(['checked'=>false,'user_id'=>Auth::user()->id,'type'=>'free_time'])->orWhere(['checked'=>NULL,'user_id'=>Auth::user()->id, 'type'=>'free_time'])->count();
+    public function notcompleteFreeTime()
+    {
+        return $this->todo->where(['checked' => false, 'user_id' => Auth::user()->id, 'type' => 'free_time'])->orWhere(['checked' => NULL, 'user_id' => Auth::user()->id, 'type' => 'free_time'])->count();
     }
 
-    public function order(){
+    public function order()
+    {
         return $this->todo->select('date', DB::raw('count(*) as total'))->groupBy('date')
             ->orderBy('total', 'desc')
             ->get();
     }
 
-    public function time(){
+    public function time()
+    {
         return \Carbon\Carbon::now()->format('H:i');
 
     }
 
-    public function findId($id){
-        return Todo::where('id',$id)->first();
+    public function findId($id)
+    {
+        return Todo::where('id', $id)->first();
 
     }
 
-    public function id(){
+    public function id()
+    {
         return Auth::user()->id;
     }
 
-    public function updateChecked($id,$bool1){
+    public function updateChecked($id, $bool1)
+    {
         return DB::table('todos')->where('id', $id)->update(['checked' => $bool1]);
     }
 
-    public function updateImage($id, $imageName){
+    public function updateImage($id, $imageName)
+    {
         return DB::table('todos')
             ->where('id', $id)
             ->update(['image' => $imageName]);
     }
 
-    public function getName($file){
+    public function getName($file)
+    {
         return $file->getClientOriginalName();
     }
 
-    public function moveFile($file, $path, $imageName){
-        return $file->move($path , $imageName);
+    public function moveFile($file, $path, $imageName)
+    {
+        return $file->move($path, $imageName);
     }
 
-    public function authUser(){
+    public function authUser()
+    {
         return Auth::user();
     }
-
-
-
-
-
-
-
 
 
 }

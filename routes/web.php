@@ -28,7 +28,7 @@ Route::get('/', function () {
 
     Auth::routes();
 
-    Route::group(['middleware' => 'auth'], function(){
+    Route::group(['middleware' => 'auth, occasion'], function(){
 
     Route::post('/updateimg','TodoController@namechange');
 

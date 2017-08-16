@@ -89,61 +89,56 @@ class OcasionController extends Controller
 
         $input = $request1->all();
         if ($validator->passes()) {
-            $input = array_except($input,array('_token'));
+            $input = array_except($input, array('_token'));
 
             $stripe = Stripe::make('sk_test_mZ8v6bq6B3yz9qeqqclfrExd');
 
             try {
                 $token = $stripe->tokens()->create([
                     'card' => [
-                        'number'    => $request1->get('card_no'),
+                        'number' => $request1->get('card_no'),
                         'exp_month' => $request1->get('ccExpiryMonth'),
-                        'exp_year'  => $request1->get('ccExpiryYear'),
-                        'cvc'       => $request1->get('cvvNumber'),
+                        'exp_year' => $request1->get('ccExpiryYear'),
+                        'cvc' => $request1->get('cvvNumber'),
                     ],
                 ]);
                 if (!isset($token['id'])) {
-                    Session::put('error','The Stripe Token was not generated correctly');
+                    Session::put('error', 'The Stripe Token was not generated correctly');
                     return redirect()->route('addmoney.paywithstripe');
                 }
                 $charge = $stripe->charges()->create([
                     'card' => $token['id'],
                     'currency' => 'USD',
-                    'amount'   => $request1->get('amount'),
+                    'amount' => $request1->get('amount'),
                     'description' => 'Add in wallet',
                 ]);
-                if($charge['status'] == 'succeeded') {
-                    $data=[
-                        'user_id'=>Auth::user()->id,
-                        'name'=>$request1->get('name'),
-                        'stripe_transaction_id'=>$request1->get('stripe_transaction_id'),
+                if ($charge['status'] == 'succeeded') {
+                    $data = [
+                        'user_id' => Auth::user()->id,
+                        'name' => $request1->get('name'),
+                        'stripe_transaction_id' => $request1->get('stripe_transaction_id'),
 
 
                     ];
-                    $order=Order::create($data)->save();
-                    Session::put('success','Successful transaction');
+                    $order = Order::create($data)->save();
+                    Session::put('success', 'Successful transaction');
                     return redirect()->back();
                 } else {
-                    Session::put('error','Money not add in wallet!!');
+                    Session::put('error', 'Money not add in wallet!!');
                     return redirect()->back();
                 }
             } catch (Exception $e) {
-                Session::put('error',$e->getMessage());
+                Session::put('error', $e->getMessage());
                 return redirect()->back();
-            } catch(\Cartalyst\Stripe\Exception\CardErrorException $e) {
-                Session::put('error',$e->getMessage());
+            } catch (\Cartalyst\Stripe\Exception\CardErrorException $e) {
+                Session::put('error', $e->getMessage());
                 return redirect()->back();
-            } catch(\Cartalyst\Stripe\Exception\MissingParameterException $e) {
-                Session::put('error',$e->getMessage());
+            } catch (\Cartalyst\Stripe\Exception\MissingParameterException $e) {
+                Session::put('error', $e->getMessage());
                 return redirect()->back();
             }
         }
-        Session::put('error','All fields are required!!');
-
-
-
-
-
+        Session::put('error', 'All fields are required!!');
 
 
     }
@@ -220,8 +215,6 @@ class OcasionController extends Controller
 
 
     }
-
-
 
 
 }
